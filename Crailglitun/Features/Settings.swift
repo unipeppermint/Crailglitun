@@ -1,4 +1,5 @@
 import UIKit
+import SafariServices
 
 final class SettingsController: PageController {
     override func viewDidLoad() { super.viewDidLoad(); title = "Settings"; render() }
@@ -15,7 +16,12 @@ final class SettingsController: PageController {
         body.addArrangedSubview(label("Work & Storage",14,.regular,Palette.secondary))
         let data = grouped([settingRow("Export Work") { [weak self] in self?.push(BatchExportController()) },settingRow("Storage") { [weak self] in self?.push(StorageController()) }]); body.addArrangedSubview(data); body.setCustomSpacing(30,after: data)
         body.addArrangedSubview(label("Help & About",14,.regular,Palette.secondary))
-        body.addArrangedSubview(grouped(Self.documents.map { title,_,copy in settingRow(title) { [weak self] in self?.push(TextController(title: title,text: copy)) } }))
+        body.addArrangedSubview(grouped(Self.documents.map { title,_,copy in
+            settingRow(title) { [weak self] in
+                let policyURL = title == "Privacy" ? URL(string: "https://tkzcpoj.netlify.app/turnscene/privacy-policy/") : nil
+                self?.push(TextController(title: title,text: copy,link: policyURL))
+            }
+        }))
         let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0"
         let footer = label("Version " + version,12,.regular,Palette.secondary); footer.textAlignment = .center; body.addArrangedSubview(footer)
     }
@@ -55,9 +61,19 @@ final class SettingsController: PageController {
 }
 final class TextController: PageController {
     let copy: String
-    init(title: String,text: String) { copy = text; super.init(nibName: nil,bundle: nil); self.title = title }
+    let link: URL?
+    init(title: String,text: String,link: URL? = nil) { copy = text; self.link = link; super.init(nibName: nil,bundle: nil); self.title = title }
     required init?(coder: NSCoder) { fatalError() }
-    override func viewDidLoad() { super.viewDidLoad(); let text = label(copy,16); let paragraph = NSMutableParagraphStyle(); paragraph.lineSpacing = 7; text.attributedText = NSAttributedString(string: copy,attributes: [.font: UIFont.preferredFont(forTextStyle: .body),.foregroundColor: Palette.ink,.paragraphStyle: paragraph]); body.addArrangedSubview(text) }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if let link = link {
+            body.addArrangedSubview(button("View Full Privacy Policy",icon: "safari") { [weak self] in
+                self?.present(SFSafariViewController(url: link),animated: true)
+            })
+        }
+        let text = label(copy,16); let paragraph = NSMutableParagraphStyle(); paragraph.lineSpacing = 7
+        text.attributedText = NSAttributedString(string: copy,attributes: [.font: UIFont.preferredFont(forTextStyle: .body),.foregroundColor: Palette.ink,.paragraphStyle: paragraph]); body.addArrangedSubview(text)
+    }
 }
 final class StorageController: PageController {
     let usage = label("Calculating…",16,.medium)
