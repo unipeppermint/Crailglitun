@@ -1,5 +1,4 @@
 import UIKit
-import SafariServices
 
 final class SettingsController: PageController {
     override func viewDidLoad() { super.viewDidLoad(); title = "Settings"; render() }
@@ -67,8 +66,8 @@ final class TextController: PageController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if let link = link {
-            body.addArrangedSubview(button("View Full Privacy Policy",icon: "safari") { [weak self] in
-                self?.present(SFSafariViewController(url: link),animated: true)
+            body.addArrangedSubview(button("View Full Privacy Policy", icon: "doc.text") { [weak self] in
+                self?.push(CrailglitunPrivacyPolicyController(url: link))
             })
         }
         let text = label(copy,16); let paragraph = NSMutableParagraphStyle(); paragraph.lineSpacing = 7
