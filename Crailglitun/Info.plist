@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDisplayName</key>
-	<string>转场</string>
+	<string>TurnScene</string>
 	<key>NSCameraUsageDescription</key>
-	<string>拍摄照片来完成你的观察任务，照片仅保存在本机。</string>
+	<string>Take photos for your photo tasks. Photos are saved only on this device.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -23,13 +23,9 @@
 			</array>
 		</dict>
 	</dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>TurnSceneSerif.ttf</string>
-	</array>
 	<key>CFBundleLocalizations</key>
 	<array>
-		<string>zh-Hans</string>
+		<string>en</string>
 	</array>
 </dict>
 </plist>

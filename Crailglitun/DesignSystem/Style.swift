@@ -47,7 +47,7 @@ func loadPhoto(_ name: String?, into view: UIImageView, cropped: Bool = false, r
             view.image = display ?? UIImage(systemName: "exclamationmark.triangle")
             view.contentMode = display == nil ? .center : .scaleAspectFill
             view.tintColor = Palette.secondary
-            if display == nil { view.isAccessibilityElement = true; view.accessibilityLabel = "照片无法读取，请重新导入" }
+            if display == nil { view.isAccessibilityElement = true; view.accessibilityLabel = "Photo unavailable. Please import it again." }
         } }
     }
 }
@@ -62,6 +62,7 @@ class PageController: UIViewController {
         navigationItem.backButtonTitle = ""
         if navigationController?.viewControllers.first !== self {
             let back = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(goBack))
+            back.accessibilityLabel = "Back"
             if #available(iOS 26.0, *) { back.hidesSharedBackground = true }
             navigationItem.leftBarButtonItem = back
         }
@@ -71,20 +72,22 @@ class PageController: UIViewController {
     func heading(_ title: String, subtitle: String) { body.addArrangedSubview(stack([label(title, 32, .bold), label(subtitle, 14, .regular, Palette.secondary)], spacing: 8)) }
 }
 extension UIViewController {
-    func notify(_ title: String, _ message: String) { let a = UIAlertController(title: title, message: message, preferredStyle: .alert); a.addAction(UIAlertAction(title: "知道了", style: .default)); present(a, animated: true) }
-    func fail(_ error: Error) { notify("这一步未能完成", "你的现有内容仍保留。请检查可用存储空间后重试。\n\(error.localizedDescription)") }
+    func notify(_ title: String, _ message: String) { let a = UIAlertController(title: title, message: message, preferredStyle: .alert); a.addAction(UIAlertAction(title: "OK", style: .default)); present(a, animated: true) }
+    func fail(_ error: Error) { notify("Unable to complete this action", "Your saved work is still on this device. Check the available storage and try again.") }
     func push(_ vc: UIViewController) { vc.hidesBottomBarWhenPushed = true; navigationController?.pushViewController(vc, animated: true) }
     func sheet(_ title: String, options: [(String, () -> Void)], anchor: UIView? = nil) {
         let a = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
         options.forEach { name, action in a.addAction(UIAlertAction(title: name, style: .default) { _ in action() }) }
-        a.addAction(UIAlertAction(title: "取消", style: .cancel))
+        a.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         a.popoverPresentationController?.sourceView = anchor ?? view; a.popoverPresentationController?.sourceRect = (anchor ?? view).bounds; present(a, animated: true)
     }
 }
 
 func serifLabel(_ text: String, size: CGFloat = 32) -> UILabel {
     let v = label(text, size, .semibold)
-    v.font = UIFontMetrics(forTextStyle: .title1).scaledFont(for: UIFont(name: "TurnSceneSerif", size: size) ?? .systemFont(ofSize: size, weight: .semibold))
+    let base = UIFont.systemFont(ofSize: size, weight: .semibold)
+    let serif = base.fontDescriptor.withDesign(.serif) ?? base.fontDescriptor
+    v.font = UIFontMetrics(forTextStyle: .title1).scaledFont(for: UIFont(descriptor: serif, size: size))
     return v
 }
 func compactButton(_ title: String, icon: String? = nil, action: @escaping () -> Void) -> UIButton {
@@ -101,12 +104,13 @@ func conditionStrip(_ task: PhotoTask) -> UIView {
     let row = stack(axis: .horizontal, spacing: 8); row.distribution = .fillEqually
     for value in task.values {
         let image = UIImageView(image: reelImage(value)); image.contentMode = .scaleAspectFit; image.widthAnchor.constraint(equalToConstant: 32).isActive = true; image.heightAnchor.constraint(equalToConstant: 38).isActive = true
-        let text = label(shortCondition(value), 13, .medium); text.adjustsFontSizeToFitWidth = true; text.minimumScaleFactor = 0.7; text.numberOfLines = 1
-        row.addArrangedSubview(stack([image,text], axis: .horizontal, spacing: 4))
+        let text = label(shortCondition(value), 13, .medium); text.numberOfLines = 2; text.textAlignment = .center
+        let column = stack([image,text], spacing: 4); column.alignment = .center
+        row.addArrangedSubview(column)
     }
     let v = card(row, inset: 10); v.backgroundColor = UIColor(hex: 0xF0EDE5); return v
 }
-func shortCondition(_ value: String) -> String { value == "三格故事" ? "三格" : value == "同一位置" ? "同位置" : value }
+func shortCondition(_ value: String) -> String { ["Photo + Caption": "Caption", "Three Frames": "3 Frames" ][value] ?? value }
 
 func disclosureTitle(_ title: String, action: @escaping () -> Void) -> UIButton {
     let b = UIButton(type: .system); b.accessibilityLabel = title

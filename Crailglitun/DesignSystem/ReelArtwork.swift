@@ -10,27 +10,27 @@ enum ReelArtwork {
         if let image = cache[value] { return image }
         let image = UIGraphicsImageRenderer(size: canvas).image { context in
             switch value {
-            case "单图配文": singlePhoto(in: context.cgContext)
-            case "双图对照": comparison(in: context.cgContext)
-            case "三格故事": film(in: context.cgContext)
-            case "旧物":
+            case "Photo + Caption": singlePhoto(in: context.cgContext)
+            case "Photo Pair": comparison(in: context.cgContext)
+            case "Three Frames": film(in: context.cgContext)
+            case "Keepsake":
                 fit(UIImage(named: "reel-old-radio"), in: CGRect(x: 3, y: 3, width: 90, height: 90))
-            case "杯子":
+            case "Cup":
                 fit(UIImage(named: "reel-cup"), in: CGRect(x: 4, y: 7, width: 88, height: 82))
-            case "窗边":
+            case "Window":
                 paper(CGRect(x: 15, y: 9, width: 66, height: 78), context: context.cgContext)
                 photo("theme-window", in: CGRect(x: 20, y: 14, width: 56, height: 68), context: context.cgContext)
-            case "同一位置":
+            case "One Spot":
                 drawSymbol("viewfinder", in: CGRect(x: 14, y: 12, width: 68, height: 72))
                 drawSymbol("mappin.and.ellipse", in: CGRect(x: 34, y: 29, width: 28, height: 38), color: Palette.orange)
-            case "颜色":
+            case "Color":
                 for (i,color) in [UIColor(hex: 0xCE9866), Palette.teal, Palette.orange].enumerated() {
                     color.setFill()
                     UIBezierPath(roundedRect: CGRect(x: 13 + i * 24, y: 26, width: 22, height: 44), cornerRadius: 6).fill()
                 }
-            case "单一颜色":
+            case "One Color":
                 drawSymbol("drop.fill", in: CGRect(x: 28, y: 17, width: 40, height: 62), color: Palette.orange)
-            case "门窗":
+            case "Doorway":
                 fit(UIImage(named: "reel-window"), in: CGRect(x: 10, y: 5, width: 76, height: 86))
             default:
                 drawSymbol(symbolName(for: value), in: CGRect(x: 20, y: 20, width: 56, height: 56))
@@ -107,20 +107,20 @@ enum ReelArtwork {
 
     private static func symbolName(for value: String) -> String {
         switch value {
-        case "书本": return "book.closed"
-        case "植物": return "leaf.circle"
-        case "叶片": return "leaf"
-        case "树影": return "leaf.fill"
-        case "光影": return "sun.max"
-        case "影子": return "circle.lefthalf.fill"
-        case "只拍细节": return "magnifyingglass"
-        case "纹理": return "square.grid.3x3"
-        case "织物": return "square.grid.4x3.fill"
-        case "留出空白": return "rectangle.dashed"
-        case "圆形": return "circle"
-        case "建筑": return "building.2"
-        case "线条": return "line.3.horizontal"
-        case "路边": return "signpost.right"
+        case "Book": return "book.closed"
+        case "Plant": return "leaf.circle"
+        case "Leaf": return "leaf"
+        case "Tree Shade": return "leaf.fill"
+        case "Light": return "sun.max"
+        case "Shadow": return "circle.lefthalf.fill"
+        case "Details Only": return "magnifyingglass"
+        case "Texture": return "square.grid.3x3"
+        case "Fabric": return "square.grid.4x3.fill"
+        case "Empty Space": return "rectangle.dashed"
+        case "Circle": return "circle"
+        case "Building": return "building.2"
+        case "Lines": return "line.3.horizontal"
+        case "Street": return "signpost.right"
         default: return "photo"
         }
     }

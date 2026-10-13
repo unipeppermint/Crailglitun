@@ -12,7 +12,7 @@ final class FlatTabController: UITabBarController, UINavigationControllerDelegat
         bar.addSubview(row); row.translatesAutoresizingMaskIntoConstraints = false
         let line = UIView(); line.backgroundColor = Palette.line; bar.addSubview(line); line.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([bar.leadingAnchor.constraint(equalTo: view.leadingAnchor),bar.trailingAnchor.constraint(equalTo: view.trailingAnchor),bar.bottomAnchor.constraint(equalTo: view.bottomAnchor),bar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -55),row.topAnchor.constraint(equalTo: bar.topAnchor),row.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),row.leadingAnchor.constraint(equalTo: bar.leadingAnchor,constant: 18),row.trailingAnchor.constraint(equalTo: bar.trailingAnchor,constant: -18),line.topAnchor.constraint(equalTo: bar.topAnchor),line.leadingAnchor.constraint(equalTo: bar.leadingAnchor),line.trailingAnchor.constraint(equalTo: bar.trailingAnchor),line.heightAnchor.constraint(equalToConstant: 0.5)])
-        for (index, item) in [("转场","house"),("主题馆","square.grid.2x2"),("作品集","photo")].enumerated() {
+        for (index, item) in [("TurnScene","house"),("Themes","square.grid.2x2"),("Portfolio","photo")].enumerated() {
             let b = UIButton(type: .system)
             let image = UIImageView(image: UIImage(systemName: item.1,withConfiguration: UIImage.SymbolConfiguration(pointSize: 22))); image.contentMode = .scaleAspectFit; image.heightAnchor.constraint(equalToConstant: 25).isActive = true
             let text = label(item.0,11,.medium); text.textAlignment = .center; text.tag = 100

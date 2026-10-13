@@ -10,15 +10,15 @@ final class CropController: UIViewController, UIScrollViewDelegate {
     init(image: UIImage,region: CropRegion?) { self.image = image; self.original = region; imageView = UIImageView(image: image); super.init(nibName: nil,bundle: nil) }
     required init?(coder: NSCoder) { fatalError() }
     override func viewDidLoad() {
-        super.viewDidLoad(); title = "调整裁切"; view.backgroundColor = Palette.background
-        let note = label("拖动照片调整位置，双指缩放。\n只保存裁切范围，原照片始终保留。",14,.regular,Palette.secondary); note.textAlignment = .center
+        super.viewDidLoad(); title = "Adjust Crop"; view.backgroundColor = Palette.background
+        let note = label("Drag to reposition. Pinch to zoom.\nYour original photo is preserved.",14,.regular,Palette.secondary); note.textAlignment = .center
         scroll.delegate = self; scroll.clipsToBounds = true; scroll.showsVerticalScrollIndicator = false; scroll.showsHorizontalScrollIndicator = false; scroll.backgroundColor = Palette.line
         imageView.frame = CGRect(origin: .zero,size: image.size); scroll.addSubview(imageView); scroll.contentSize = image.size
-        let save = button("应用裁切",icon: "checkmark",filled: true) { [weak self] in self?.save() }
+        let save = button("Apply Crop",icon: "checkmark",filled: true) { [weak self] in self?.save() }
         [note,scroll,save].forEach { view.addSubview($0); $0.translatesAutoresizingMaskIntoConstraints = false }
         NSLayoutConstraint.activate([note.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 24),note.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 24),note.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -24),scroll.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor,constant: 24),scroll.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor,constant: -24),scroll.topAnchor.constraint(equalTo: note.bottomAnchor,constant: 28),scroll.heightAnchor.constraint(equalTo: scroll.widthAnchor),scroll.centerXAnchor.constraint(equalTo: view.centerXAnchor),save.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 24),save.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -24),save.topAnchor.constraint(equalTo: scroll.bottomAnchor,constant: 28),save.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor,constant: -24)])
         let width = scroll.widthAnchor.constraint(equalTo: view.widthAnchor,constant: -48); width.priority = .defaultHigh; width.isActive = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "重置",style: .plain,target: self,action: #selector(reset))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset",style: .plain,target: self,action: #selector(reset))
     }
     override func viewDidLayoutSubviews() { super.viewDidLayoutSubviews(); guard !positioned,scroll.bounds.width > 0 else { return }; positioned = true; reset(); if let r = original { scroll.zoomScale = max(scroll.minimumZoomScale,min(scroll.maximumZoomScale,scroll.bounds.width/(image.size.width * r.width))); scroll.contentOffset = CGPoint(x: r.x * image.size.width * scroll.zoomScale,y: r.y * image.size.height * scroll.zoomScale) } }
     @objc func reset() {

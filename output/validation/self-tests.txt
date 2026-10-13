@@ -1,4 +1,15 @@
 PASS 60 tasks / 6 themes load and validate
+PASS bundled content is English only
+PASS English-only app metadata
+PASS legacy task and layout migrate: old-01
+PASS migration preserves user content: old-01
+PASS migrated record saves and reloads: old-01
+PASS legacy task and layout migrate: old-02
+PASS migration preserves user content: old-02
+PASS migrated record saves and reloads: old-02
+PASS legacy task and layout migrate: old-03
+PASS migration preserves user content: old-03
+PASS migrated record saves and reloads: old-03
 PASS Every theme asset exists
 PASS all reel choices render distinct artwork
 PASS task titles are individually named
@@ -497,7 +508,7 @@ PASS malformed photo count preserves existing artwork
 PASS invalid media path preserves existing artwork
 PASS artwork snapshot serialization
 PASS missing media fails gracefully
-499 passed; 0 failed
+510 passed; 0 failed
 PASS imported photo has independent readable local copy
 PASS normalized crop preserves source and changes dimensions
 PASS three-panel JPG export has 1600 pixel width

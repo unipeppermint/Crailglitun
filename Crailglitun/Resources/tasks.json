@@ -1,1341 +1,1341 @@
 {
   "schemaVersion": 1,
-  "contentVersion": 2,
+  "contentVersion": 3,
   "themes": [
     {
       "id": "old",
-      "title": "旧物档案",
-      "subtitle": "时间留在物件里的，一点温柔。",
+      "title": "Everyday Keepsakes",
+      "subtitle": "Small traces of time in familiar objects.",
       "image": "theme-old",
-      "environment": "室内"
+      "environment": "Indoors"
     },
     {
       "id": "window",
-      "title": "窗边观察",
-      "subtitle": "让光，重新介绍熟悉的角落。",
+      "title": "By the Window",
+      "subtitle": "See a familiar corner in a new light.",
       "image": "theme-window",
-      "environment": "室内"
+      "environment": "Indoors"
     },
     {
       "id": "color",
-      "title": "颜色散步",
-      "subtitle": "循着一种颜色，走进日常。",
+      "title": "Color Walk",
+      "subtitle": "Follow a color through the everyday.",
       "image": "theme-color",
-      "environment": "户外"
+      "environment": "Outdoors"
     },
     {
       "id": "shadow",
-      "title": "影子地图",
-      "subtitle": "记录光路过的形状。",
+      "title": "Shadow Map",
+      "subtitle": "Notice the shapes light leaves behind.",
       "image": "theme-shadow",
-      "environment": "户外"
+      "environment": "Outdoors"
     },
     {
       "id": "geometry",
-      "title": "几何日常",
-      "subtitle": "在寻常之间，发现秩序。",
+      "title": "Everyday Geometry",
+      "subtitle": "Find patterns in ordinary places.",
       "image": "theme-geometry",
-      "environment": "户外"
+      "environment": "Outdoors"
     },
     {
       "id": "detail",
-      "title": "局部世界",
-      "subtitle": "靠近一点，世界就不一样。",
+      "title": "Small Worlds",
+      "subtitle": "Look closer. Discover more.",
       "image": "theme-detail",
-      "environment": "室内"
+      "environment": "Indoors"
     }
   ],
   "tasks": [
     {
       "id": "old-01",
       "themeID": "old",
-      "title": "旧物的三个瞬间",
-      "summary": "为一件旧物，留下三个视角。",
-      "object": "旧物",
-      "method": "三格故事",
-      "constraint": "同一位置",
+      "title": "Three Views of a Keepsake",
+      "summary": "Tell the story of a familiar object in three frames.",
+      "object": "Keepsake",
+      "method": "Three Frames",
+      "constraint": "One Spot",
       "environments": [
-        "室内"
+        "Indoors"
       ],
       "minutes": 10,
       "steps": [
-        "拍下整体",
-        "寻找磨损",
-        "留住细节"
+        "Show the whole object",
+        "Find signs of wear",
+        "Keep one small detail"
       ],
       "hints": [
-        "固定站位，让物件的轮廓完整入镜。",
-        "保持站位，转动物件，找到常被触碰的一面。",
-        "利用变焦记录一个小痕迹，为三张照片排出顺序。"
+        "Stay in one spot and include the full outline of the object.",
+        "Without moving your camera position, turn the object to show a well-used side.",
+        "Zoom in on a small mark, then arrange your photos into a sequence."
       ]
     },
     {
       "id": "old-02",
       "themeID": "old",
-      "title": "书页里的时间",
-      "summary": "在一个固定位置，记录一本书留下的阅读痕迹。",
-      "object": "书本",
-      "method": "单图配文",
-      "constraint": "同一位置",
+      "title": "Time Between the Pages",
+      "summary": "From one spot, record the traces of use on a book.",
+      "object": "Book",
+      "method": "Photo + Caption",
+      "constraint": "One Spot",
       "environments": [
-        "室内"
+        "Indoors"
       ],
       "minutes": 5,
       "steps": [
-        "记录封面"
+        "Frame the cover"
       ],
       "hints": [
-        "将书放在柔和光线下，拍下封面与书角，再写一句与它有关的记忆。"
+        "Place the book in soft light. Photograph its cover and corners, then add a memory about it."
       ]
     },
     {
       "id": "old-03",
       "themeID": "old",
-      "title": "一只杯子的日常",
-      "summary": "固定机位，用两张照片比较杯子的两个面。",
-      "object": "杯子",
-      "method": "双图对照",
-      "constraint": "同一位置",
+      "title": "An Everyday Cup",
+      "summary": "Keep your camera position fixed and compare two sides of a cup.",
+      "object": "Cup",
+      "method": "Photo Pair",
+      "constraint": "One Spot",
       "environments": [
-        "室内"
+        "Indoors"
       ],
       "minutes": 10,
       "steps": [
-        "观察杯形",
-        "捕捉杯沿"
+        "Show its shape",
+        "Study the rim"
       ],
       "hints": [
-        "先拍杯身与把手，保留完整轮廓。",
-        "只转动杯子或调整焦段，让第二张突出杯沿的使用痕迹。"
+        "Include the body and handle so the full shape is visible.",
+        "Turn only the cup or change your zoom to highlight wear along the rim."
       ]
     },
     {
       "id": "old-04",
       "themeID": "old",
-      "title": "磨损的地图",
-      "summary": "不拍全貌，只用三个局部讲述旧物的经历。",
-      "object": "旧物",
-      "method": "三格故事",
-      "constraint": "只拍细节",
+      "title": "A Map of Wear",
+      "summary": "Use three close-up views to tell an object's history.",
+      "object": "Keepsake",
+      "method": "Three Frames",
+      "constraint": "Details Only",
       "environments": [
-        "室内"
+        "Indoors"
       ],
       "minutes": 20,
       "steps": [
-        "靠近表面",
-        "发现痕迹",
-        "捕捉纹理"
+        "Fill the frame",
+        "Find a mark",
+        "Explore the texture"
       ],
       "hints": [
-        "让有磨损的表面占满画面，避免露出整个物件。",
-        "寻找一处划痕或掉漆，用侧光凸显深浅。",
-        "拍下与前两张不同的材质，组成一段无声的故事。"
+        "Fill the image with a worn surface without showing the whole object.",
+        "Find a scratch or chipped paint and use side light to reveal its depth.",
+        "Photograph a different material to complete your quiet three-frame story."
       ]
     },
     {
       "id": "old-05",
       "themeID": "old",
-      "title": "折角收藏",
-      "summary": "只拍一本书的局部，让阅读痕迹成为主角。",
-      "object": "书本",
-      "method": "单图配文",
-      "constraint": "只拍细节",
+      "title": "Dog-eared Memories",
+      "summary": "Make a small sign of reading the subject of your photo.",
+      "object": "Book",
+      "method": "Photo + Caption",
+      "constraint": "Details Only",
       "environments": [
-        "室内"
+        "Indoors"
       ],
       "minutes": 5,
       "steps": [
-        "靠近书角"
+        "Look at a corner"
       ],
       "hints": [
-        "选择折痕、纸边或书脊的一个局部，配上一句关于阅读的短句。"
+        "Frame a crease, page edge or part of the spine. Add a short thought about reading."
       ]
     },
     {
       "id": "old-06",
       "themeID": "old",
-      "title": "杯沿与釉面",
-      "summary": "用两处细节比较一只杯子的质感。",
-      "object": "杯子",
-      "method": "双图对照",
-      "constraint": "只拍细节",
+      "title": "Rim and Glaze",
+      "summary": "Compare two textures on the same cup.",
+      "object": "Cup",
+      "method": "Photo Pair",
+      "constraint": "Details Only",
       "environments": [
-        "室内"
+        "Indoors"
       ],
       "minutes": 10,
       "steps": [
-        "看见杯沿",
-        "寻找釉色"
+        "Follow the rim",
+        "Study the glaze"
       ],
       "hints": [
-        "让杯沿的弧线穿过画面，不露出完整杯身。",
-        "拍釉面的裂纹或光泽，与第一张形成粗糙和光滑的对照。"
+        "Let the rim curve through the frame without showing the entire cup.",
+        "Capture a crack or a glossy patch and compare its texture with the first image."
       ]
     },
     {
       "id": "old-07",
       "themeID": "old",
-      "title": "旧物的一种颜色",
-      "summary": "围绕旧物的一种主色，拍下整体、痕迹与细节。",
-      "object": "旧物",
-      "method": "三格故事",
-      "constraint": "单一颜色",
+      "title": "A Keepsake in One Color",
+      "summary": "Follow one main color across an object and its details.",
+      "object": "Keepsake",
+      "method": "Three Frames",
+      "constraint": "One Color",
       "environments": [
-        "室内"
+        "Indoors"
       ],
       "minutes": 20,
       "steps": [
-        "找到主色",
-        "记录色差",
-        "留下呼应"
+        "Choose a color",
+        "Find a variation",
+        "Make a connection"
       ],
       "hints": [
-        "选定木色、白色或另一种主色，避开抢眼的杂物。",
-        "拍下同一颜色里因使用而变深或变浅的一处。",
-        "再找一个同色局部，让三张照片的颜色连贯。"
+        "Choose wood brown, white or another main color. Remove distracting objects.",
+        "Photograph a place where use has made that color lighter or darker.",
+        "Find one more detail in the same color to connect all three photos."
       ]
     },
     {
       "id": "old-08",
       "themeID": "old",
-      "title": "书封的颜色",
-      "summary": "用一本书的封面，记录你今天偏爱的颜色。",
-      "object": "书本",
-      "method": "单图配文",
-      "constraint": "单一颜色",
+      "title": "A Cover in Color",
+      "summary": "Use a book cover to capture a color you are drawn to today.",
+      "object": "Book",
+      "method": "Photo + Caption",
+      "constraint": "One Color",
       "environments": [
-        "室内"
+        "Indoors"
       ],
       "minutes": 5,
       "steps": [
-        "留下主色"
+        "Frame the main color"
       ],
       "hints": [
-        "让封面的主色占据画面大部分空间，写下它让你想到的事。"
+        "Let the cover's main color fill most of the image. Write what it brings to mind."
       ]
     },
     {
       "id": "old-09",
       "themeID": "old",
-      "title": "一杯深浅",
-      "summary": "在同一种颜色里，寻找杯子的明暗变化。",
-      "object": "杯子",
-      "method": "双图对照",
-      "constraint": "单一颜色",
+      "title": "A Cup of Light and Dark",
+      "summary": "Find different shades of one color on a cup.",
+      "object": "Cup",
+      "method": "Photo Pair",
+      "constraint": "One Color",
       "environments": [
-        "室内"
+        "Indoors"
       ],
       "minutes": 10,
       "steps": [
-        "拍下亮面",
-        "拍下暗面"
+        "Capture the bright side",
+        "Capture the shaded side"
       ],
       "hints": [
-        "选择杯身的主色，拍下受光的一面。",
-        "拍同色的阴影面，比较两张照片中颜色的深浅。"
+        "Choose the cup's main color and photograph its lit surface.",
+        "Photograph a shaded area of the same color and compare the two tones."
       ]
     },
     {
       "id": "old-10",
       "themeID": "old",
-      "title": "旧物与留白",
-      "summary": "给旧物留出呼吸的空间，用三张照片讲一段回忆。",
-      "object": "旧物",
-      "method": "三格故事",
-      "constraint": "留出空白",
+      "title": "Room for a Keepsake",
+      "summary": "Give an old object space in a three-photo memory.",
+      "object": "Keepsake",
+      "method": "Three Frames",
+      "constraint": "Empty Space",
       "environments": [
-        "室内"
+        "Indoors"
       ],
       "minutes": 20,
       "steps": [
-        "安放主角",
-        "记录痕迹",
-        "留下余韵"
+        "Place your subject",
+        "Record a trace",
+        "Leave a pause"
       ],
       "hints": [
-        "将物件放在画面一侧，让另一侧保持简单。",
-        "拍下一处使用痕迹，仍给它留出至少三分之一空白。",
-        "换一种留白方向，让最后一张像故事的停顿。"
+        "Set the object to one side and keep the other side simple.",
+        "Photograph a sign of use, leaving at least a third of the frame clear.",
+        "Move the empty space to another side so the last photo feels like a pause."
       ]
     },
     {
       "id": "window-01",
       "themeID": "window",
-      "title": "光停下的地方",
-      "summary": "固定一个位置，观察窗边的光如何分开房间。",
-      "object": "窗边",
-      "method": "三格故事",
-      "constraint": "同一位置",
+      "title": "Where Light Rests",
+      "summary": "From one spot, observe how window light divides a room.",
+      "object": "Window",
+      "method": "Three Frames",
+      "constraint": "One Spot",
       "environments": [
-        "室内"
+        "Indoors"
       ],
       "minutes": 10,
       "steps": [
-        "交代窗景",
-        "寻找亮面",
-        "记录暗部"
+        "Show the window",
+        "Find a lit surface",
+        "Record the shade"
       ],
       "hints": [
-        "站定后拍下窗框和一部分室内，让人看懂光从哪里来。",
-        "保持站位，把镜头转向受光的桌面或墙面。",
-        "再记录同一视野内的阴影，与前两张组成明暗顺序。"
+        "Include the frame and part of the room to show where the light comes from.",
+        "Stay in place and turn your camera toward a lit table or wall.",
+        "Capture shade within the same view to build a sequence from light to dark."
       ]
     },
     {
       "id": "window-02",
       "themeID": "window",
-      "title": "向光而生",
-      "summary": "在窗边选定一个站位，观察植物伸向光的姿态。",
-      "object": "植物",
-      "method": "单图配文",
-      "constraint": "同一位置",
+      "title": "Growing Toward Light",
+      "summary": "Stay beside a window and notice how a plant reaches for light.",
+      "object": "Plant",
+      "method": "Photo + Caption",
+      "constraint": "One Spot",
       "environments": [
-        "室内"
+        "Indoors"
       ],
       "minutes": 5,
       "steps": [
-        "记录姿态"
+        "Capture its posture"
       ],
       "hints": [
-        "让叶片的朝向清晰可见，写一句关于它与光的关系。"
+        "Make the direction of the leaves clear. Add a line about their relationship with the light."
       ]
     },
     {
       "id": "window-03",
       "themeID": "window",
-      "title": "房间里的慢时光",
-      "summary": "固定机位，比较一束光与它的边界。",
-      "object": "光影",
-      "method": "双图对照",
-      "constraint": "同一位置",
+      "title": "A Quiet Beam",
+      "summary": "From a fixed position, compare a patch of light with its edge.",
+      "object": "Light",
+      "method": "Photo Pair",
+      "constraint": "One Spot",
       "environments": [
-        "室内"
+        "Indoors"
       ],
       "minutes": 10,
       "steps": [
-        "寻找光斑",
-        "记录边界"
+        "Find the light",
+        "Trace its edge"
       ],
       "hints": [
-        "拍下室内的一块亮面，记住镜头的位置。",
-        "保持站位调整构图，让明暗交界成为第二张的主角。"
+        "Photograph a bright area in the room and keep your camera position fixed.",
+        "Reframe from the same spot so the boundary between light and shade becomes the subject."
       ]
     },
     {
       "id": "window-04",
       "themeID": "window",
-      "title": "窗台的三处细节",
-      "summary": "只拍窗边局部，收集光留下的小变化。",
-      "object": "窗边",
-      "method": "三格故事",
-      "constraint": "只拍细节",
+      "title": "Three Windowsill Details",
+      "summary": "Collect small changes in light without showing the whole room.",
+      "object": "Window",
+      "method": "Three Frames",
+      "constraint": "Details Only",
       "environments": [
-        "室内"
+        "Indoors"
       ],
       "minutes": 20,
       "steps": [
-        "靠近窗框",
-        "看见表面",
-        "捕捉反光"
+        "Follow the frame",
+        "Study a surface",
+        "Catch a reflection"
       ],
       "hints": [
-        "拍一小段窗框边缘，观察亮暗两侧。",
-        "记录窗台上的细纹或一粒水珠，不带入整个房间。",
-        "寻找玻璃的一处反光，让三个局部各有不同质感。"
+        "Photograph a short section of the window frame with its bright and dark sides.",
+        "Capture a fine mark or a drop of water on the sill.",
+        "Find a reflection in the glass to give each close-up a different texture."
       ]
     },
     {
       "id": "window-05",
       "themeID": "window",
-      "title": "叶尖接住的光",
-      "summary": "不拍整株植物，只看一片叶子怎样接住光。",
-      "object": "植物",
-      "method": "单图配文",
-      "constraint": "只拍细节",
+      "title": "Light on a Leaf Tip",
+      "summary": "Look at how one leaf catches light, without showing the whole plant.",
+      "object": "Plant",
+      "method": "Photo + Caption",
+      "constraint": "Details Only",
       "environments": [
-        "室内"
+        "Indoors"
       ],
       "minutes": 5,
       "steps": [
-        "靠近叶尖"
+        "Frame the leaf tip"
       ],
       "hints": [
-        "让叶尖或叶缘占据画面，写下你观察到的光线变化。"
+        "Fill the image with the tip or edge of a leaf. Describe the change in light you notice."
       ]
     },
     {
       "id": "window-06",
       "themeID": "window",
-      "title": "一线明暗",
-      "summary": "用两个局部比较光斑的中心与边缘。",
-      "object": "光影",
-      "method": "双图对照",
-      "constraint": "只拍细节",
+      "title": "An Edge of Light",
+      "summary": "Compare the center of a bright patch with its edge in two close-ups.",
+      "object": "Light",
+      "method": "Photo Pair",
+      "constraint": "Details Only",
       "environments": [
-        "室内"
+        "Indoors"
       ],
       "minutes": 10,
       "steps": [
-        "记录亮面",
-        "寻找交界"
+        "Capture the bright area",
+        "Find the transition"
       ],
       "hints": [
-        "选择墙面或桌面上的一小片亮处，保持细节清楚。",
-        "拍下亮处向暗处过渡的局部，比较边缘是柔和还是清晰。"
+        "Choose a small lit area on a wall or table and keep its detail visible.",
+        "Photograph where it fades into shade. Notice whether the edge is soft or sharp."
       ]
     },
     {
       "id": "window-07",
       "themeID": "window",
-      "title": "窗边的暖白",
-      "summary": "选一种窗边主色，用三张照片记录它的变化。",
-      "object": "窗边",
-      "method": "三格故事",
-      "constraint": "单一颜色",
+      "title": "Warm White by the Window",
+      "summary": "Choose one color near a window and record its changing tones.",
+      "object": "Window",
+      "method": "Three Frames",
+      "constraint": "One Color",
       "environments": [
-        "室内"
+        "Indoors"
       ],
       "minutes": 20,
       "steps": [
-        "确定主色",
-        "记录受光",
-        "记录背光"
+        "Choose your color",
+        "Capture the light",
+        "Capture the shade"
       ],
       "hints": [
-        "选择窗框、窗帘或墙面的同一种颜色。",
-        "拍这类颜色最明亮的局部，避免高光一片空白。",
-        "再拍同色的阴影，让三张照片呈现连续的深浅。"
+        "Choose one color on a frame, curtain or wall.",
+        "Photograph its brightest area without losing all detail in the highlights.",
+        "Find a shaded area of the same color to complete a sequence of tones."
       ]
     },
     {
       "id": "window-08",
       "themeID": "window",
-      "title": "绿色的一句话",
-      "summary": "让植物的绿色成为画面中唯一醒目的颜色。",
-      "object": "植物",
-      "method": "单图配文",
-      "constraint": "单一颜色",
+      "title": "A Line of Green",
+      "summary": "Make a plant's green the only strong color in the frame.",
+      "object": "Plant",
+      "method": "Photo + Caption",
+      "constraint": "One Color",
       "environments": [
-        "室内"
+        "Indoors"
       ],
       "minutes": 5,
       "steps": [
-        "收集绿色"
+        "Gather the green"
       ],
       "hints": [
-        "用叶片遮住杂乱背景，写一句描述这片绿色的短句。"
+        "Use leaves to hide a busy background. Add a short line describing this shade of green."
       ]
     },
     {
       "id": "window-09",
       "themeID": "window",
-      "title": "同色的明与暗",
-      "summary": "把镜头对准同一色的墙面，比较有光与无光的部分。",
-      "object": "光影",
-      "method": "双图对照",
-      "constraint": "单一颜色",
+      "title": "One Color, Two Tones",
+      "summary": "Compare lit and shaded areas of a wall in the same color.",
+      "object": "Light",
+      "method": "Photo Pair",
+      "constraint": "One Color",
       "environments": [
-        "室内"
+        "Indoors"
       ],
       "minutes": 10,
       "steps": [
-        "选择亮处",
-        "选择暗处"
+        "Choose the light",
+        "Choose the shade"
       ],
       "hints": [
-        "让画面主要由一种颜色组成，拍下它受光的状态。",
-        "记录同色的阴影部分，保持两张的构图尽量接近。"
+        "Let one color dominate the frame and capture its sunlit state.",
+        "Record a shaded area of the same color, keeping the two compositions similar."
       ]
     },
     {
       "id": "window-10",
       "themeID": "window",
-      "title": "给光留一个位置",
-      "summary": "围绕窗边的光拍三张照片，每张都留下简单的空间。",
-      "object": "窗边",
-      "method": "三格故事",
-      "constraint": "留出空白",
+      "title": "Space for Light",
+      "summary": "Make three window-light photos with simple, open space in each.",
+      "object": "Window",
+      "method": "Three Frames",
+      "constraint": "Empty Space",
       "environments": [
-        "室内"
+        "Indoors"
       ],
       "minutes": 20,
       "steps": [
-        "把窗放一侧",
-        "让亮面呼吸",
-        "留住安静"
+        "Place the window aside",
+        "Give the light room",
+        "Keep it quiet"
       ],
       "hints": [
-        "让窗框只占画面一边，留出素净的墙面。",
-        "用大片简单的背景衬托一小块光斑。",
-        "拍一处柔和暗部，延续前两张的留白方向。"
+        "Let the window frame occupy one edge beside a plain wall.",
+        "Surround a small patch of light with a large, simple background.",
+        "Capture a soft shadow with empty space in the same direction as before."
       ]
     },
     {
       "id": "color-01",
       "themeID": "color",
-      "title": "今天偏爱这一色",
-      "summary": "停在安全的位置，从眼前的景物里收集一种颜色。",
-      "object": "颜色",
-      "method": "三格故事",
-      "constraint": "同一位置",
+      "title": "Today's Favorite Color",
+      "summary": "Stay in a safe spot and collect one color from the view around you.",
+      "object": "Color",
+      "method": "Three Frames",
+      "constraint": "One Spot",
       "environments": [
-        "户外"
+        "Outdoors"
       ],
       "minutes": 10,
       "steps": [
-        "找到主色",
-        "记录呼应",
-        "寻找变化"
+        "Choose a color",
+        "Find an echo",
+        "Find a variation"
       ],
       "hints": [
-        "站定后选一种看得见的颜色，先拍最显眼的一处。",
-        "保持站位转动镜头，找第二处同色细节。",
-        "再拍一种深浅变化，让三张照片组成颜色序列。"
+        "Pick a visible color and photograph its most noticeable appearance.",
+        "Stay in place and turn the camera to find another detail in that color.",
+        "Capture a lighter or darker shade to complete a color sequence."
       ]
     },
     {
       "id": "color-02",
       "themeID": "color",
-      "title": "街角的颜色",
-      "summary": "停在人行区域，记录一扇门窗的颜色。",
-      "object": "门窗",
-      "method": "单图配文",
-      "constraint": "同一位置",
+      "title": "Color Around the Corner",
+      "summary": "Stay in a pedestrian area and record the color of a doorway.",
+      "object": "Doorway",
+      "method": "Photo + Caption",
+      "constraint": "One Spot",
       "environments": [
-        "户外"
+        "Outdoors"
       ],
       "minutes": 5,
       "steps": [
-        "观察门面"
+        "Frame the entrance"
       ],
       "hints": [
-        "固定站位拍下门窗与周围墙面，写下这组颜色带来的感觉。"
+        "Photograph the door or window with the surrounding wall. Describe how the colors feel together."
       ]
     },
     {
       "id": "color-03",
       "themeID": "color",
-      "title": "路边的两处亮色",
-      "summary": "站在同一安全位置，比较眼前两处不同的颜色。",
-      "object": "路边",
-      "method": "双图对照",
-      "constraint": "同一位置",
+      "title": "Two Bright Spots",
+      "summary": "From one safe position, compare two colors in the street.",
+      "object": "Street",
+      "method": "Photo Pair",
+      "constraint": "One Spot",
       "environments": [
-        "户外"
+        "Outdoors"
       ],
       "minutes": 10,
       "steps": [
-        "记录第一处",
-        "发现第二处"
+        "Find the first color",
+        "Find the second color"
       ],
       "hints": [
-        "先选一处路边的亮色，注意避开车辆与行人。",
-        "保持站位转动镜头，寻找另一处能与它呼应的颜色。"
+        "Choose a bright detail, keeping clear of traffic and passersby.",
+        "Turn your camera without moving to find a second color that relates to it."
       ]
     },
     {
       "id": "color-04",
       "themeID": "color",
-      "title": "颜色的近景",
-      "summary": "只拍彩色物体的局部，让颜色脱离原来的身份。",
-      "object": "颜色",
-      "method": "三格故事",
-      "constraint": "只拍细节",
+      "title": "Color Up Close",
+      "summary": "Photograph fragments of colorful objects until their purpose disappears.",
+      "object": "Color",
+      "method": "Three Frames",
+      "constraint": "Details Only",
       "environments": [
-        "户外"
+        "Outdoors"
       ],
       "minutes": 20,
       "steps": [
-        "填满画面",
-        "找到接缝",
-        "记录褪色"
+        "Fill the frame",
+        "Find a join",
+        "Notice fading"
       ],
       "hints": [
-        "选一种颜色的表面，让它占满照片。",
-        "拍同一颜色与另一种材质相接的局部。",
-        "寻找颜色磨损或深浅不同的一处，排出三张的节奏。"
+        "Fill the image with a surface in one color.",
+        "Capture a detail where that color meets another material.",
+        "Find wear or a change in tone and arrange the three photos into a sequence."
       ]
     },
     {
       "id": "color-05",
       "themeID": "color",
-      "title": "门把手旁边",
-      "summary": "只拍门窗的一个彩色局部，不拍完整门面。",
-      "object": "门窗",
-      "method": "单图配文",
-      "constraint": "只拍细节",
+      "title": "Beside the Handle",
+      "summary": "Capture one colorful part of a door or window.",
+      "object": "Doorway",
+      "method": "Photo + Caption",
+      "constraint": "Details Only",
       "environments": [
-        "户外"
+        "Outdoors"
       ],
       "minutes": 5,
       "steps": [
-        "寻找局部"
+        "Find a small detail"
       ],
       "hints": [
-        "选择门把手旁的漆面或窗框一角，配一句对颜色的描述。"
+        "Choose paint beside a handle or a corner of a frame. Add a short description of its color."
       ]
     },
     {
       "id": "color-06",
       "themeID": "color",
-      "title": "路边的色彩碎片",
-      "summary": "用两张局部照片比较路边的细小色彩。",
-      "object": "路边",
-      "method": "双图对照",
-      "constraint": "只拍细节",
+      "title": "Street Color Fragments",
+      "summary": "Compare two small patches of color in close-up.",
+      "object": "Street",
+      "method": "Photo Pair",
+      "constraint": "Details Only",
       "environments": [
-        "户外"
+        "Outdoors"
       ],
       "minutes": 10,
       "steps": [
-        "发现小色块",
-        "寻找回应"
+        "Find a color patch",
+        "Look for an echo"
       ],
       "hints": [
-        "在安全的人行区域，拍一处招牌边缘或地面色块。",
-        "再拍另一处局部，让形状或颜色与第一张产生联系。"
+        "From a safe pedestrian area, photograph a sign edge or a patch of painted ground.",
+        "Find another detail that connects to the first through its shape or color."
       ]
     },
     {
       "id": "color-07",
       "themeID": "color",
-      "title": "一种颜色的旅程",
-      "summary": "沿安全步行路线，收集同一主色的三个不同场景。",
-      "object": "颜色",
-      "method": "三格故事",
-      "constraint": "单一颜色",
+      "title": "A Color's Journey",
+      "summary": "Follow a safe walking route and find one color in three settings.",
+      "object": "Color",
+      "method": "Three Frames",
+      "constraint": "One Color",
       "environments": [
-        "户外"
+        "Outdoors"
       ],
       "minutes": 20,
       "steps": [
-        "确定颜色",
-        "换个载体",
-        "组成序列"
+        "Set your color",
+        "Find a new surface",
+        "Build a sequence"
       ],
       "hints": [
-        "先拍下你选定的主色，把它作为这一组的线索。",
-        "寻找另一种带有相同颜色的物体，避开其他强烈色彩。",
-        "再拍第三处同色景物，按远近或深浅安排顺序。"
+        "Photograph your chosen color to establish the theme of the series.",
+        "Find a different object in the same color, avoiding other strong colors.",
+        "Capture a third setting and order the photos by distance or tone."
       ]
     },
     {
       "id": "color-08",
       "themeID": "color",
-      "title": "一扇门的主色",
-      "summary": "让门窗的一种颜色成为画面的中心。",
-      "object": "门窗",
-      "method": "单图配文",
-      "constraint": "单一颜色",
+      "title": "The Color of a Door",
+      "summary": "Make one color on a door or window the focus of the image.",
+      "object": "Doorway",
+      "method": "Photo + Caption",
+      "constraint": "One Color",
       "environments": [
-        "户外"
+        "Outdoors"
       ],
       "minutes": 5,
       "steps": [
-        "整理色块"
+        "Simplify the colors"
       ],
       "hints": [
-        "用构图减少其他颜色，写下一句关于这扇门窗的联想。"
+        "Frame out competing colors and add a line about what this doorway brings to mind."
       ]
     },
     {
       "id": "color-09",
       "themeID": "color",
-      "title": "同色的两个路口",
-      "summary": "沿步行路线寻找两处相同主色的景物。",
-      "object": "路边",
-      "method": "双图对照",
-      "constraint": "单一颜色",
+      "title": "The Same Color Twice",
+      "summary": "Find the same main color in two places along a walking route.",
+      "object": "Street",
+      "method": "Photo Pair",
+      "constraint": "One Color",
       "environments": [
-        "户外"
+        "Outdoors"
       ],
       "minutes": 10,
       "steps": [
-        "记录第一处",
-        "发现第二处"
+        "Record the first spot",
+        "Find the second spot"
       ],
       "hints": [
-        "拍下一个清楚的色块，记住它的颜色与形状。",
-        "在安全区域寻找同色景物，比较两处相似与不同。"
+        "Photograph a clear patch of color and remember its shade and shape.",
+        "Find the same color in another safe location. Compare what is similar and what changes."
       ]
     },
     {
       "id": "color-10",
       "themeID": "color",
-      "title": "小色块，大空间",
-      "summary": "让一小块颜色在简单的背景里变得醒目。",
-      "object": "颜色",
-      "method": "三格故事",
-      "constraint": "留出空白",
+      "title": "Small Color, Big Space",
+      "summary": "Make a small patch of color stand out against a simple background.",
+      "object": "Color",
+      "method": "Three Frames",
+      "constraint": "Empty Space",
       "environments": [
-        "户外"
+        "Outdoors"
       ],
       "minutes": 20,
       "steps": [
-        "留下第一块",
-        "改变位置",
-        "结束色彩故事"
+        "Place the first patch",
+        "Change its position",
+        "Finish the sequence"
       ],
       "hints": [
-        "将彩色主体放在画面一角，留出大片简单背景。",
-        "换一种主体位置，保持同样清楚的留白。",
-        "再拍一处更小的色块，让三张画面逐渐安静下来。"
+        "Place the colorful subject in a corner with plenty of simple space around it.",
+        "Try another subject position while keeping the empty space clear.",
+        "End with an even smaller patch of color so the sequence grows quieter."
       ]
     },
     {
       "id": "shadow-01",
       "themeID": "shadow",
-      "title": "影子的另一面",
-      "summary": "固定站位，观察一个影子的形状、边缘与交叠。",
-      "object": "影子",
-      "method": "三格故事",
-      "constraint": "同一位置",
+      "title": "The Other Side of a Shadow",
+      "summary": "Stay in one spot and study a shadow's shape, edge and overlaps.",
+      "object": "Shadow",
+      "method": "Three Frames",
+      "constraint": "One Spot",
       "environments": [
-        "户外"
+        "Outdoors"
       ],
       "minutes": 10,
       "steps": [
-        "找到投影",
-        "观察边缘",
-        "记录交叠"
+        "Find the shadow",
+        "Study its edge",
+        "Find an overlap"
       ],
       "hints": [
-        "选择安全位置，拍下影子的完整轮廓。",
-        "保持站位调整焦段，记录影子边缘的软硬。",
-        "拍下两个影子相遇的地方，让三张照片各有重点。"
+        "From a safe position, capture the shadow's full outline.",
+        "Keep your position and adjust the zoom to record a soft or sharp edge.",
+        "Capture where two shadows meet, giving each photo a different focus."
       ]
     },
     {
       "id": "shadow-02",
       "themeID": "shadow",
-      "title": "风写在墙上的诗",
-      "summary": "在树荫旁站定，记录叶影的一种姿态。",
-      "object": "树影",
-      "method": "单图配文",
-      "constraint": "同一位置",
+      "title": "Wind on the Wall",
+      "summary": "Stand beside a tree's shade and capture a moment in its movement.",
+      "object": "Tree Shade",
+      "method": "Photo + Caption",
+      "constraint": "One Spot",
       "environments": [
-        "户外"
+        "Outdoors"
       ],
       "minutes": 5,
       "steps": [
-        "观察树影"
+        "Watch the tree shade"
       ],
       "hints": [
-        "等待枝叶轻动，拍下你喜欢的形状，再写一句感受。"
+        "Wait for the leaves to move gently, photograph a shape you like and add a thought about it."
       ]
     },
     {
       "id": "shadow-03",
       "themeID": "shadow",
-      "title": "光走过的路径",
-      "summary": "从同一个位置，比较阳光与阴影的分界。",
-      "object": "光影",
-      "method": "双图对照",
-      "constraint": "同一位置",
+      "title": "The Path of Light",
+      "summary": "From the same spot, compare sunlight with the line where it ends.",
+      "object": "Light",
+      "method": "Photo Pair",
+      "constraint": "One Spot",
       "environments": [
-        "户外"
+        "Outdoors"
       ],
       "minutes": 10,
       "steps": [
-        "记录明暗",
-        "寻找边界"
+        "Show light and shade",
+        "Follow the boundary"
       ],
       "hints": [
-        "先拍一块完整的明暗区域。",
-        "保持站位转动镜头，突出分界线的方向或转折。"
+        "First capture a complete area of light and shade.",
+        "Stay in place and turn the camera to emphasize the boundary's direction or bend."
       ]
     },
     {
       "id": "shadow-04",
       "themeID": "shadow",
-      "title": "影子里的细节",
-      "summary": "不拍完整轮廓，只收集影子的三个局部。",
-      "object": "影子",
-      "method": "三格故事",
-      "constraint": "只拍细节",
+      "title": "Inside a Shadow",
+      "summary": "Collect three fragments without showing a shadow's full outline.",
+      "object": "Shadow",
+      "method": "Three Frames",
+      "constraint": "Details Only",
       "environments": [
-        "户外"
+        "Outdoors"
       ],
       "minutes": 20,
       "steps": [
-        "截取一角",
-        "看见边缘",
-        "寻找交叉"
+        "Take a small slice",
+        "Notice the edge",
+        "Find a crossing"
       ],
       "hints": [
-        "取影子的一小部分，让人暂时猜不出它的来源。",
-        "拍下影子与地面纹理相接的位置。",
-        "记录几条暗线交叉的局部，组成抽象的三格故事。"
+        "Frame a small part of a shadow so its source is hard to guess.",
+        "Photograph where the shadow meets the texture of the ground.",
+        "Find a crossing of dark lines to complete an abstract three-frame story."
       ]
     },
     {
       "id": "shadow-05",
       "themeID": "shadow",
-      "title": "一片叶影",
-      "summary": "只拍一小片树影，发现它在墙面上的形状。",
-      "object": "树影",
-      "method": "单图配文",
-      "constraint": "只拍细节",
+      "title": "A Leaf's Shadow",
+      "summary": "Discover the shapes in a small patch of tree shade on a wall.",
+      "object": "Tree Shade",
+      "method": "Photo + Caption",
+      "constraint": "Details Only",
       "environments": [
-        "户外"
+        "Outdoors"
       ],
       "minutes": 5,
       "steps": [
-        "靠近轮廓"
+        "Frame the outline"
       ],
       "hints": [
-        "让几片叶影占据画面，写下它像什么或怎样变化。"
+        "Fill the photo with a few leaf shadows. Write what they resemble or how they change."
       ]
     },
     {
       "id": "shadow-06",
       "themeID": "shadow",
-      "title": "光的接缝",
-      "summary": "用两张近景比较明暗交界的不同质感。",
-      "object": "光影",
-      "method": "双图对照",
-      "constraint": "只拍细节",
+      "title": "Seams of Light",
+      "summary": "Compare two kinds of boundary between light and shade.",
+      "object": "Light",
+      "method": "Photo Pair",
+      "constraint": "Details Only",
       "environments": [
-        "户外"
+        "Outdoors"
       ],
       "minutes": 10,
       "steps": [
-        "记录清晰边界",
-        "寻找柔和过渡"
+        "Find a sharp edge",
+        "Find a soft transition"
       ],
       "hints": [
-        "拍一处边缘分明的光影局部。",
-        "再拍一处模糊渐变的局部，让两张形成对照。"
+        "Capture a close-up with a clearly defined light-shadow boundary.",
+        "Photograph a softly fading edge to create a contrast with the first image."
       ]
     },
     {
       "id": "shadow-07",
       "themeID": "shadow",
-      "title": "同色背景上的影子",
-      "summary": "在同一种颜色的表面上，记录三种影子形状。",
-      "object": "影子",
-      "method": "三格故事",
-      "constraint": "单一颜色",
+      "title": "Shadows on One Color",
+      "summary": "Record three shadow shapes against surfaces of the same color.",
+      "object": "Shadow",
+      "method": "Three Frames",
+      "constraint": "One Color",
       "environments": [
-        "户外"
+        "Outdoors"
       ],
       "minutes": 20,
       "steps": [
-        "选择底色",
-        "改变轮廓",
-        "形成节奏"
+        "Choose a background",
+        "Change the outline",
+        "Build a rhythm"
       ],
       "hints": [
-        "找一面颜色统一的墙或一块地面，拍下第一处投影。",
-        "在同色背景中寻找不同方向的影子。",
-        "再记录一处疏密变化，用三张排列出节奏。"
+        "Find a wall or ground surface in one color and capture a shadow on it.",
+        "Find a shadow pointing in a different direction against the same background color.",
+        "Record a change in density and arrange the three photos into a rhythm."
       ]
     },
     {
       "id": "shadow-08",
       "themeID": "shadow",
-      "title": "绿色之外的树影",
-      "summary": "选颜色统一的墙面，让树影本身成为主角。",
-      "object": "树影",
-      "method": "单图配文",
-      "constraint": "单一颜色",
+      "title": "Beyond the Green",
+      "summary": "Let tree shade stand out on a wall with one consistent color.",
+      "object": "Tree Shade",
+      "method": "Photo + Caption",
+      "constraint": "One Color",
       "environments": [
-        "户外"
+        "Outdoors"
       ],
       "minutes": 5,
       "steps": [
-        "记录层次"
+        "Capture the layers"
       ],
       "hints": [
-        "避开背景中的杂色，拍下树影深浅，配上一句短文。"
+        "Keep other colors out of the background. Photograph the layers of shade and add a short caption."
       ]
     },
     {
       "id": "shadow-09",
       "themeID": "shadow",
-      "title": "一面墙的两种亮度",
-      "summary": "用同一底色上的光与影，完成一次明暗对照。",
-      "object": "光影",
-      "method": "双图对照",
-      "constraint": "单一颜色",
+      "title": "A Wall in Two Moods",
+      "summary": "Compare light and shade over the same background color.",
+      "object": "Light",
+      "method": "Photo Pair",
+      "constraint": "One Color",
       "environments": [
-        "户外"
+        "Outdoors"
       ],
       "minutes": 10,
       "steps": [
-        "拍下明处",
-        "拍下暗处"
+        "Photograph the light",
+        "Photograph the dark"
       ],
       "hints": [
-        "让单一底色填满画面，保留受光面的细节。",
-        "再拍同色的阴影区域，比较两张的亮度差异。"
+        "Fill the frame with one base color and preserve detail in the lit surface.",
+        "Photograph a shaded area of the same color and compare the brightness."
       ]
     },
     {
       "id": "shadow-10",
       "themeID": "shadow",
-      "title": "影子停在空白里",
-      "summary": "给影子留出大面积空白，让三个画面有呼吸感。",
-      "object": "影子",
-      "method": "三格故事",
-      "constraint": "留出空白",
+      "title": "A Shadow in Open Space",
+      "summary": "Give shadows plenty of room in three quiet compositions.",
+      "object": "Shadow",
+      "method": "Three Frames",
+      "constraint": "Empty Space",
       "environments": [
-        "户外"
+        "Outdoors"
       ],
       "minutes": 20,
       "steps": [
-        "安放影子",
-        "换个方向",
-        "留下尾声"
+        "Place the shadow",
+        "Change direction",
+        "Leave an ending"
       ],
       "hints": [
-        "只让影子占据画面一侧，其余区域保持简单。",
-        "寻找另一条影子，让空白出现在不同方向。",
-        "用最少的影子与最多的空白结束这一组。"
+        "Keep the shadow on one side and the rest of the frame simple.",
+        "Find another shadow with empty space on a different side.",
+        "End the series with the smallest shadow and the most empty space."
       ]
     },
     {
       "id": "geometry-01",
       "themeID": "geometry",
-      "title": "日常的圆周率",
-      "summary": "固定站位，寻找眼前的圆形、重复与局部。",
-      "object": "圆形",
-      "method": "三格故事",
-      "constraint": "同一位置",
+      "title": "Everyday Circles",
+      "summary": "Stay in one spot and find circles, repetition and a curved detail.",
+      "object": "Circle",
+      "method": "Three Frames",
+      "constraint": "One Spot",
       "environments": [
-        "室内",
-        "户外"
+        "Indoors",
+        "Outdoors"
       ],
       "minutes": 10,
       "steps": [
-        "寻找圆形",
-        "记录重复",
-        "观察局部"
+        "Find a circle",
+        "Find repetition",
+        "Study a fragment"
       ],
       "hints": [
-        "先拍一个完整的圆，保留周围环境。",
-        "保持站位，寻找两个以上相似的圆形。",
-        "调整焦段只取一段弧线，让三张从具体走向抽象。"
+        "Capture a whole circle along with some of its surroundings.",
+        "Stay in place and look for two or more similar circles.",
+        "Change your zoom to frame a single arc, moving the series toward abstraction."
       ]
     },
     {
       "id": "geometry-02",
       "themeID": "geometry",
-      "title": "城市的细线",
-      "summary": "在一个安全的位置站定，寻找眼前延伸的线条。",
-      "object": "线条",
-      "method": "单图配文",
-      "constraint": "同一位置",
+      "title": "Lines That Lead",
+      "summary": "From one safe position, find lines stretching through the scene.",
+      "object": "Lines",
+      "method": "Photo + Caption",
+      "constraint": "One Spot",
       "environments": [
-        "室内",
-        "户外"
+        "Indoors",
+        "Outdoors"
       ],
       "minutes": 5,
       "steps": [
-        "寻找方向"
+        "Follow a direction"
       ],
       "hints": [
-        "让栏杆、门框或地面接缝引导视线，写下它把目光带向哪里。"
+        "Use a railing, door frame or floor seam to lead the eye. Write where it takes you."
       ]
     },
     {
       "id": "geometry-03",
       "themeID": "geometry",
-      "title": "转角的秩序",
-      "summary": "从同一个位置观察建筑的整体与重复。",
-      "object": "建筑",
-      "method": "双图对照",
-      "constraint": "同一位置",
+      "title": "Order Around a Corner",
+      "summary": "Study a structure and its repetition from the same position.",
+      "object": "Building",
+      "method": "Photo Pair",
+      "constraint": "One Spot",
       "environments": [
-        "室内",
-        "户外"
+        "Indoors",
+        "Outdoors"
       ],
       "minutes": 10,
       "steps": [
-        "记录整体",
-        "寻找重复"
+        "Show the structure",
+        "Find a pattern"
       ],
       "hints": [
-        "保持水平，拍清门框、立柱或墙面的主要结构。",
-        "不改变站位，调整焦段记录窗格或柱子的排列。"
+        "Keep the camera level and show the main structure of a frame, column or wall.",
+        "Stay in place and zoom to capture a repeated arrangement of windows or columns."
       ]
     },
     {
       "id": "geometry-04",
       "themeID": "geometry",
-      "title": "一段弧线的故事",
-      "summary": "只拍圆形物体的局部，让弧线成为画面主角。",
-      "object": "圆形",
-      "method": "三格故事",
-      "constraint": "只拍细节",
+      "title": "The Story of an Arc",
+      "summary": "Make curved fragments the subject without revealing a full circle.",
+      "object": "Circle",
+      "method": "Three Frames",
+      "constraint": "Details Only",
       "environments": [
-        "室内",
-        "户外"
+        "Indoors",
+        "Outdoors"
       ],
       "minutes": 20,
       "steps": [
-        "发现弧度",
-        "比较曲线",
-        "记录相遇"
+        "Find a curve",
+        "Compare an arc",
+        "Find a meeting point"
       ],
       "hints": [
-        "截取圆的一段边缘，不露出完整形状。",
-        "再拍一段不同大小或方向的弧线。",
-        "拍弧线与直线相接的局部，完成第三格。"
+        "Frame part of a circle's edge without showing the full shape.",
+        "Find another arc with a different size or direction.",
+        "Photograph where a curve meets a straight line to complete the third frame."
       ]
     },
     {
       "id": "geometry-05",
       "themeID": "geometry",
-      "title": "线条的转折",
-      "summary": "只看一小段线，记录它怎样转向或相交。",
-      "object": "线条",
-      "method": "单图配文",
-      "constraint": "只拍细节",
+      "title": "Where Lines Turn",
+      "summary": "Follow a short line as it turns or meets another.",
+      "object": "Lines",
+      "method": "Photo + Caption",
+      "constraint": "Details Only",
       "environments": [
-        "室内",
-        "户外"
+        "Indoors",
+        "Outdoors"
       ],
       "minutes": 5,
       "steps": [
-        "截取转角"
+        "Frame a corner"
       ],
       "hints": [
-        "选择墙缝、栏杆或地面线条的局部，配一句描述它方向的短句。"
+        "Choose part of a wall seam, railing or ground marking. Add a line describing its direction."
       ]
     },
     {
       "id": "geometry-06",
       "themeID": "geometry",
-      "title": "建筑的两个切片",
-      "summary": "不拍整栋建筑，用两处局部比较结构。",
-      "object": "建筑",
-      "method": "双图对照",
-      "constraint": "只拍细节",
+      "title": "Two Slices of a Building",
+      "summary": "Compare two structural details without showing an entire building.",
+      "object": "Building",
+      "method": "Photo Pair",
+      "constraint": "Details Only",
       "environments": [
-        "室内",
-        "户外"
+        "Indoors",
+        "Outdoors"
       ],
       "minutes": 10,
       "steps": [
-        "寻找重复",
-        "发现例外"
+        "Find repetition",
+        "Find an exception"
       ],
       "hints": [
-        "从安全位置拍一小组窗格、砖块或栏杆。",
-        "找到其中一个不同的局部，与第一张形成对照。"
+        "From a safe spot, capture a small group of windows, bricks or railings.",
+        "Find one detail that breaks the pattern and compare it with the first image."
       ]
     },
     {
       "id": "geometry-07",
       "themeID": "geometry",
-      "title": "同色的圆",
-      "summary": "选择一种主色，寻找三个带有圆形的画面。",
-      "object": "圆形",
-      "method": "三格故事",
-      "constraint": "单一颜色",
+      "title": "Circles in One Color",
+      "summary": "Choose one main color and find three compositions with circles.",
+      "object": "Circle",
+      "method": "Three Frames",
+      "constraint": "One Color",
       "environments": [
-        "室内",
-        "户外"
+        "Indoors",
+        "Outdoors"
       ],
       "minutes": 20,
       "steps": [
-        "找到第一个圆",
-        "记录重复",
-        "留下局部"
+        "Find the first circle",
+        "Find repetition",
+        "Finish with a fragment"
       ],
       "hints": [
-        "让圆形和背景尽量保持同一主色。",
-        "再找同色的圆形排列，比较大小与间距。",
-        "用同色的一段弧线收尾，让三张既统一又有变化。"
+        "Keep the circle and its background within one main color.",
+        "Find an arrangement of circles in that color and compare size and spacing.",
+        "End with an arc in the same color, keeping variety within the sequence."
       ]
     },
     {
       "id": "geometry-08",
       "themeID": "geometry",
-      "title": "单色线稿",
-      "summary": "减少杂色，让现实中的线条像一张线稿。",
-      "object": "线条",
-      "method": "单图配文",
-      "constraint": "单一颜色",
+      "title": "A Drawing in One Color",
+      "summary": "Remove competing colors so real lines resemble a drawing.",
+      "object": "Lines",
+      "method": "Photo + Caption",
+      "constraint": "One Color",
       "environments": [
-        "室内",
-        "户外"
+        "Indoors",
+        "Outdoors"
       ],
       "minutes": 5,
       "steps": [
-        "整理方向"
+        "Arrange the directions"
       ],
       "hints": [
-        "选单一色调的表面和清楚的线条，写下你看到的秩序。"
+        "Choose a surface with one dominant tone and clear lines. Describe the order you see."
       ]
     },
     {
       "id": "geometry-09",
       "themeID": "geometry",
-      "title": "建筑的一种颜色",
-      "summary": "用两张照片比较同色建筑表面的排列。",
-      "object": "建筑",
-      "method": "双图对照",
-      "constraint": "单一颜色",
+      "title": "A Building's Color",
+      "summary": "Compare patterns on architectural surfaces of one color.",
+      "object": "Building",
+      "method": "Photo Pair",
+      "constraint": "One Color",
       "environments": [
-        "室内",
-        "户外"
+        "Indoors",
+        "Outdoors"
       ],
       "minutes": 10,
       "steps": [
-        "记录规则",
-        "寻找变化"
+        "Record the pattern",
+        "Find a variation"
       ],
       "hints": [
-        "拍同色窗格、墙砖或柱子的整齐重复。",
-        "记录同色区域里的一处转折、缺口或阴影变化。"
+        "Photograph regular rows of windows, bricks or columns in the same color.",
+        "Find a bend, gap or change in shadow within that color."
       ]
     },
     {
       "id": "geometry-10",
       "themeID": "geometry",
-      "title": "圆与空白",
-      "summary": "用三种留白方式，观察圆形在画面中的位置。",
-      "object": "圆形",
-      "method": "三格故事",
-      "constraint": "留出空白",
+      "title": "Circles and Space",
+      "summary": "Explore a circle's position using three kinds of empty space.",
+      "object": "Circle",
+      "method": "Three Frames",
+      "constraint": "Empty Space",
       "environments": [
-        "室内",
-        "户外"
+        "Indoors",
+        "Outdoors"
       ],
       "minutes": 20,
       "steps": [
-        "靠近边缘",
-        "留下间隔",
-        "只留一角"
+        "Move toward the edge",
+        "Leave a gap",
+        "Keep just a corner"
       ],
       "hints": [
-        "把完整圆形放在画面一侧，保留简单背景。",
-        "拍两个圆形之间的空白，让间距成为重点。",
-        "让一段弧线从画面边缘进入，留下更多想象空间。"
+        "Place a whole circle to one side against a simple background.",
+        "Photograph the space between two circles, making the gap the focus.",
+        "Let an arc enter from the edge and leave the rest open."
       ]
     },
     {
       "id": "detail-01",
       "themeID": "detail",
-      "title": "触手可及的世界",
-      "summary": "固定观察位置，用三个焦段认识一种材料。",
-      "object": "纹理",
-      "method": "三格故事",
-      "constraint": "同一位置",
+      "title": "A World Within Reach",
+      "summary": "From one position, use three framings to get to know a material.",
+      "object": "Texture",
+      "method": "Three Frames",
+      "constraint": "One Spot",
       "environments": [
-        "室内",
-        "户外"
+        "Indoors",
+        "Outdoors"
       ],
       "minutes": 10,
       "steps": [
-        "记录材料",
-        "寻找纹路",
-        "捕捉细节"
+        "Show the material",
+        "Find its pattern",
+        "Capture a detail"
       ],
       "hints": [
-        "先拍清材料所在的物件，交代它的用途。",
-        "保持站位调整焦段，找到表面的纹路方向。",
-        "转动物件或使用变焦，留下一处最特别的细节。"
+        "Show the object clearly enough to explain what the material is used for.",
+        "Keep your position and zoom to find the direction of its surface pattern.",
+        "Turn the object or zoom again to capture its most distinctive detail."
       ]
     },
     {
       "id": "detail-02",
       "themeID": "detail",
-      "title": "一片叶子的风景",
-      "summary": "在固定位置观察一片叶子，无需摘下它。",
-      "object": "叶片",
-      "method": "单图配文",
-      "constraint": "同一位置",
+      "title": "Landscape of a Leaf",
+      "summary": "Observe a leaf from one spot without picking it.",
+      "object": "Leaf",
+      "method": "Photo + Caption",
+      "constraint": "One Spot",
       "environments": [
-        "室内",
-        "户外"
+        "Indoors",
+        "Outdoors"
       ],
       "minutes": 5,
       "steps": [
-        "观察叶形"
+        "Study its shape"
       ],
       "hints": [
-        "拍下叶缘与叶脉，配一句你对这片叶子的发现。"
+        "Show the edge and veins, then add a line about something you noticed."
       ]
     },
     {
       "id": "detail-03",
       "themeID": "detail",
-      "title": "柔软的地形",
-      "summary": "固定机位，比较织物的褶皱与受光面。",
-      "object": "织物",
-      "method": "双图对照",
-      "constraint": "同一位置",
+      "title": "Soft Terrain",
+      "summary": "Keep your camera fixed and compare a fold with a lit fabric surface.",
+      "object": "Fabric",
+      "method": "Photo Pair",
+      "constraint": "One Spot",
       "environments": [
-        "室内",
-        "户外"
+        "Indoors",
+        "Outdoors"
       ],
       "minutes": 10,
       "steps": [
-        "记录褶皱",
-        "寻找光面"
+        "Show a fold",
+        "Find a lit surface"
       ],
       "hints": [
-        "让一道褶皱清楚地穿过画面。",
-        "保持镜头位置，轻轻调整布料，拍出更平缓的受光面。"
+        "Let a clear fold run across the image.",
+        "Keep the camera in place and gently adjust the fabric to create a flatter lit surface."
       ]
     },
     {
       "id": "detail-04",
       "themeID": "detail",
-      "title": "材料的秘密",
-      "summary": "不拍物件全貌，只用三个局部描述一种材料。",
-      "object": "纹理",
-      "method": "三格故事",
-      "constraint": "只拍细节",
+      "title": "Secrets of a Surface",
+      "summary": "Use three close-ups to describe a material without revealing the object.",
+      "object": "Texture",
+      "method": "Three Frames",
+      "constraint": "Details Only",
       "environments": [
-        "室内",
-        "户外"
+        "Indoors",
+        "Outdoors"
       ],
       "minutes": 20,
       "steps": [
-        "靠近表面",
-        "发现痕迹",
-        "捕捉起伏"
+        "Fill the frame",
+        "Find a mark",
+        "Capture the relief"
       ],
       "hints": [
-        "让材料的纹理填满画面，隐藏物件的用途。",
-        "找一处接缝、磨损或自然斑点。",
-        "利用侧光拍出凹凸，让三个局部展示不同触感。"
+        "Fill the image with texture so the object's purpose is hidden.",
+        "Find a seam, worn patch or natural spot.",
+        "Use side light to reveal bumps and hollows, giving each photo a different feel."
       ]
     },
     {
       "id": "detail-05",
       "themeID": "detail",
-      "title": "叶脉的岔路",
-      "summary": "只拍叶子的局部，观察一条叶脉如何分岔。",
-      "object": "叶片",
-      "method": "单图配文",
-      "constraint": "只拍细节",
+      "title": "Where Veins Branch",
+      "summary": "Observe the point where a leaf's vein divides.",
+      "object": "Leaf",
+      "method": "Photo + Caption",
+      "constraint": "Details Only",
       "environments": [
-        "室内",
-        "户外"
+        "Indoors",
+        "Outdoors"
       ],
       "minutes": 5,
       "steps": [
-        "靠近叶脉"
+        "Follow the veins"
       ],
       "hints": [
-        "保持叶子原位，拍清几条细脉，再写一句关于分岔的联想。"
+        "Leave the leaf in place, capture a few fine veins and add a thought about branching paths."
       ]
     },
     {
       "id": "detail-06",
       "themeID": "detail",
-      "title": "经纬之间",
-      "summary": "用两张近景比较织物的线与面。",
-      "object": "织物",
-      "method": "双图对照",
-      "constraint": "只拍细节",
+      "title": "Between the Threads",
+      "summary": "Compare the lines and folds of fabric in two close-ups.",
+      "object": "Fabric",
+      "method": "Photo Pair",
+      "constraint": "Details Only",
       "environments": [
-        "室内",
-        "户外"
+        "Indoors",
+        "Outdoors"
       ],
       "minutes": 10,
       "steps": [
-        "看见纤维",
-        "寻找褶皱"
+        "Show the fibers",
+        "Find a fold"
       ],
       "hints": [
-        "让织物的经纬或绒毛占满画面。",
-        "拍一小段起伏，与第一张平整的纹理形成对照。"
+        "Fill the frame with woven threads or soft fibers.",
+        "Capture a small rise or fold to contrast with the flatter texture of the first image."
       ]
     },
     {
       "id": "detail-07",
       "themeID": "detail",
-      "title": "一种颜色，三种触感",
-      "summary": "在同一主色里，寻找材料表面的三种变化。",
-      "object": "纹理",
-      "method": "三格故事",
-      "constraint": "单一颜色",
+      "title": "One Color, Three Textures",
+      "summary": "Find three surface variations within one main color.",
+      "object": "Texture",
+      "method": "Three Frames",
+      "constraint": "One Color",
       "environments": [
-        "室内",
-        "户外"
+        "Indoors",
+        "Outdoors"
       ],
       "minutes": 20,
       "steps": [
-        "确定底色",
-        "比较明暗",
-        "留下痕迹"
+        "Choose the base color",
+        "Compare the tones",
+        "Record a trace"
       ],
       "hints": [
-        "选择颜色统一的材料表面，先记录整体纹路。",
-        "拍同色区域里因凹凸形成的深浅。",
-        "再找一处同色的接缝或磨损，让三张各有触感。"
+        "Choose a surface in one color and first record its overall pattern.",
+        "Photograph lighter and darker areas created by its uneven surface.",
+        "Find a seam or worn patch in the same color to give the third image its own texture."
       ]
     },
     {
       "id": "detail-08",
       "themeID": "detail",
-      "title": "一片绿色",
-      "summary": "让绿色填满画面，记录叶片细小的层次。",
-      "object": "叶片",
-      "method": "单图配文",
-      "constraint": "单一颜色",
+      "title": "A Patch of Green",
+      "summary": "Fill the image with green and notice the subtle layers of a leaf.",
+      "object": "Leaf",
+      "method": "Photo + Caption",
+      "constraint": "One Color",
       "environments": [
-        "室内",
-        "户外"
+        "Indoors",
+        "Outdoors"
       ],
       "minutes": 5,
       "steps": [
-        "发现绿的深浅"
+        "Frame the green"
       ],
       "hints": [
-        "避开其他颜色，让叶片上的明暗成为重点，并配上一句短文。"
+        "Keep other colors outside the frame. Add a short line about the shade of green you see."
       ]
     },
     {
       "id": "detail-09",
       "themeID": "detail",
-      "title": "织物的同色层次",
-      "summary": "用同一种颜色的织物，比较平整与起伏。",
-      "object": "织物",
-      "method": "双图对照",
-      "constraint": "单一颜色",
+      "title": "Fabric in Two Tones",
+      "summary": "Compare light and shade on fabric in the same color.",
+      "object": "Fabric",
+      "method": "Photo Pair",
+      "constraint": "One Color",
       "environments": [
-        "室内",
-        "户外"
+        "Indoors",
+        "Outdoors"
       ],
       "minutes": 10,
       "steps": [
-        "记录平整",
-        "记录起伏"
+        "Capture the light",
+        "Capture the shade"
       ],
       "hints": [
-        "拍一块铺平的布面，保留纤维细节。",
-        "轻轻折出一道褶皱，用同样的主色呈现另一种层次。"
+        "Choose a fabric with one main color and photograph its lit surface.",
+        "Find a fold or shaded area in the same fabric and compare the two tones."
       ]
     },
     {
       "id": "detail-10",
       "themeID": "detail",
-      "title": "细节的呼吸",
-      "summary": "用三处小细节与大面积留白，记录材料的安静一面。",
-      "object": "纹理",
-      "method": "三格故事",
-      "constraint": "留出空白",
+      "title": "Texture with Room to Breathe",
+      "summary": "Give a small textured detail room in three simple compositions.",
+      "object": "Texture",
+      "method": "Three Frames",
+      "constraint": "Empty Space",
       "environments": [
-        "室内",
-        "户外"
+        "Indoors",
+        "Outdoors"
       ],
       "minutes": 20,
       "steps": [
-        "留一个细节",
-        "改变间距",
-        "留下停顿"
+        "Place the texture",
+        "Change the balance",
+        "Leave a quiet ending"
       ],
       "hints": [
-        "将一小处纹理放在画面一侧，让背景保持简单。",
-        "用空白分开两处细节，观察画面的节奏。",
-        "选择最简单的一处痕迹，以最多的留白收尾。"
+        "Keep a textured surface to one side and leave a large, simple background.",
+        "Frame a second detail with empty space on another side.",
+        "End with a smaller fragment and more open space around it."
       ]
     }
   ]

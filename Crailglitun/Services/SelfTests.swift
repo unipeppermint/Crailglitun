@@ -10,6 +10,38 @@ enum SelfTests {
         do {
             let library = try ContentLibrary.load(); let engine = TaskEngine(tasks: library.tasks)
             check(library.tasks.count == 60 && library.themes.count == 6,"60 tasks / 6 themes load and validate")
+            let contentText = String(decoding: try JSONEncoder().encode(library), as: UTF8.self)
+            check(!contentText.unicodeScalars.contains { (0x3400...0x9FFF).contains($0.value) }, "bundled content is English only")
+            check(Set(Bundle.main.localizations).subtracting(["Base"]) == ["en"] && Bundle.main.object(forInfoDictionaryKey: "CFBundleLocalizations") as? [String] == ["en"] && Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String == "TurnScene", "English-only app metadata")
+            let legacyMethods = ["\u{4E09}\u{683C}\u{6545}\u{4E8B}", "\u{5355}\u{56FE}\u{914D}\u{6587}", "\u{53CC}\u{56FE}\u{5BF9}\u{7167}"]
+            for (index, task) in library.tasks.prefix(3).enumerated() {
+                var original = Creation(task: task)
+                original.photos[0] = "legacy-reference.jpg"
+                original.caption = "\u{6211}\u{7684}\u{7167}\u{7247}"
+                original.completed = index == 1
+                original.cropRegions = Array(repeating: nil, count: task.photoCount)
+                original.cropRegions?[0] = CropRegion(x: 0.1,y: 0.1,width: 0.5,height: 0.5)
+                var payload = try JSONSerialization.jsonObject(with: JSONEncoder().encode(original)) as! [String: Any]
+                var legacyTask = payload["task"] as! [String: Any]
+                legacyTask["method"] = legacyMethods[index]
+                legacyTask["title"] = "\u{65E7}\u{6807}\u{9898}"
+                payload["task"] = legacyTask
+                payload["layout"] = index == 1 ? "\u{7D27}\u{51D1}" : "\u{7559}\u{767D}"
+                let migrationStore = AppStore(memory: true)
+                let record = NSEntityDescription.insertNewObject(forEntityName: "Record", into: migrationStore.container.viewContext)
+                record.setValue(original.id, forKey: "id")
+                record.setValue(try JSONSerialization.data(withJSONObject: payload), forKey: "payload")
+                record.setValue(original.updatedAt, forKey: "updatedAt")
+                record.setValue(original.completed, forKey: "completed")
+                try migrationStore.container.viewContext.save()
+                try migrationStore.reload()
+                let migrated = migrationStore.creations[0]
+                check(migrated.isValid && migrated.task == task && migrated.layout == (index == 1 ? "Compact" : "Spacious"), "legacy task and layout migrate: \(task.id)")
+                check(migrated.id == original.id && migrated.photos == original.photos && migrated.cropRegions == original.cropRegions && migrated.caption == original.caption && migrated.completed == original.completed && migrated.updatedAt == original.updatedAt, "migration preserves user content: \(task.id)")
+                try migrationStore.save(migrated)
+                try migrationStore.reload()
+                check(migrationStore.creations[0].task == task, "migrated record saves and reloads: \(task.id)")
+            }
             check(library.themes.allSatisfy { UIImage(named: $0.image) != nil },"Every theme asset exists")
             let reelValues = Set(library.tasks.flatMap { $0.values })
             let artworkData = reelValues.compactMap { reelImage($0).pngData() }
@@ -24,17 +56,17 @@ enum SelfTests {
                 }
             }
             let task = library.tasks[0]
-            let indoors = engine.candidates(environment: "室内",minutes: 5,values: task.values,locked: [])
-            check(!indoors.isEmpty && indoors.allSatisfy { $0.minutes <= 5 && $0.environments.contains("室内") },"environment and duration filters")
-            check(engine.candidates(environment: "户外",minutes: 5,values: task.values,locked: [0,1,2]).isEmpty,"incompatible fully locked combination returns no result")
+            let indoors = engine.candidates(environment: "Indoors",minutes: 5,values: task.values,locked: [])
+            check(!indoors.isEmpty && indoors.allSatisfy { $0.minutes <= 5 && $0.environments.contains("Indoors") },"environment and duration filters")
+            check(engine.candidates(environment: "Outdoors",minutes: 5,values: task.values,locked: [0,1,2]).isEmpty,"incompatible fully locked combination returns no result")
             check(engine.pick(from: [],recent: [],draw: { _ in 0 }) == nil,"empty candidate set is safe")
             var weightedTotal = 0
             _ = engine.pick(from: Array(library.tasks.prefix(2)),recent: [task.id],draw: { count in weightedTotal = count; return 0 })
             check(weightedTotal == 6,"recent task receives 1/5 weight")
             let store = AppStore(memory: true)
-            var draft = Creation(task: task); draft.caption = "恢复测试"; draft.photos[0] = "shared-test-photo.jpg"
+            var draft = Creation(task: task); draft.caption = "Recovery test"; draft.photos[0] = "shared-test-photo.jpg"
             try store.save(draft); try store.reload()
-            check(store.drafts.first?.caption == "恢复测试" && store.drafts.first?.task == task,"Core Data draft and immutable task snapshot round trip")
+            check(store.drafts.first?.caption == "Recovery test" && store.drafts.first?.task == task,"Core Data draft and immutable task snapshot round trip")
             var another = draft; another.id = UUID(); try store.save(another)
             try store.delete(draft)
             check(store.drafts.count == 1 && store.drafts[0].photos[0] == "shared-test-photo.jpg","deleting one record preserves another shared reference")
@@ -78,7 +110,7 @@ enum SelfTests {
                 lines.append("PASS imported photo has independent readable local copy")
                 let crop = MediaStore.cropped(normalized,region: CropRegion(x: 0.25,y: 0.1,width: 0.4,height: 0.4))
                 lines.append(crop.size.width < normalized.size.width ? "PASS normalized crop preserves source and changes dimensions" : "FAIL crop dimensions")
-                var item = Creation(task: task); item.photos = Array(repeating: name,count: task.photoCount); item.caption = "QA 验证 · 非用户作品"
+                var item = Creation(task: task); item.photos = Array(repeating: name,count: task.photoCount); item.caption = "QA validation · Test image"
                 let exported = try MediaStore.export(item)
                 defer { try? FileManager.default.removeItem(at: exported) }
                 let data = try Data(contentsOf: exported)

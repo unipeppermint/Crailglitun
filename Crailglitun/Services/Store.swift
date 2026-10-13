@@ -49,7 +49,7 @@ final class AppStore {
         request.sortDescriptors = [NSSortDescriptor(key: "updatedAt", ascending: false)]
         creations = try container.viewContext.fetch(request).map {
             guard let data = $0.value(forKey: "payload") as? Data else { throw CocoaError(.fileReadCorruptFile) }
-            let item = try JSONDecoder().decode(Creation.self, from: data)
+            let item = try JSONDecoder().decode(Creation.self, from: data).usingEnglishContent(from: library)
             guard item.isValid else { throw CocoaError(.fileReadCorruptFile) }
             return item
         }
@@ -129,7 +129,7 @@ nonisolated enum MediaStore {
         return files.compactMap { $0 as? URL }.reduce(0) { $0 + Int64((try? $1.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0) }
     }
     static func export(_ item: Creation) throws -> URL {
-        let width: CGFloat = 1600, padding: CGFloat = item.layout == "留白" ? 72 : 24
+        let width: CGFloat = 1600, padding: CGFloat = item.layout == "Spacious" ? 72 : 24
         let imageHeight: CGFloat = item.photos.count == 1 ? 1456 : 900
         let canvas = CGSize(width: width, height: imageHeight + 360)
         let format = UIGraphicsImageRendererFormat(); format.scale = 1
@@ -152,13 +152,13 @@ nonisolated enum MediaStore {
             let textColor = UIColor(red: 0.15, green: 0.18, blue: 0.17, alpha: 1)
             (item.task.title as NSString).draw(in: CGRect(x: 72, y: imageHeight + 40, width: 1456, height: 72), withAttributes: [.font: UIFont.systemFont(ofSize: 44, weight: .semibold), .foregroundColor: textColor])
             (item.caption as NSString).draw(in: CGRect(x: 72, y: imageHeight + 120, width: 1456, height: 130), withAttributes: [.font: UIFont.systemFont(ofSize: 32), .foregroundColor: textColor])
-            ("转场  /  \(item.task.values.joined(separator: " · "))" as NSString).draw(at: CGPoint(x: 72, y: canvas.height - 60), withAttributes: [.font: UIFont.systemFont(ofSize: 22), .foregroundColor: UIColor.gray])
+            ("TurnScene  /  \(item.task.values.joined(separator: " · "))" as NSString).draw(at: CGPoint(x: 72, y: canvas.height - 60), withAttributes: [.font: UIFont.systemFont(ofSize: 22), .foregroundColor: UIColor.gray])
         }
         guard let data = output.jpegData(compressionQuality: 0.94) else { throw CocoaError(.fileWriteUnknown) }
         let folder = FileManager.default.temporaryDirectory.appendingPathComponent("TurnSceneExports", isDirectory: true)
         try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         let title = String(item.task.title.filter { !$0.isNewline && !"/\\:".contains($0) }.prefix(36))
-        let filename = "转场-" + (title.isEmpty ? "作品" : title) + "-" + String(UUID().uuidString.prefix(8)) + ".jpg"
+        let filename = "TurnScene-" + (title.isEmpty ? "Work" : title) + "-" + String(UUID().uuidString.prefix(8)) + ".jpg"
         let url = folder.appendingPathComponent(filename); try data.write(to: url, options: .atomic); return url
     }
     static func cropped(_ image: UIImage,region: CropRegion) -> UIImage {

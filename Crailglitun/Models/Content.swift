@@ -34,24 +34,24 @@ nonisolated struct ContentLibrary: Codable {
               Set(library.themes.map(\.id)).count == library.themes.count,
               Set(library.tasks.map(\.id)).count == library.tasks.count,
               library.tasks.allSatisfy({ task in
-                  library.themes.contains(where: { $0.id == task.themeID }) && ["单图配文": 1,"双图对照": 2,"三格故事": 3][task.method] == task.photoCount && task.steps.count == task.hints.count && !task.title.isEmpty && !task.environments.isEmpty && task.environments.allSatisfy { ["室内","户外"].contains($0) } && [5,10,20].contains(task.minutes)
+                  library.themes.contains(where: { $0.id == task.themeID }) && ["Photo + Caption": 1,"Photo Pair": 2,"Three Frames": 3][task.method] == task.photoCount && task.steps.count == task.hints.count && !task.title.isEmpty && !task.environments.isEmpty && task.environments.allSatisfy { ["Indoors","Outdoors"].contains($0) } && [5,10,20].contains(task.minutes)
               }) else { throw CocoaError(.fileReadCorruptFile) }
         return library
     }
 }
 nonisolated struct Creation: Codable, Identifiable {
     var id = UUID()
-    let task: PhotoTask
+    var task: PhotoTask
     var photos: [String?]
     var cropRegions: [CropRegion?]?
     var crops: [Bool]
     var caption = ""
-    var layout = "留白"
+    var layout = "Spacious"
     var updatedAt = Date()
     var completed = false
     var editingArtworkID: UUID?
     var isValid: Bool {
-        let expected = ["单图配文": 1, "双图对照": 2, "三格故事": 3][task.method]
+        let expected = ["Photo + Caption": 1, "Photo Pair": 2, "Three Frames": 3][task.method]
         return expected == task.photoCount && task.hints.count == task.photoCount && photos.count == task.photoCount && crops.count == photos.count &&
             (cropRegions == nil || (cropRegions?.count == photos.count && cropRegions?.compactMap { $0 }.allSatisfy { $0.isValid } == true)) &&
             photos.compactMap { $0 }.allSatisfy { !$0.isEmpty && !$0.contains("/") && !$0.contains("\\") && $0 != "." && $0 != ".." }
