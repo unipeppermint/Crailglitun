@@ -17,6 +17,10 @@ final class SettingsController: PageController {
         body.addArrangedSubview(label("Help & About",14,.regular,Palette.secondary))
         body.addArrangedSubview(grouped(Self.documents.map { title,_,copy in
             settingRow(title) { [weak self] in
+                if title == "Feedback" {
+                    self?.push(CrailglitunFeedbackController())
+                    return
+                }
                 let policyURL = title == "Privacy" ? URL(string: "https://tkzcpoj.netlify.app/turnscene/privacy-policy/") : nil
                 self?.push(TextController(title: title,text: copy,link: policyURL))
             }
