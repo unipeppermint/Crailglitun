@@ -31,6 +31,12 @@ final class AppsFlyerAttributionService: NSObject {
 
     private let logger = AttributionLogger(category: "AppsFlyer")
     private var isConfigured = false
+    private var hasResolvedTrackingAuthorization = false
+    private var hasPendingSession = false
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 
     func configure(
         launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
@@ -52,13 +58,36 @@ final class AppsFlyerAttributionService: NSObject {
         }
 
         appsFlyer.registerSessionReadyListener { [weak self] in
-            DispatchQueue.main.async {
-                AppsFlyerLib.shared().start()
+            DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
-                self.delegate?.appsFlyerServiceDidStart(self)
+                self.hasPendingSession = true
+                self.startPendingSessionIfPossible()
             }
         }
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(startPendingSessionIfPossible),
+            name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
         isConfigured = true
+    }
+
+    func resumeAfterTrackingAuthorization() {
+        hasResolvedTrackingAuthorization = true
+        startPendingSessionIfPossible()
+    }
+
+    @objc
+    private func startPendingSessionIfPossible() {
+        guard hasResolvedTrackingAuthorization,
+              hasPendingSession,
+              AppsFlyerLib.shared().isSessionReady(),
+              UIApplication.shared.applicationState == .active else { return }
+
+        hasPendingSession = false
+        AppsFlyerLib.shared().start()
+        delegate?.appsFlyerServiceDidStart(self)
     }
 
     @discardableResult

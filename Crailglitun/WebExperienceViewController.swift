@@ -1,4 +1,3 @@
-import AppTrackingTransparency
 import UIKit
 import WebKit
 
@@ -29,7 +28,6 @@ final class WebExperienceViewController: UIViewController {
     private var didReportInitialLoad = false
     private var didFinishInitialNavigation = false
     private var didStartLoadingProductPage = false
-    private var isRequestingTrackingAuthorization = false
     private var isRequestingNotificationAuthorization = false
     private var didCompleteNotificationAuthorization = false
     private var lastNotifiedMessagingToken: String?
@@ -135,25 +133,10 @@ final class WebExperienceViewController: UIViewController {
     @objc
     private func prepareWebExperienceIfNeeded() {
         guard
-            !isRequestingTrackingAuthorization,
             !isRequestingNotificationAuthorization,
             viewIfLoaded?.window != nil,
             UIApplication.shared.applicationState == .active
         else {
-            return
-        }
-
-        if !didStartLoadingProductPage,
-           ATTrackingManager.trackingAuthorizationStatus == .notDetermined {
-            isRequestingTrackingAuthorization = true
-            ATTrackingManager.requestTrackingAuthorization { [weak self] status in
-                DispatchQueue.main.async {
-                    guard let self else { return }
-                    self.isRequestingTrackingAuthorization = false
-                    guard status != .notDetermined else { return }
-                    self.prepareWebExperienceIfNeeded()
-                }
-            }
             return
         }
 

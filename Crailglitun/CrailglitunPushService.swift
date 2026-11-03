@@ -40,7 +40,7 @@ final class CrailglitunPushService: NSObject {
         registerWithAPNsIfNeeded()
     }
 
-    /// Called only by the visible web controller, after ATT has finished.
+    /// Shared by the native Settings switch and the web controller after ATT finishes.
     /// False means the application became inactive before it could ask.
     func requestNotificationAuthorizationIfNeeded() async -> Bool {
         let settings = await notificationCenter.notificationSettings()

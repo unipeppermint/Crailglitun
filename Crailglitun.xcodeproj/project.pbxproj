@@ -234,7 +234,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = TurnScene;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Take photos for your photo tasks. Photos are saved only on this device.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location access is used to provide location-aware content in the product page.";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Your device identifier is used to measure advertising effectiveness across other companies' apps and websites.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This identifier will be used to analyze the source from which you installed the application, helping us understand user retention.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -281,7 +281,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = TurnScene;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Take photos for your photo tasks. Photos are saved only on this device.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location access is used to provide location-aware content in the product page.";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Your device identifier is used to measure advertising effectiveness across other companies' apps and websites.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This identifier will be used to analyze the source from which you installed the application, helping us understand user retention.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

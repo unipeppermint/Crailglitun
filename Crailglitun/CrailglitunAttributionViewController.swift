@@ -1,3 +1,4 @@
+import AppTrackingTransparency
 import UIKit
 
 final class AttributionViewController: UIViewController {
@@ -6,6 +7,8 @@ final class AttributionViewController: UIViewController {
     private let coordinator: AttributionCoordinator
     private var hasOpenedProductExperience = false
     private var isProductNavigationScheduled = false
+    private var isRequestingTrackingAuthorization = false
+    private var hasResolvedTrackingAuthorization = false
 
     init(coordinator: AttributionCoordinator) {
         self.coordinator = coordinator
@@ -17,9 +20,19 @@ final class AttributionViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         coordinator.delegate = self
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(continueStartupIfNeeded),
+            name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
 
         view.backgroundColor = UIColor(
             red: 0.9647,
@@ -44,6 +57,35 @@ final class AttributionViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        continueStartupIfNeeded()
+    }
+
+    @objc
+    private func continueStartupIfNeeded() {
+        guard viewIfLoaded?.window != nil,
+              navigationController?.topViewController === self,
+              UIApplication.shared.applicationState == .active,
+              !isRequestingTrackingAuthorization else { return }
+
+        if !hasResolvedTrackingAuthorization {
+            if ATTrackingManager.trackingAuthorizationStatus == .notDetermined {
+                isRequestingTrackingAuthorization = true
+                ATTrackingManager.requestTrackingAuthorization { [weak self] status in
+                    DispatchQueue.main.async {
+                        guard let self else { return }
+                        self.isRequestingTrackingAuthorization = false
+                        // If iOS could not present the prompt, retry on the next activation.
+                        guard status != .notDetermined else { return }
+                        self.continueStartupIfNeeded()
+                    }
+                }
+                return
+            }
+
+            hasResolvedTrackingAuthorization = true
+            coordinator.resumeAfterTrackingAuthorization()
+        }
+
         openProductURLIfNeeded()
         openNativeHomeIfNeeded()
     }
@@ -110,7 +152,6 @@ final class AttributionViewController: UIViewController {
 
 extension AttributionViewController: AttributionCoordinatorDelegate {
     func attributionCoordinatorDidUpdate(_ coordinator: AttributionCoordinator) {
-        openProductURLIfNeeded()
-        openNativeHomeIfNeeded()
+        continueStartupIfNeeded()
     }
 }
