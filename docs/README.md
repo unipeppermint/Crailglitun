@@ -36,16 +36,36 @@
 
 ## 归因启动与网页接入
 
-`AppDelegate` 与 AFTesk 一致，只初始化 `AppIntegrationService`（AppsFlyer、Firebase、Google Sign-In）。`SceneDelegate` 连接 Scene 并转交冷启动 URL、URL Scheme、Universal Link 回调；`CrailglitunStartupRouter` 创建以 `AttributionViewController` 为根的导航栈，`CrailglitunMainViewFactory` 构建原有原生主页。导航栏隐藏，保留当前应用的启动背景与网页安全区域布局。
+`AppDelegate` 初始化 `AppIntegrationService`（AppsFlyer、Firebase、Google Sign-In），并转交 APNs 注册成功／失败回调。`SceneDelegate` 连接 Scene 并转交冷启动通知及 URL Scheme 等生命周期回调；`CrailglitunStartupRouter` 创建以 `AttributionViewController` 为根的导航栈，`CrailglitunMainViewFactory` 构建原有原生主页。导航栏隐藏，保留当前应用的启动背景与网页安全区域布局。
 
 `AttributionViewController` 的网页跳转方法沿用 AFTesk：已有 HTTP／HTTPS productURL 时直接安排 push 网页；无地址时继续等待归因和首次打开接口，收到地址后再跳转。没有最少 1 秒展示、额外 8 秒截止或自定义 15 秒请求超时；归因回调收集窗口仍使用参考项目原有的 3 秒。为保留当前应用的原生默认主页，首次接口失败、完成但无有效地址、之前已完成上报但无缓存，或未配置 AppsFlyer App ID 时，进入原有原生主页。
 
-`WebExperienceViewController.swift` 以 AFTesk 参考实现为基础，仅增加用户要求的网页首次加载前 ATT 请求：控制器可见且应用处于 active 状态时，未决定权限才请求；允许、拒绝或受限均继续加载网页，已有决定时直接加载。页面只发起一次初始加载，定位权限请求安排在 ATT 处理完成之后，避免两个系统授权弹窗冲突。原生主页不触发 ATT。Info.plist 已加入 `NSUserTrackingUsageDescription`；AppsFlyer 和首次归因接口的启动时机保持原有流程。
+`WebExperienceViewController.swift` 以 AFTesk 参考实现为基础，按用户要求增加 ATT 与通知授权：控制器可见且应用处于 active 状态时，先处理 ATT；允许、拒绝或受限均继续加载网页，已有决定时直接加载。网页开始加载时检查通知权限，仅未决定时申请；处理完通知授权后再请求定位。原生主页不触发这些授权，通知拒绝或注册失败不阻断网页。ATT 和定位用途说明由现有 Target 构建设置写入最终 Info.plist；AppsFlyer 和首次归因接口的启动时机保持原有流程。
 
-网页使用默认状态栏行为，WebView 四边约束到 `safeAreaLayoutGuide`，保留安全区域。WebNativeBridge 和定位权限申请类同步参考实现，Info.plist 已加入对应定位用途说明。网页加载、跨域跳转、新窗口、Google/Firebase 登录、FCM token 回调及 Cookie 操作均沿用参考逻辑；移除了额外的导航拦截、20 秒加载超时、网页失败回原生以及网页推送跳转。网页失败只记录日志；启动阶段没有有效 productURL 时仍进入原生主页。`storageGetItem` 与参考项目一样保留为空操作。
+网页使用默认状态栏行为，WebView 四边约束到 `safeAreaLayoutGuide`，保留安全区域。WebNativeBridge 和定位权限申请类同步参考实现。网页加载、跨域跳转、新窗口、Google/Firebase 登录、FCM token 回调格式及 Cookie 操作均沿用参考逻辑。网页失败只记录日志；启动阶段没有有效 productURL 时仍进入原生主页。`storageGetItem` 与参考项目一样保留为空操作。
 
-联调继续沿用 AFTesk 的 AppsFlyer、Firebase 和 Google 配置。Associated Domains 与参考项目一致，为 `applinks:tetst-dingg.onelink.me`。本次没有调整工程已有的 Bundle ID、签名团队或描述文件设置。
+联调使用当前工程中的 AppsFlyer 配置、首次打开接口及已更新的 GoogleService-Info.plist。已按需求移除 Associated Domains 能力，当前不通过 OneLink Universal Links 唤起应用。工程已有的 Bundle ID、签名团队及描述文件由打包流程处理。
 
-推送相关实现与参考项目一致：通过 `AppIntegrationService.fetchMessagingToken` 获取 FCM token，没有额外的 APNs 注册服务、通知代理或推送点击路由。已移除 `CrailglitunPushService`、`CrailglitunURLPolicy`、`CrailglitunLaunchDecision` 及针对旧策略的检查脚本。`AppIntegrations` 中的归因、首次接口和地址缓存实现与参考项目一致。
+## Firebase 推送
+
+按用户要求补齐 `CrailglitunPushService`：Firebase 初始化后设置 Messaging／通知代理并注册 APNs；该步骤不弹通知授权。APNs token 转交 Firebase 后才获取 FCM token，后续刷新由 MessagingDelegate 接收。保留 Firebase 默认 method swizzling，不新增静默推送或富媒体通知扩展。
+
+通知权限只由 `WebExperienceViewController` 在首次加载网页时触发。首次可允许或拒绝，已决定时不再弹窗；与 ATT、定位串行处理，不增加网页等待。前台显示横幅、声音、通知列表和角标；点击通知清除角标并回到当前 productURL 主页。冷启动时暂存点击意图，等原有归因／网页导航就绪后处理一次；不读取推送中的任意 URL，也不改变原生默认主页的兜底逻辑。
+
+H5 继续使用 `getFcmToken`，传入 `{ callback: "函数名" }` 或回调名字符串；成功返回 FCM token，失败仍返回 `failure: ...` 字符串。APNs 尚未就绪时等待注册回调，最多 20 秒返回可重试错误，不阻塞网页；失败后再次调用或应用回到前台可重试。
+
+网页加载完成和 token 刷新时，额外发送 `window` 事件 `fcmTokenUpdated`，token 位于 `event.detail.token`。H5 应在已有 getFcmToken 成功回调和此事件中，将 token 幂等绑定到实际业务后端；登录用户切换、退出时也由 H5／后端处理对应绑定与解绑。工程未提供原生 token 上报接口，因此没有编造上传地址。示例监听：
+
+```javascript
+window.addEventListener('fcmTokenUpdated', function (event) {
+    // 将 event.detail.token 交给现有业务接口，绑定当前登录用户。
+});
+```
+
+当前 FirebaseMessaging 的 `token(completion:)` 已标记弃用，但 H5 协议要求 FCM token；新的 `register(completion:)` 使用不同的 Firebase Installation ID，暂不替换后端协议。客户端不打印完整 token，也不把 token 保存到 UserDefaults。
+
+Target 已启用 Push Notifications 并添加标准 `aps-environment` entitlement；最终 APNs 环境由 Xcode 签名／导出及描述文件决定。真机端到端验证仍需在 Firebase 控制台上传有效 APNs 认证密钥，并使用支持推送的描述文件，由 H5／后台保存 token 后发送测试通知。模拟器通知验证不能替代 FCM → APNs → 真机验证。官方接入说明：[Firebase Apple 推送](https://firebase.google.com/docs/cloud-messaging/ios/get-started)。
+
+2026-11-03 验证：最终 Debug 模拟器构建、Release 真机架构免签名构建通过。独立模拟器验证原生主页不弹授权、ATT → 通知 → 定位的顺序、通知允许／拒绝时网页继续加载、已有授权决定时不重复弹窗、前台通知横幅及 APNs 失败时 H5 错误回调。16 项临时状态测试覆盖点击暂存／去重／重入、FCM token 更新与失效、多请求完成、失败与超时恢复，全部通过；临时测试入口已从应用移除。测试包未签名，未取得可用于真实投递的 FCM token；系统通知点击的完整交互和实际云端投递仍待签名真机联调。
 
 依赖按当前 iOS 15／Xcode 26.6 环境选择 CocoaPods 可用的最新稳定版本：AppsFlyer 7.0.4、FirebaseCore 12.19.3、FirebaseAuth／FirebaseMessaging 12.19.0、GoogleSignIn 10.1.0。Firebase 13 起不再通过 CocoaPods 发布，因此继续使用 Pod 支持的版本；具体解析结果以 `Podfile.lock` 为准。

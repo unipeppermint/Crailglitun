@@ -13,6 +13,10 @@ final class CrailglitunStartupRouter {
     func start() {
         guard window.rootViewController == nil else { return }
 
+        CrailglitunPushService.shared.onOpenWebHome = { [weak self] in
+            self?.openWebHome() ?? false
+        }
+
         window.overrideUserInterfaceStyle = .light
         window.tintColor = Palette.orange
 
@@ -29,6 +33,20 @@ final class CrailglitunStartupRouter {
         }
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
+    }
+
+    private func openWebHome() -> Bool {
+        guard let navigationController = window.rootViewController as? UINavigationController,
+              let webController = navigationController.viewControllers.first(where: {
+                  $0 is WebExperienceViewController
+              }) as? WebExperienceViewController else {
+            return false
+        }
+
+        navigationController.dismiss(animated: false)
+        navigationController.popToViewController(webController, animated: false)
+        webController.openHomeFromNotification()
+        return true
     }
 
     private func showNativeHome() {

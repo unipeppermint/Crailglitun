@@ -40,6 +40,9 @@ final class AppIntegrationService {
     }
 
     func handleSceneConnection(_ connectionOptions: UIScene.ConnectionOptions) {
+        if let response = connectionOptions.notificationResponse {
+            CrailglitunPushService.shared.handleNotificationResponse(response)
+        }
         handleOpenURLContexts(connectionOptions.urlContexts)
         for userActivity in connectionOptions.userActivities {
             continueUserActivity(userActivity)

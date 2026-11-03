@@ -123,7 +123,7 @@
 					04E55BA2306CAEB600A6119D = {
 						CreatedOnToolsVersion = 26.6;
 						SystemCapabilities = {
-							com.apple.AssociatedDomains = {
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -168,9 +168,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Crailglitun/Pods-Crailglitun-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Crailglitun/Pods-Crailglitun-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -229,6 +233,8 @@
 				INFOPLIST_FILE = Crailglitun/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TurnScene;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Take photos for your photo tasks. Photos are saved only on this device.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location access is used to provide location-aware content in the product page.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Your device identifier is used to measure advertising effectiveness across other companies' apps and websites.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -274,6 +280,8 @@
 				INFOPLIST_FILE = Crailglitun/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TurnScene;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Take photos for your photo tasks. Photos are saved only on this device.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location access is used to provide location-aware content in the product page.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Your device identifier is used to measure advertising effectiveness across other companies' apps and websites.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

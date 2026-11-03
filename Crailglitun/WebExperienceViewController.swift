@@ -30,6 +30,9 @@ final class WebExperienceViewController: UIViewController {
     private var didFinishInitialNavigation = false
     private var didStartLoadingProductPage = false
     private var isRequestingTrackingAuthorization = false
+    private var isRequestingNotificationAuthorization = false
+    private var didCompleteNotificationAuthorization = false
+    private var lastNotifiedMessagingToken: String?
     private var progressObservation: NSKeyValueObservation?
 
     private lazy var nativeBridge: WebNativeBridge = {
@@ -111,53 +114,99 @@ final class WebExperienceViewController: UIViewController {
 
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(requestTrackingAuthorizationAndLoadPageIfNeeded),
+            selector: #selector(prepareWebExperienceIfNeeded),
             name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(notifyWebOfMessagingToken),
+            name: CrailglitunPushService.tokenDidChange,
             object: nil
         )
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        requestTrackingAuthorizationAndLoadPageIfNeeded()
+        CrailglitunPushService.shared.openPendingNotificationIfPossible()
+        prepareWebExperienceIfNeeded()
     }
 
     @objc
-    private func requestTrackingAuthorizationAndLoadPageIfNeeded() {
+    private func prepareWebExperienceIfNeeded() {
         guard
-            !didStartLoadingProductPage,
             !isRequestingTrackingAuthorization,
+            !isRequestingNotificationAuthorization,
             viewIfLoaded?.window != nil,
             UIApplication.shared.applicationState == .active
         else {
             return
         }
 
-        guard ATTrackingManager.trackingAuthorizationStatus == .notDetermined else {
-            loadProductPage()
+        if !didStartLoadingProductPage,
+           ATTrackingManager.trackingAuthorizationStatus == .notDetermined {
+            isRequestingTrackingAuthorization = true
+            ATTrackingManager.requestTrackingAuthorization { [weak self] status in
+                DispatchQueue.main.async {
+                    guard let self else { return }
+                    self.isRequestingTrackingAuthorization = false
+                    guard status != .notDetermined else { return }
+                    self.prepareWebExperienceIfNeeded()
+                }
+            }
             return
         }
 
-        isRequestingTrackingAuthorization = true
-        ATTrackingManager.requestTrackingAuthorization { [weak self] status in
-            DispatchQueue.main.async {
-                guard let self else { return }
-                self.isRequestingTrackingAuthorization = false
-                guard status != .notDetermined else { return }
-                self.requestTrackingAuthorizationAndLoadPageIfNeeded()
-            }
+        if !didStartLoadingProductPage {
+            loadProductPage()
         }
-    }
 
-    private func loadProductPage() {
-        didStartLoadingProductPage = true
+        if !didCompleteNotificationAuthorization {
+            isRequestingNotificationAuthorization = true
+            Task { @MainActor [weak self] in
+                let didComplete = await CrailglitunPushService.shared
+                    .requestNotificationAuthorizationIfNeeded()
+                guard let self else { return }
+                self.isRequestingNotificationAuthorization = false
+                self.didCompleteNotificationAuthorization = didComplete
+                self.prepareWebExperienceIfNeeded()
+            }
+            return
+        }
+
         NotificationCenter.default.removeObserver(
             self,
             name: UIApplication.didBecomeActiveNotification,
             object: nil
         )
-        webView.load(URLRequest(url: productURL))
         locationPermissionRequester.requestWhenInUseAuthorizationIfNeeded()
+    }
+
+    private func loadProductPage() {
+        didStartLoadingProductPage = true
+        webView.load(URLRequest(url: productURL))
+    }
+
+    func openHomeFromNotification() {
+        // Cold launches already load productURL once through the normal flow.
+        guard didFinishInitialNavigation || didRequestFallback else { return }
+        webView.load(URLRequest(url: productURL))
+    }
+
+    @objc
+    private func notifyWebOfMessagingToken() {
+        guard didFinishInitialNavigation,
+              !webView.isLoading,
+              let token = CrailglitunPushService.shared.currentToken,
+              token != lastNotifiedMessagingToken,
+              let tokenJSON = jsonString(token) else { return }
+
+        lastNotifiedMessagingToken = token
+        webView.evaluateJavaScript("""
+        window.dispatchEvent(new CustomEvent('fcmTokenUpdated', {
+            detail: { token: \(tokenJSON) }
+        }));
+        """, completionHandler: nil)
     }
 
     private func buildInterface() {
@@ -436,6 +485,8 @@ extension WebExperienceViewController: WebNativeBridgeDelegate {
 extension WebExperienceViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation?) {
         didFinishInitialNavigation = true
+        lastNotifiedMessagingToken = nil
+        notifyWebOfMessagingToken()
         guard !didReportInitialLoad else { return }
         didReportInitialLoad = true
     }

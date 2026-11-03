@@ -1,6 +1,5 @@
 import FirebaseAuth
 import FirebaseCore
-import FirebaseMessaging
 import Foundation
 
 nonisolated enum FirebasePlatformServiceError: LocalizedError {
@@ -30,8 +29,10 @@ final class FirebasePlatformService {
     }
 
     func configure() {
-        guard FirebaseApp.app() == nil else { return }
-        FirebaseApp.configure()
+        if FirebaseApp.app() == nil {
+            FirebaseApp.configure()
+        }
+        CrailglitunPushService.shared.configure()
     }
 
     func signIn(
@@ -86,24 +87,6 @@ final class FirebasePlatformService {
         completion: @escaping @MainActor (Result<String, Error>) -> Void
     ) {
         configure()
-        Messaging.messaging().token { token, error in
-            let result: Result<String, Error>
-
-            if let error {
-                result = .failure(
-                    FirebasePlatformServiceError.messagingToken(error.localizedDescription)
-                )
-            } else if let token, !token.isEmpty {
-                result = .success(token)
-            } else {
-                result = .failure(
-                    FirebasePlatformServiceError.messagingToken("No token was returned.")
-                )
-            }
-
-            DispatchQueue.main.async {
-                completion(result)
-            }
-        }
+        CrailglitunPushService.shared.fetchMessagingToken(completion: completion)
     }
 }

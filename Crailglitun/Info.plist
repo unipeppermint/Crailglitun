@@ -38,9 +38,5 @@
 			</array>
 		</dict>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Location access is used to provide location-aware content in the product page.</string>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>Your device identifier is used to measure advertising effectiveness across other companies' apps and websites.</string>
 </dict>
 </plist>
