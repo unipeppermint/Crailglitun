@@ -23,6 +23,9 @@ xcuserdata/
 .build/
 .swiftpm/
 
+# CocoaPods dependencies (keep Podfile.lock and the workspace tracked)
+Pods/
+
 # Python script caches and virtual environments
 __pycache__/
 *.py[cod]
