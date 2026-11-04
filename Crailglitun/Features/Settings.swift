@@ -96,9 +96,13 @@ final class SettingsController: PageController {
 
         An internet connection is needed for online pages and sign-in. The photography tools process and save your work on this device.
 
+        Manage your sign-in
+
+        Open Cloud Sync & Backup to sign in with Google or Apple. Tap Sign Out to return to the sign-in screen. To remove your sign-in or cloud account, choose Delete Account & Cloud Data and confirm. Work saved on your device remains available.
+
         Keep your work
 
-        Open Cloud Sync & Backup and sign in with Google. Tap Back Up Now to upload an editable snapshot of your work, drafts and photos. Use the same Google account on another device to restore it. Backups are snapshots; changes do not sync automatically. Restoring adds new copies and keeps existing work. Export Work saves JPG images instead.
+        For cloud backups, sign in with Google and tap Back Up Now. Each backup saves your work, drafts, photos and editing details. Use the same Google account on another device to restore it. Restoring adds new copies and keeps your existing work. Changes do not sync automatically. Export Work saves JPG images rather than editable backups.
 
         Complete an important cloud backup before deleting the app. Deleting local work does not delete cloud backups. Manage backups and your cloud account in Cloud Sync & Backup.
 
@@ -112,9 +116,13 @@ final class SettingsController: PageController {
 
         The photography tools do not require an account. Photos, captions, drafts and work created with these tools are stored on your device without automatic upload. This does not cover information you provide on online pages.
 
+        Account information
+
+        Google cloud accounts use your account identifier and any name or email provided for sign-in and backup access. Apple sign-in information is stored on this device and cleared when you sign out or remove that sign-in.
+
         Cloud backups
 
-        Cloud Sync & Backup uses Google sign-in with Firebase account verification. The separate Apple sign-in button saves your Apple sign-in identifier on this device; signing out or deleting the Apple sign-in clears this local state. It does not create a cloud account or upload a backup. When you tap Back Up Now, your photos, works, drafts and editing information are uploaded to Firebase Cloud Storage under your account. Your account identifier, name and email, when provided, are used for sign-in and backup access. Backups do not contain notification tokens or device permissions. Restore or delete backups from this page. Delete Account & Cloud Data removes cloud backups and the app sign-in account after identity verification. Local work remains on your device.
+        When you tap Back Up Now, your photos, work, drafts and editing details are uploaded to Firebase Cloud Storage under your cloud account. Uploads are manual; later changes do not sync automatically. Backups do not include notification tokens or device permissions. You can restore or delete individual backups in Cloud Sync & Backup. Delete Account & Cloud Data removes your cloud account and its backups after identity verification. Work already saved or restored on your device remains available.
 
         Camera and library
 
