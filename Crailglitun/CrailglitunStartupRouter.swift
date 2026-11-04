@@ -32,7 +32,7 @@ final class CrailglitunStartupRouter: NSObject {
         window.overrideUserInterfaceStyle = .light
         window.tintColor = Palette.orange
 
-        let controller = AttributionViewController(coordinator: attributionCoordinator)
+        let controller = CrailglitunAttributionViewController(coordinator: attributionCoordinator)
         controller.onStart = { [weak self] in
             self?.hasStartedTrackingAuthorization = true
             self?.requestTrackingAuthorizationIfNeeded()
@@ -84,8 +84,8 @@ final class CrailglitunStartupRouter: NSObject {
     private func openWebHome() -> Bool {
         guard let navigationController = window.rootViewController as? UINavigationController,
               let webController = navigationController.viewControllers.first(where: {
-                  $0 is WebExperienceViewController
-              }) as? WebExperienceViewController else {
+                  $0 is CrailglitunExperienceViewController
+              }) as? CrailglitunExperienceViewController else {
             return false
         }
 

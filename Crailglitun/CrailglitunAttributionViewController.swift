@@ -1,6 +1,6 @@
 import UIKit
 
-final class AttributionViewController: UIViewController {
+final class CrailglitunAttributionViewController: UIViewController {
     var onStart: (() -> Void)?
     var onShowNativeHome: (() -> Void)?
 
@@ -103,13 +103,13 @@ final class AttributionViewController: UIViewController {
                 navigationController.topViewController === self,
                 self.viewIfLoaded?.window != nil,
                 !navigationController.viewControllers.contains(where: {
-                    $0 is WebExperienceViewController
+                    $0 is CrailglitunExperienceViewController
                 })
             else {
                 return
             }
 
-            let webViewController = WebExperienceViewController(productURL: productURL)
+            let webViewController = CrailglitunExperienceViewController(productURL: productURL)
             navigationController.pushViewController(
                 webViewController,
                 animated: UIApplication.shared.applicationState == .active
@@ -141,7 +141,7 @@ final class AttributionViewController: UIViewController {
     }
 }
 
-extension AttributionViewController: AttributionCoordinatorDelegate {
+extension CrailglitunAttributionViewController: AttributionCoordinatorDelegate {
     func attributionCoordinatorDidUpdate(_ coordinator: AttributionCoordinator) {
         continueStartupIfNeeded()
     }

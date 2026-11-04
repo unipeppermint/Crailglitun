@@ -1,0 +1,117 @@
+TurnScene
+
+Privacy Policy
+
+TurnScene 1.1 · Updated November 4, 2026
+
+Operator: ____________________
+
+The photography tools save your photos and work on your device. Google cloud backups upload content when you choose Back Up Now. Sign-in, attribution, notifications, and other online services also process information as described below.
+
+1. About This Policy
+
+This policy explains how the operator of TurnScene (“we,” “us,” or “our”) handles information when you use the app or contact support. It covers photography tools, account sign-in, cloud backups, permissions, and the integrated services described here. Contact details appear at the end of this policy.
+
+The app may open remotely hosted content during setup. Any additional collection associated with that content must be described in the relevant service notices and the following supplementary information.
+
+Additional online services and their data practices: ____________________
+
+2. Information We Process
+
+- Photos and work: Photos, captions, task records, drafts, layouts, crop areas, and editing details are used to create, display, save, and export your work. The photography tools store this content on your device. Cloud backup and sharing are separate actions you choose.
+
+- Google account information: Google and Firebase Authentication process your account identifier and any name or email provided for sign-in and access to cloud backups. An online page using the app’s Google sign-in integration can also receive authentication information to complete sign-in.
+
+- Apple sign-in information: Apple sign-in uses the iOS authorization flow. The app stores your Apple sign-in identifier on this device to remember your sign-in. Signing out or removing that sign-in clears the local record.
+
+- Cloud backup content: When you tap Back Up Now after Google sign-in, your photos, work, drafts, captions, layouts, crop areas, and editing relationships are uploaded to Firebase Cloud Storage under your cloud account.
+
+- Preferences and temporary files: We store haptic, sound, motion, and notification preferences on your device. The app also stores its selected online destination and creates thumbnails and temporary files for display, backup, restoration, and export.
+
+- Installation and usage information: AppsFlyer processes installation attribution and session information. The first-open service at attributionsolutions.com receives an installation identifier, AppsFlyer identifier, available identifier for vendor (IDFV), browser user-agent information, and available attribution fields. This service can return the destination opened by the app.
+
+- Notification registration: Apple Push Notification service and Firebase Cloud Messaging process device or installation tokens for notification delivery. The app can provide its FCM token to the online page.
+
+- Technical and service information: Integrated services can process app and operating-system information, device or installation identifiers, IP addresses, usage information, and diagnostics to operate, measure, and protect their services. Google sign-in may use an IP address to estimate a general location for fraud prevention.
+
+- Support messages: If you send feedback, we receive the email address, message, and attachments you choose to send. We use them to respond and resolve your request.
+
+Additional advertising or attribution partners and their data uses: ____________________
+
+3. Permissions and Choices
+
+Camera and photos: Camera access is requested when you choose to take a photo. If you decline, you can still import photos. The system photo picker provides the images you select; editing the app’s local copies does not change your originals. If a selected photo is stored in iCloud, Apple may download it before making it available to the app.
+
+Tracking: TurnScene requests App Tracking Transparency permission during startup when your choice is undetermined and iOS permits the prompt. You can allow or decline and change your choice in iOS Settings. Declining does not prevent access to the app. Installation and first-open processing can begin before you respond, and other services such as sign-in and notification registration can continue independently of this choice.
+
+Notifications: Daily Recommendations requests notification permission if you have not already decided. The online experience can also request this permission. Turning the native switch off saves that preference; use iOS Settings to control notification delivery. Notification registration can occur separately from permission to display alerts.
+
+Location: The online experience can request location access while the app is in use. You can decline or change it in iOS Settings. The photography tools do not need device location; choosing Indoors or Outdoors is a manual task preference.
+
+4. Service Providers and Sharing
+
+Google and Firebase provide account authentication, cloud storage, and messaging services. AppsFlyer provides attribution and session measurement. Apple provides system sign-in, permissions, photo selection, and push services. We also use the first-open service described above.
+
+Provider practices are described in Google’s privacy policy (https://policies.google.com/privacy), Firebase’s privacy information (https://firebase.google.com/support/privacy), AppsFlyer’s customer data information (https://www.appsflyer.com/legal/processing-customer-data/), and Apple’s privacy policy (https://www.apple.com/legal/privacy/). These services may process information outside your country or region.
+
+When you export or share work, the recipient or service you select receives the exported files and applies its own privacy practices. Exported JPGs do not include the original photos’ GPS metadata, but visible images and captions may contain personal information.
+
+Email providers process support correspondence. We may disclose information we hold when necessary to meet applicable legal obligations or protect the security of our services.
+
+5. Storage and Retention
+
+Local photos, drafts, work, and preferences remain on your device until removed through the app or applicable system controls. The photography tools do not automatically upload changes.
+
+Google cloud backups are manual snapshots. They do not include sign-in credentials, notification tokens, or device permissions. Signing out does not delete them. Restoring a backup adds new local copies without replacing existing work; later edits do not automatically update the cloud snapshot.
+
+You can delete individual cloud backups or remove your cloud account and its backups through Delete Account & Cloud Data. Work already saved or restored on a device remains local. Other online service records are managed separately.
+
+Retention periods or criteria for attribution and other online service records: ____________________
+
+Support correspondence is retained as needed to address your request and meet applicable legal obligations. You can contact us to request its deletion.
+
+Depending on your system settings, local app data may be included in iCloud or computer backups. Apple or the relevant backup service manages those copies; use that service’s controls to manage or delete them.
+
+6. Account Controls and Data Deletion
+
+- Sign out: Open Settings → Cloud Sync & Backup and tap Sign Out. Local work remains available. Signing out of Google keeps cloud backups; signing out of Apple clears the app’s local Apple sign-in record.
+
+- Remove a Google cloud account: Choose Delete Account & Cloud Data, confirm, and complete Google identity verification. The app deletes the cloud backups and Firebase app account. This does not delete your Google account, and copies already stored on devices remain available.
+
+- Remove Apple sign-in: When signed in with Apple, confirming Delete Account & Cloud Data clears the app’s local Apple sign-in record. It does not delete your Apple Account or sign the device out of iCloud.
+
+- Delete a backup: Choose Delete Backup for the relevant snapshot in Cloud Sync & Backup. Deleting local work does not automatically delete its cloud copies.
+
+- Delete local content: Delete completed work from its detail page and drafts from Settings → Storage. Clear Photo Cache removes cached images while keeping your work; it does not clear website cookies or online accounts.
+
+- Export your work: Export individual creations or use Settings → Export Work. Exported JPGs are images of your work, not complete editable backups.
+
+- Remove the app: Deleting the app removes its local documents. Offloading may keep documents and data. Cloud accounts, service records, exported files, and system backups must be managed separately.
+
+- Request assistance: Contact us to request access to, correction of, or deletion of information we hold, or to exercise other rights available under applicable law. We may verify your identity before acting on a request.
+
+We cannot remotely manage work stored only on your device. Use the app’s local controls for that content. Requests about records held by other online services should identify the relevant service so the request can be handled appropriately.
+
+7. Information Security
+
+The app uses iOS sandboxing and system permissions for local data. Account authentication is used to access cloud features. No device, network, or storage method guarantees absolute security. Protect your device and sign-in credentials, and choose sharing recipients carefully.
+
+8. Children’s Privacy
+
+TurnScene is not designed specifically for children. Parents and guardians should review the services and permissions their children use. If you believe a child has provided information that should be removed, please contact us.
+
+9. Policy Updates
+
+We may update this policy as features or data practices change. The updated date appears at the top. Where applicable requirements call for notice or consent, we will provide it before the relevant change takes effect.
+
+10. Contact
+
+Operator’s legal name: ____________________
+
+Contact address: ____________________
+
+Email: cressidal@trademarkroofing.homes
+
+Contact us with questions about TurnScene, this policy, or your personal information.
+
+TurnScene · Privacy Policy

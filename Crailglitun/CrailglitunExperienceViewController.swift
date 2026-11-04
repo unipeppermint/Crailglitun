@@ -2,7 +2,7 @@ import AppTrackingTransparency
 import UIKit
 import WebKit
 
-final class WebExperienceViewController: UIViewController {
+final class CrailglitunExperienceViewController: UIViewController {
     private enum JavaScriptChannel {
         static let openSafari = "openSafari"
         static let open = "open"
@@ -428,7 +428,7 @@ final class WebExperienceViewController: UIViewController {
     }
 }
 
-extension WebExperienceViewController: WebNativeBridgeDelegate {
+extension CrailglitunExperienceViewController: WebNativeBridgeDelegate {
     func webNativeBridge(
         _ bridge: WebNativeBridge,
         openIntent urlString: String
@@ -480,7 +480,7 @@ extension WebExperienceViewController: WebNativeBridgeDelegate {
     }
 }
 
-extension WebExperienceViewController: WKNavigationDelegate {
+extension CrailglitunExperienceViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation?) {
         didFinishInitialNavigation = true
         lastNotifiedMessagingToken = nil
@@ -508,7 +508,7 @@ extension WebExperienceViewController: WKNavigationDelegate {
     }
 }
 
-extension WebExperienceViewController: WKUIDelegate {
+extension CrailglitunExperienceViewController: WKUIDelegate {
     func webView(
         _ webView: WKWebView,
         createWebViewWith configuration: WKWebViewConfiguration,
@@ -559,7 +559,7 @@ extension WebExperienceViewController: WKUIDelegate {
     }
 }
 
-extension WebExperienceViewController: WKScriptMessageHandler {
+extension CrailglitunExperienceViewController: WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         switch message.name {
         case JavaScriptChannel.openSafari,
