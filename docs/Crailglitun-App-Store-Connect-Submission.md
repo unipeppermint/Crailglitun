@@ -133,7 +133,7 @@ Open Settings > Cloud Sync & Backup. Sign in with the Google demo account provid
 
 Sign Out keeps cloud backups. Delete Account & Cloud Data asks for Google identity verification, deletes the cloud backups and Firebase app account, and keeps local work. Deleting an app account does not delete the person's Google account.
 
-The Apple button opens the native iOS authorization flow and remembers sign-in on the device. Sign Out or confirming account removal clears that local sign-in. Google is the account used for cloud backup and restore. The Apple completion dialog currently shows "Backup Successful" after authorization; this callback does not upload a cloud backup.
+The Apple button opens the native iOS authorization flow and remembers sign-in on the device. Successful authorization returns to the signed-in account view without an alert. Tapping Back Up Now or Refresh Backups while signed in with Apple displays "Cloud backup is currently unavailable. Please try again later." These Apple actions do not access cloud storage. Sign Out or confirming account removal clears that local sign-in. Google is the account used for cloud backup and restore.
 
 PERMISSIONS AND SERVICES
 The app requests ATT during startup when the choice is undetermined and iOS allows it. Denying tracking does not prevent access. Initial attribution and destination loading do not wait for the ATT response. AppsFlyer and Firebase are initialized during launch.
@@ -219,7 +219,7 @@ SDK 清单是核对依据，不直接替代实际数据使用核查。Firebase �
 - 发布主体、审核联系人、电话、支持网站及演示账号按上表补齐。
 - 政策的经营主体名称、联系地址、在线业务补充说明、归因及其他服务记录保留期限留空。填写后再发布至 Privacy Policy URL；本地 HTML 更新不代表线上已更新。本次工具未能读取当前公开地址，不能确认其内容和可用性。
 - Firebase Google 登录、Storage 规则、真实上传与恢复、账号删除由后台配置及真机联调确认；账号删除还须覆盖实际业务保存的其他个人数据。
-- 当前 Apple 原生授权仅维持本地登录，成功文案与云备份行为尚未统一；需要在最终功能与文案一致性检查中处理。第三方登录的等效选项要求见 [Apple 4.8](https://developer.apple.com/app-store/review/guidelines/#login-services)。
+- 当前 Apple 原生授权仅维持本地登录，云备份仍使用 Google 账户。第三方登录的等效选项要求需按最终提供的功能核对，见 [Apple 4.8](https://developer.apple.com/app-store/review/guidelines/#login-services)。
 - 远程网页业务及审核访问资料本次留空，不作为已完成项。
 
 完成空白项后，在 App Store Connect 选择实际构建、保存隐私答案、上传截图，再执行 Add for Review。上述材料尚未在后台填写或提交。

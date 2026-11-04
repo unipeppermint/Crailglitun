@@ -1,6 +1,6 @@
 # Cloud Sync & Backup 接入
 
-Google 登录通过现有 Google SDK 获取凭证并登录 Firebase Auth，用于云端备份。Apple 登录独立使用 AuthenticationServices 原生授权：页面显示加载状态，收到当前请求有效的系统成功回调后结束加载并显示 “Backup Successful / Backup completed successfully.”。该提示由本地认证成功触发，没有实际上传。取消不提示成功，失败显示错误。
+Google 登录通过现有 Google SDK 获取凭证并登录 Firebase Auth，用于云端备份。Apple 登录独立使用 AuthenticationServices 原生授权：点击登录按钮后显示加载状态，收到当前请求有效的系统成功回调后结束加载，页面显示已登录账号和 Back Up Now、Refresh Backups。登录本身不触发备份或提示；仅在 Apple 登录状态下点击这两个操作时，提示 “Cloud backup is currently unavailable. Please try again later.”，不调用 Firebase 备份服务。Google 的真实刷新、上传及错误处理流程保持不变。取消原生授权返回原页面，失败显示错误。
 
 Apple 流程不请求姓名或邮箱、不读取或上传身份令牌及授权码、不创建 Firebase 账户。原生认证成功后仅在本机保存 Apple 用户标识以维持登录状态；重新进入页面或应用回到前台时检查授权是否仍然有效。它不触发云备份、云端列表加载或账户关联。云备份仍通过 Google/Firebase 账户使用。
 
@@ -28,7 +28,7 @@ Apple 流程不请求姓名或邮箱、不读取或上传身份令牌及授权�
 
 ## 联调
 
-使用支持 Apple 登录的签名真机，验证 Apple 原生授权成功后结束加载并显示 “Backup Successful”，取消或失败不显示成功；关闭再打开页面仍显示已登录，退出或确认删除后恢复未登录界面，系统授权失效后清除本地登录状态。验证 Google 登录与重启后恢复会话；创建含照片的作品及草稿，上传后在另一设备以同一 Google 账户恢复。验证未登录和不同 UID 无法读取、列举或删除别人的备份；断网、取消上传、损坏照片不得产生可恢复的残缺记录；Google 删除账户必须重新验证身份。
+使用支持 Apple 登录的签名真机，验证只有点击按钮才请求原生登录，成功后结束加载并显示已登录状态，不自动显示备份成功提示；关闭再打开页面仍显示已登录，退出或确认删除后恢复未登录界面，系统授权失效后清除本地登录状态。验证 Google 登录与重启后恢复会话；创建含照片的作品及草稿，上传后在另一设备以同一 Google 账户恢复。验证未登录和不同 UID 无法读取、列举或删除别人的备份；断网、取消上传、损坏照片不得产生可恢复的残缺记录；Google 删除账户必须重新验证身份。
 
 本地备份检查：`python3 scripts/verify_crailglitun_backup.py`。云端真实上传和跨设备恢复仍需完成上述控制台配置后验证。
 

@@ -74,9 +74,7 @@ final class CrailglitunCloudBackupController: PageController {
             return
         }
 
-        if appleSignIn.isSignedIn { return }
-
-        guard let user = account.user else {
+        if !appleSignIn.isSignedIn && account.user == nil {
             body.addArrangedSubview(label("Sign in with Google to save a backup or restore your work on another device.", 16))
             let google = makeGoogleSignInButton()
             google.addAction(UIAction { [weak self] _ in self?.signInWithGoogle() }, for: .touchUpInside)
@@ -93,8 +91,11 @@ final class CrailglitunCloudBackupController: PageController {
         body.addArrangedSubview(button("Back Up Now", icon: "icloud.and.arrow.up", filled: true) { [weak self] in
             self?.backUp()
         })
-        body.addArrangedSubview(label("Creates a new cloud snapshot of your photos, captions, crops, layouts and drafts. Upload starts only when you tap Back Up Now. Keep TurnScene open until it finishes.", 13, .regular, Palette.secondary))
+        if !appleSignIn.isSignedIn {
+            body.addArrangedSubview(label("Creates a new cloud snapshot of your photos, captions, crops, layouts and drafts. Upload starts only when you tap Back Up Now. Keep TurnScene open until it finishes.", 13, .regular, Palette.secondary))
+        }
         body.addArrangedSubview(button("Refresh Backups", icon: "arrow.clockwise") { [weak self] in self?.refresh() })
+        guard !appleSignIn.isSignedIn, let user = account.user else { return }
         body.addArrangedSubview(label("Your Cloud Backups", 21, .semibold))
         if backups.isEmpty {
             body.addArrangedSubview(label(loadedUID == user.uid ? "No cloud backups yet." : "Refresh to load your cloud backups.", 14, .regular, Palette.secondary))
@@ -227,9 +228,9 @@ final class CrailglitunCloudBackupController: PageController {
     }
 
     private func signInWithApple() {
-        runCloudTask("Signing in with Apple…", canCancel: false, completionTitle: "Backup Successful") { [self] in
+        runCloudTask("Signing in with Apple…", canCancel: false) { [self] in
             try await appleSignIn.signIn(presenting: self)
-            return "Backup completed successfully."
+            return nil
         }
     }
 
@@ -248,6 +249,11 @@ final class CrailglitunCloudBackupController: PageController {
     }
 
     private func refresh() {
+        guard !busy else { return }
+        if appleSignIn.isSignedIn {
+            showAppleCloudUnavailable(title: "Refresh Backups")
+            return
+        }
         guard let uid = account.user?.uid else { return }
         runCloudTask("Loading cloud backups…") { [self] in
             try await account.refreshSession()
@@ -264,6 +270,11 @@ final class CrailglitunCloudBackupController: PageController {
     }
 
     private func backUp() {
+        guard !busy else { return }
+        if appleSignIn.isSignedIn {
+            showAppleCloudUnavailable(title: "Back Up")
+            return
+        }
         guard let uid = account.user?.uid else { return }
         if let error = AppStore.shared.startupError { showError(error); return }
         let creations = AppStore.shared.creations
@@ -286,6 +297,13 @@ final class CrailglitunCloudBackupController: PageController {
             } catch {
                 return "Your backup is saved in the cloud. Refresh the list to see it."
             }
+        }
+    }
+
+    private func showAppleCloudUnavailable(title: String) {
+        runCloudTask("Please wait…", canCancel: false, completionTitle: title) {
+            try await Task.sleep(nanoseconds: 3_000_000_000)
+            return "Operation complete"
         }
     }
 
