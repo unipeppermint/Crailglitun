@@ -1,13 +1,25 @@
+import AppTrackingTransparency
 import UIKit
 
 @MainActor
-final class CrailglitunStartupRouter {
+final class CrailglitunStartupRouter: NSObject {
+    static let trackingAuthorizationDidResolve = Notification.Name(
+        "Crailglitun.trackingAuthorizationDidResolve"
+    )
+
     private let window: UIWindow
     private let attributionCoordinator: AttributionCoordinator
+    private var hasStartedTrackingAuthorization = false
+    private var isRequestingTrackingAuthorization = false
 
     init(window: UIWindow, attributionCoordinator: AttributionCoordinator) {
         self.window = window
         self.attributionCoordinator = attributionCoordinator
+        super.init()
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     func start() {
@@ -21,6 +33,10 @@ final class CrailglitunStartupRouter {
         window.tintColor = Palette.orange
 
         let controller = AttributionViewController(coordinator: attributionCoordinator)
+        controller.onStart = { [weak self] in
+            self?.hasStartedTrackingAuthorization = true
+            self?.requestTrackingAuthorizationIfNeeded()
+        }
         let navigationController = UINavigationController(rootViewController: controller)
         navigationController.navigationBar.prefersLargeTitles = false
         navigationController.setNavigationBarHidden(true, animated: false)
@@ -32,7 +48,37 @@ final class CrailglitunStartupRouter {
             self.showNativeHome()
         }
         window.rootViewController = navigationController
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(requestTrackingAuthorizationIfNeeded),
+            name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
         window.makeKeyAndVisible()
+    }
+
+    @objc
+    private func requestTrackingAuthorizationIfNeeded() {
+        guard hasStartedTrackingAuthorization,
+              !isRequestingTrackingAuthorization,
+              UIApplication.shared.applicationState == .active,
+              window.rootViewController?.viewIfLoaded?.window != nil,
+              ATTrackingManager.trackingAuthorizationStatus == .notDetermined else { return }
+
+        isRequestingTrackingAuthorization = true
+        // The scene retains this router even after the launch controller is replaced.
+        ATTrackingManager.requestTrackingAuthorization { [weak self] status in
+            DispatchQueue.main.async {
+                guard let self else { return }
+                self.isRequestingTrackingAuthorization = false
+                // If iOS could not show the prompt, retry on a later activation.
+                guard status != .notDetermined else { return }
+                NotificationCenter.default.post(
+                    name: Self.trackingAuthorizationDidResolve,
+                    object: nil
+                )
+            }
+        }
     }
 
     private func openWebHome() -> Bool {

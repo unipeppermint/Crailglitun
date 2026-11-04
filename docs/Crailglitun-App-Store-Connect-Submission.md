@@ -1,8 +1,10 @@
-# TurnScene App Store Connect 提交资料
+# TurnScene 1.1 App Store Connect 提交资料
 
-适用于当前 TurnScene 1.0 首次提交：英文界面、iPhone、iOS 15.0 及以上，6 个主题、60 个摄影任务，无账号、广告、内购或订阅。以下英文文案可直接复制；标有“待填写”或“待确认”的内容须按开发者账号及实际运营情况补齐。此文档不代表已在 App Store Connect 填写或上传构建。
+核对日期：2026-11-04。当前工程 Debug / Release 均为 **1.1 (1)**，英文界面、iPhone、iOS 15.0 及以上。原生部分包含 6 个主题、60 个摄影任务；应用还包含由服务端归因结果决定的远程网页体验、AppsFlyer、Firebase Core/Auth/Messaging、Google Sign-In、ATT、通知及定位权限流程。
 
-## 新建应用与基本信息
+本文根据本地实现更正提交资料，不代表已修改 App Store Connect、线上隐私政策或上传构建。**远程网页的实际业务、登录要求、支付/广告内容及服务端数据用途尚待确认，因此含 `[REQUIRED: ...]` 的英文草稿不能直接提交。** 原生摄影功能的本地存储、无登录要求等说明，不代表整款应用不联网、不收集数据或不存在账号功能。
+
+## 应用与版本基本信息
 
 | App Store Connect 字段 | 内容 | 说明 |
 | --- | --- | --- |
@@ -13,11 +15,11 @@
 | SKU | Crailglitun-TurnScene-iOS | 新建记录时可用的建议值；若已有记录，保留原 SKU |
 | User Access | 按团队需要选择 Full Access 或 Limited Access | 只控制团队成员访问权限 |
 | Apple ID | Apple 自动生成 | 不自行编造 |
-| Subtitle | Everyday Photo Prompts | 22 字符 |
-| Primary Category | Photo & Video | 按摄影引导、照片创作与导出的主要用途选择 |
-| Secondary Category | Lifestyle | 可选，也可留空 |
-| Version | 1.0 | 当前工程版本号 |
-| Build | 1 | 当前工程构建号；最终选择后台已处理完成的实际上传构建 |
+| Subtitle | Everyday Photo Prompts | 22 字符，原生摄影候选；需与完整产品定位一致 |
+| Primary Category | Photo & Video（原生摄影部分适用） | 须结合远程网页实际核心体验确认整款应用分类 |
+| Secondary Category | Lifestyle（待确认） | 可选，也可留空；以完整产品定位为准 |
+| Version | 1.1 | 当前工程版本号，按 1.1 准备本次版本资料 |
+| Build | 1 | 当前工程构建号；最终选择版本为 1.1 且已处理完成的实际上传构建 |
 | Minimum iOS | 15.0 | 由二进制决定，非商店介绍文案 |
 | License Agreement | Apple Standard EULA | 暂无自定义 EULA |
 | Made for Kids | No | 普通摄影工具，不申报儿童专区 |
@@ -29,7 +31,7 @@
 
 ### Promotional Text
 
-150 字符，限制为 170 字符。
+以下 150 字符，仅描述原生摄影部分；完整产品定位确认后再决定是否保留。限制为 170 字符。
 
 ```text
 Find a fresh photo idea in minutes. Explore 60 guided tasks, turn everyday details into photo stories, and build a personal collection on your device.
@@ -37,7 +39,7 @@ Find a fresh photo idea in minutes. Explore 60 guided tasks, turn everyday detai
 
 ### Description
 
-以下为纯文本，直接复制到描述字段。
+以下为原生摄影文案及在线功能草稿。补齐在线功能段落后，按两种体验的实际主要用途调整标题、篇幅及分类；不要将摄影部分单独当作整款应用的完整描述提交。
 
 ```text
 See the familiar in a new way with TurnScene.
@@ -59,12 +61,17 @@ Keep completed creations together on your device. Revisit the same task to make 
 EXPORT AND SHARE
 Export individual creations or a selection of works as JPG images, then choose where to save or share them using the iOS share sheet.
 
-CREATE WITHOUT AN ACCOUNT
-No sign-up is required. Photos, captions, drafts, and creations are processed and stored on your device. TurnScene does not automatically upload your creative content to the developer. You control what you share, and feedback is sent only when you choose to send an email.
+LOCAL PHOTOGRAPHY TOOLS
+The native photography tools do not require sign-up. Photos, captions, drafts, and creations made with these tools are processed and stored on your device. These tools do not automatically upload your creative content to the developer. You control what you export and share.
 
-Adjust haptics, sound, and motion in Settings. Core photography tasks and local editing work offline; the online privacy policy and sending feedback require connectivity.
+ONLINE FEATURES
+[REQUIRED: Describe the actual online product, its main user-facing features, when it is available, and any account or payment requirements. Explain its relationship to the photography tools.]
 
-Export important work before deleting the app. Exported images are not editable draft backups.
+Adjust haptics, sound, and motion in the native Settings screen. Daily Recommendations provides access to the notification permission request; notification delivery can be managed in iOS Settings.
+
+The app uses online services for installation attribution, sign-in, and notifications. Internet access is needed during initial setup and for online features. Native photo editing and storage happen on your device. Feedback is sent only when you choose to send an email.
+
+Sign in with Google in Settings > Cloud Sync & Backup, then tap Back Up Now to save an editable cloud snapshot. Use the same account to restore on another device. Restoration adds new copies; edits do not sync automatically. Export Work saves JPG images instead of editable backups.
 
 Support: cressidal@trademarkroofing.homes
 Privacy Policy: https://tkzcpoj.netlify.app/turnscene/privacy-policy/
@@ -72,7 +79,7 @@ Privacy Policy: https://tkzcpoj.netlify.app/turnscene/privacy-policy/
 
 ### Keywords
 
-以下正好 100 个 ASCII 字节；不要添加空格、换行或尾随逗号。
+以下为原生摄影部分的候选关键词，正好 100 个 ASCII 字节；需结合远程产品调整。不要添加空格、换行或尾随逗号。
 
 ```text
 photography,inspiration,creative,journal,challenge,camera,composition,collage,storytelling,portfolio
@@ -83,17 +90,27 @@ photography,inspiration,creative,journal,challenge,camera,composition,collage,st
 | 字段 | 填写内容 |
 | --- | --- |
 | Privacy Policy URL | https://tkzcpoj.netlify.app/turnscene/privacy-policy/ |
-| Support URL | 优先使用独立支持页的真实公开地址；目前已有页面的联系段落可作为现有联系方式入口：https://tkzcpoj.netlify.app/turnscene/privacy-policy/#contact |
+| Support URL | 待验证正式支持页；现有候选为 https://tkzcpoj.netlify.app/turnscene/privacy-policy/#contact ，须确认公开可访问且包含有效支持方式 |
 | Marketing URL | 可留空，尚未提供正式产品官网 |
-| Privacy Choices URL | 可留空；隐私政策内已有本地删除与隐私联系说明 |
-| What’s New in This Version | 首次提交 1.0 无此字段，不必填写 |
+| Privacy Choices URL | 如提供，填写覆盖账号、归因、推送及其他实际数据处理的公开管理或联系页面；不能只依据本地作品删除说明填写 |
+| What’s New in This Version | 按 1.1 更新填写，见下方草稿；发布差异须与实际上一版核对 |
 | Routing App Coverage File | 不适用，不上传 |
 | App Clip、iMessage、Apple Watch 专属资料 | 当前不适用 |
-| App Preview 视频 | 可选，首发可不提供 |
+| App Preview 视频 | 可选；如提供，应体现 1.1 的实际体验 |
 
-Support URL 必须通向可用的联系方式，不能把 `mailto:` 当成支持网站，也不要填写尚未部署的 `/support/` 地址。当前隐私政策联系段落能展示邮箱，但作为长期支持页面，建议增加常见问题、反馈方式和数据恢复说明后使用独立 URL。
+Support URL 必须通向可用的联系方式，不能把 `mailto:` 当成支持网站，也不要填写尚未部署的 `/support/` 地址。本次工具未能读取上述线上隐私页面，未确认其最新正文及联系段落；提交前需实际打开核对，并补齐 AppsFlyer、Firebase、Google 登录、自建归因服务、远程网页的数据用途、保存和删除方式。
 
-描述上限为 4,000 字符；关键词上限为 100 字节。首次版本无 What’s New 字段。规则依据：[Apple Platform version information](https://developer.apple.com/help/app-store-connect/reference/app-information/platform-version-information)。
+### What’s New in Version 1.1
+
+以下是已知权限流程的英文草稿；需结合实际上一版和远程网页变化补齐，不能把未修复的启动或网页加载问题写成已修复。
+
+```text
+Updated notification and privacy permission flows.
+Use Daily Recommendations in the native Settings screen to request notification permission. Notification delivery remains manageable in iOS Settings.
+[REQUIRED: Add the actual online product features and other changes introduced in version 1.1.]
+```
+
+描述上限为 4,000 字符；关键词上限为 100 字节。1.1 若为已上架应用的更新，需要填写该版本的更新内容；是否已有上架版本不能仅从工程版本号推定。规则依据：[Apple Platform version information](https://developer.apple.com/help/app-store-connect/reference/app-information/platform-version-information)。
 
 ## App Review Information
 
@@ -105,33 +122,47 @@ Support URL 必须通向可用的联系方式，不能把 `mailto:` 当成支持
 | Last Name | [待填写：审核联系人的真实姓氏] |
 | Phone Number | [待填写：国际格式联系电话，例如 +86 后接实际号码] |
 | Email | cressidal@trademarkroofing.homes，仅在此邮箱有人接收审核邮件时使用；否则改为实际审核联系人邮箱 |
-| Sign-in required | 不勾选 |
-| Username / Password | 留空；应用无账号系统 |
-| Attachment | 通常可留空；若附演示视频，使用最终构建录制的真实流程 |
+| Sign-in required | 原生摄影无需登录，云备份需要 Google 登录。Apple 按钮只完成本机原生授权并显示成功提示，不提供云备份访问；远程网页要求另行补齐 |
+| Username / Password | 说明云备份的 Google 登录方式及测试步骤；远程网页如另需账号，应提供有效演示账号或可用演示方式 |
+| Attachment | 如附演示视频，使用最终 1.1 构建录制两种实际体验；视频不能替代可供审核的功能和账号 |
 
 联系人资料是给审核团队使用的，不能用虚构姓名或电话号码代替。[Apple 审核信息字段](https://developer.apple.com/help/app-store-connect/reference/app-information/platform-version-information)。
 
 ### Notes
 
+以下按实际启动代码说明两种体验。提交前必须补齐远程网页业务、访问方式和必要账号，验证审核人员可以访问全部功能；不能只给出原生摄影步骤。现行 2.3.1 要求具体说明新功能并可供审核，2.5.19 禁止隐藏或未披露功能。ATT 弹窗不代替这些披露。[Apple App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/)
+
 ```text
-TurnScene is a photography prompt and local photo creation app for iPhone. No account, login, subscription, or in-app purchase is required.
+TurnScene 1.1 includes native photography tools and a remotely hosted web experience.
 
-Suggested review flow:
-1. On the TurnScene home screen, choose Indoors or Outdoors and a 5, 10, or 20-minute time window.
-2. Tap Spin, or select reel choices manually, then open the task preview. Reels select compatible photography prompts; there are no wagers, prizes, virtual currency, gambling, or casino gameplay.
-3. Tap Start Creating. Add a photo for each step using Take Photo or Choose from Library. Camera access is optional; library import remains available if camera access is denied. Camera capture requires a physical device with a camera.
-4. Crop or reorder photos, add a caption, and tap Save Work. Confirm the save, then view the creation in Portfolio.
-5. Open a saved creation to use Export Work or Try This Task Again. Settings also provides batch export and storage management.
+Launch behavior:
+AppsFlyer and Firebase are configured during launch. ATT is requested when undetermined after the launch screen becomes visible and the app is active. AppsFlyer starts when its session is ready, and first-open attribution runs independently of the ATT response. The app proceeds to its destination when attribution resolves, even while ATT is unanswered. Notification and location prompts wait until ATT is resolved.
 
-The app includes 6 themes and 60 bundled photography tasks. The bundled theme cover images are illustrative assets, not user creations. The app does not offer an image-generation service or automatically evaluate user photos.
+The first-open service can return a product URL, opened in WKWebView and cached for later launches. A resolved flow without a URL, or a failed request without a cached URL, opens the native photography interface. There is no manual switch between experiences.
 
-Photos, captions, drafts, and finished creations are stored locally. Core tasks and editing work offline. The online privacy policy and email feedback require connectivity. There is no public feed, user-to-user messaging, advertising SDK, analytics SDK, or developer-operated photo upload service.
+Online product and review access:
+[REQUIRED: Describe the web product and all significant features, including any advertising, payments, or regulated content.]
+[REQUIRED: Explain production routing conditions and reproducible access to both experiences in this build.]
+[REQUIRED: Provide the domain, review steps, required demo credentials or demo mode, and account deletion steps if applicable.]
 
-Privacy policy: Home > Settings > Privacy > View Full Privacy Policy. The full policy opens in an in-app WKWebView.
+The web bridge supports Google/Firebase login and FCM tokens. On entry, the web controller requests notification permission if undetermined, followed by location permission if eligible. Specify login requirements above.
 
-Feedback: Home > Settings > Feedback. Enter an email address and description, then tap Submit Feedback. This prepares an email for the user to review and send using the system mail composer or an available email app. It is not a server submission form. If no email app can open, the user can copy the feedback and support address. Canceling the mail composer preserves the form while the feedback screen remains open. Photos and app data are not automatically attached.
+Native photography review flow:
+1. Choose Indoors or Outdoors and a 5, 10, or 20-minute task. Tap Spin or select conditions manually. The native reels select photo prompts, with no wagers, prizes, or gambling.
+2. Tap Start Creating. Take a photo on a physical device or choose photos from the library. Import remains available if camera permission is denied.
+3. Crop or reorder photos, add a caption, and tap Save Work. View the result in Portfolio, then Export Work or Try This Task Again.
+4. In Settings, turn on Daily Recommendations to request notification permission if undetermined. Turning it off only saves the native UI preference; it does not revoke system permission or disable web push. No daily local recommendation is scheduled.
 
-Local data can be managed in Settings > Storage and on creation detail pages. Exported JPG images do not restore editable drafts.
+The native tools include 6 themes and 60 tasks. Cover images are illustrative assets. Native photography requires no account and keeps photos, captions, drafts, and work locally, without automatic upload. Local deletion does not delete online records. Startup depends on network services; offline first-launch access is not guaranteed.
+
+Attribution and services:
+AppsFlyer measures installation attribution and sessions. The separate first-open request to https://attributionsolutions.com/tracking-api/attribution/first-open sends an installation identifier, AppsFlyer UID, available IDFV, web user agent, and available attribution fields. SDK integrations are configured before choosing the destination and also apply to native launches.
+
+Native Settings provides Storage, batch export, and Privacy > View Full Privacy Policy. Exported JPGs are not editable backups.
+
+Cloud Sync & Backup uses Google/Firebase sign-in. The separate native Apple authorization displays a local "Backup Successful" message after authorization; it does not create a cloud account, upload data or enable backup access. Apple sign-in is remembered locally; Sign Out or confirming Delete Account clears that local state. Both account controls remain visible, disabled when signed out or busy. Back Up Now uploads photos, work, drafts and editing metadata to private account storage. Restore adds new copies. Individual backup deletion, sign-out and account deletion are available. Upload is manual; app edits do not sync automatically.
+
+Feedback: Settings > Feedback prepares an email for the user to review and send. If email is unavailable, the user can copy the message and support address. Photos and app data are not automatically attached.
 
 Support: cressidal@trademarkroofing.homes
 Privacy policy: https://tkzcpoj.netlify.app/turnscene/privacy-policy/
@@ -139,81 +170,88 @@ Privacy policy: https://tkzcpoj.netlify.app/turnscene/privacy-policy/
 
 ## App Privacy 填写方案
 
-当前反馈表单会把用户邮箱和描述放入邮件，并由用户主动发送。开发者收到后即可保留这些信息。因此建议申报以下两项，不直接把当前版本填成 Data Not Collected。
+不能沿用“仅收集反馈邮件”的 1.0 填法。填写范围需包含原生功能、远程网页、自己的服务端以及所有已集成 SDK；不能因为用户进入原生页面、拒绝 ATT 或没有使用登录，就把整款应用填成 Data Not Collected。是否属于 Apple 所定义的收集，需结合离开设备后的访问和保存方式确认。[Apple App Privacy Details](https://developer.apple.com/app-store/app-privacy-details/)
 
-| 问题或数据项 | 建议答案 |
+### 本地代码已确认的数据流
+
+| 来源 | 已确认行为 |
 | --- | --- |
-| Do you or your third-party partners collect data from this app? | Yes，按反馈邮件披露方案填写 |
-| Contact Info → Email Address | 勾选 |
-| User Content → Customer Support | 勾选 |
-| 上述两项的用途 | App Functionality，用于回应反馈与提供支持 |
-| 上述两项是否 linked to the user | Yes，反馈内容与邮箱关联；无应用账号不等于匿名 |
-| 上述两项是否用于 Tracking | No |
-| Third-Party Advertising / Developer’s Advertising or Marketing | 不勾选 |
-| Analytics / Product Personalization / Other Purposes | 在仅用于处理支持请求的运营方式下不勾选 |
-| Photos or Videos | 仅在设备上拍摄、导入、处理与保存的作品，不因本地访问而勾选收集 |
-| Precise / Coarse Location | 不勾选；室内外是用户手动选项，无定位权限 |
-| Device ID、User ID、Purchases、Usage Data、Diagnostics | 当前应用未实现对应收集，不勾选 |
+| AppsFlyer | 启动时初始化，SDK 会话就绪后启动，不等待 ATT 选择；归因/深度链接结果参与首次打开请求，进入原生页面也会运行 |
+| 自建首次打开接口 | 向 `attributionsolutions.com` 发送 `appInstanceId`、`ua`、`appsflyer_id`、可用时的 `deviceId`（IDFV）和 SDK 返回的归因字段；并非所有这些字段都发送给 AppsFlyer |
+| Native cloud backups | Google sign-in exchanges credentials for a Firebase Auth session; Back Up Now uploads native photos, works and drafts to Firebase Storage under the account UID. Account identifiers and provided name/email are processed for authentication. Storage rules, provider setup and signing must be validated before release. |
+| Firebase Messaging / APNs | 启动时配置并注册远程推送，使用 APNs/FCM 安装令牌；B 面可以收到 FCM Token。注册令牌与允许横幅/声音的通知权限是不同步骤 |
+| Google Sign-In / Firebase Auth | 网页调用桥接后发起 Google 登录；可交换 Firebase 凭证并向网页返回登录令牌。登录用途不能写成“应用没有账号系统” |
+| 定位 | B 面请求使用期间定位权限。原生请求器没有读取或上传坐标的实现；网页定位、SDK 粗略位置及后端用途另行核对，不能据此断言整款应用不收集位置 |
+| 原生摄影 | 本地保存照片、文字、草稿和作品；用户主动导出分享。此结论不覆盖远程网页可能存在的上传功能 |
+| 反馈邮件 | 用户确认发送后，支持方可收到邮箱及反馈正文；取消邮件不发送 |
 
-这是基于当前应用与“反馈仅用于客户支持”的填写方案。如果将支持邮件用于产品使用分析、营销或其他用途，必须补充实际用途。如果由托管网页或新增服务长期收集其他数据，也需补充相应类型。
+代码依据：`Crailglitun/AppIntegrations/AppIntegrationService.swift`、`Attribution/AttributionCoordinator.swift`、`Attribution/FirstOpen/FirstOpenRequestMetadataProvider.swift`（后两项相对于 AppIntegrations）、`Crailglitun/CrailglitunPushService.swift`、`Crailglitun/WebExperienceViewController.swift`。
 
-Apple 对偶发、非主要功能且完全自愿的反馈设有“可选披露”条件，但必须同时满足其全部条件，包括清晰显示身份和每次主动提交。不能仅以“用户自愿发送”推定豁免。这里采用明确披露邮箱和客户支持的方案。[Apple App Privacy Details](https://developer.apple.com/app-store/app-privacy-details/)。
+### 数据类型与填写依据
 
-提交前核对两处：Netlify 托管页面是否启用了分析或额外数据收集；构建的隐私报告与商店标签是否准确反映同一数据流。当前 `PrivacyInfo.xcprivacy` 的 collected data 列表为空，不能据此自动得出“所有渠道均不收集数据”。保留已声明的 UserDefaults required-reason API；隐私清单与商店标签应分别按 Apple 定义核对，不能互相替代。
+下表是 1.1 的核对基线，不是未经后台核实即可整表照填的答案。每种数据须分别确认用途、是否关联用户及是否用于 Tracking；无账号不等于无设备关联。
+
+| 问题或数据项 | 当前填写依据 |
+| --- | --- |
+| Do you or your third-party partners collect data from this app? | Yes；应覆盖归因、身份认证、通知等服务，不能仅申报邮件 |
+| Identifiers → Device ID | 应纳入：AppsFlyer UID、IDFV、应用安装标识、推送安装令牌等；按归因/分析/推送实际用途填写，不能统一标成不收集或不关联 |
+| Identifiers → User ID | Google/Firebase 登录包含用户标识，需按认证及其他实际用途申报；匿名安装标识也须按含义核对分类 |
+| Contact Info → Email Address / Name | Google 账户提供的姓名与邮箱用于认证及云备份访问，关联账户；另计用户主动发送的反馈邮箱。原生 Apple 流程不请求姓名或邮箱 |
+| User Content → Customer Support | 邮件反馈按 App Functionality、关联用户处理；如符合 Apple 全部可选披露条件，才另行评估豁免 |
+| Usage Data → Product Interaction / Other Usage Data | AppsFlyer SDK 清单含 Product Interaction / Analytics；Google Sign-In 清单含 Other Usage Data。核对会话及网页事件，不再统一填 No |
+| Diagnostics → Other Diagnostic Data | Firebase Auth/Installations/Messaging 的随包清单有相应声明；结合实际采集配置填写，不因未集成 Crashlytics 就全部排除 |
+| Location → Coarse Location | Google Sign-In 随包清单声明粗略位置，其说明提及 IP 推断位置用于防欺诈；另外核对网页和归因服务的 IP/位置用途 |
+| Location → Precise Location | 请求定位权限本身不证明收集坐标；需确认远程网页、SDK 和后端是否接收/保存精确位置后填写 |
+| Contact Info → Phone Number / Other Data Types | Google Sign-In 清单含这些类别，需按实际授权范围及服务配置核对；不凭原生界面没有输入框直接排除 |
+| User Content → Other User Content | 云备份上传文字说明、草稿及编辑信息，按 App Functionality、关联账户申报 |
+| Photos or Videos | 已确认：云备份会上传照片，按 App Functionality、关联账户申报；原生编辑仍可只在本机进行 |
+| Purchases / Financial Info / Advertising Data 等 | 本地无 StoreKit 购买链路，不能据此排除远程网页付款、广告或其他数据；实际网页业务待确认 |
+| Analytics / Advertising / Product Personalization | 归因、会话分析及产品 URL 选择需要按实际目的核对；不再统一填“不勾选”。广告用途与应用界面是否展示广告是不同问题 |
+
+Firebase 的认证和通知数据说明见 [Firebase App Store data collection](https://firebase.google.com/docs/ios/app-store-data-collection)；Google 登录的数据说明见 [Google Sign-In app privacy](https://developers.google.com/identity/sign-in/ios/app-privacy)。本表中的 SDK 清单事实来自当前安装版本，不代表所有可选数据已经在本应用每次运行中采集。
+
+### Tracking、ATT 与隐私清单
+
+当前 AppsFlyer 完整版 iOS SDK 清单声明 `NSPrivacyTracking = true`，Device ID 为 linked / tracking、用途为 Third-Party Advertising，Product Interaction 用于 Analytics。应用自己的 `PrivacyInfo.xcprivacy` 已为云备份声明 User ID、Name、Email Address、Photos or Videos 和 Other User Content，均关联用户、用于 App Functionality，云备份本身不用于 Tracking。**不能把本功能的 tracking=false 扩展为整款应用“不追踪”，也不能把 SDK 通用清单当作已核实的服务端使用事实。** 应按实际 SDK 配置、合作方共享方式和自建接口用途核对，并查看最终归档聚合隐私报告。
+
+ATT 方面，请求时机仍为启动页可见且应用活跃时。SDK 会话和首次归因不等待 ATT 选择；A/B 入口确定后即可展示，网页也可在弹窗仍显示时加载，系统弹窗本身仍拦截底层操作。自建首次打开请求目前没有根据未决定或拒绝状态去除 IDFV、AppsFlyer UID、UA 等字段。首次会话早于授权时不会取得已授权的 IDFA，这可能影响归因结果；不能写成“所有 SDK/数据发送都在用户允许后才开始”或“拒绝后不再发送任何数据”。这些数据是否构成跨公司追踪取决于实际用途；最终 Tracking 答案不能单凭存在弹窗决定。
+
+IDFA 也不能继续固定填 No：工程使用 AppsFlyer 完整版，未显式禁用广告标识采集。需核对授权/拒绝下的 SDK 行为、归因后台及实际传输；不能因业务 Swift 代码未直接调用 IDFA 就声明整个应用不使用它。
 
 ## 年龄分级问卷
 
-以下基于当前内置摄影任务、静态示例图和功能。最终分级由 Apple 计算；预计为 4+，不把预计结果当作已取得的评级。
+需覆盖原生内容和远程网页全部可访问内容；远程业务尚未确认，**当前不能给整款应用预判 4+ 或整表填写 No / None**。以下保留原生部分可确认的事实，最终分级由完整问卷计算。
 
 | 问卷项目 | 当前建议 |
 | --- | --- |
-| Parental Controls | No |
-| Age Assurance | No |
-| Unrestricted Web Access | No，前提是在线页面继续仅提供隐私说明及联系信息，不变成自由浏览入口 |
-| User-Generated Content | No，无面向其他用户广泛发布内容的社区；本地创作和系统分享不构成应用内公开内容平台 |
-| Social Media | No |
-| Social Media Disabled for Users Under 13 | 不适用；没有社交媒体功能，不宣称已实现年龄验证 |
-| Messaging and Chat | No，无用户间聊天；向开发者发支持邮件不是聊天社区 |
-| Advertising | No |
-| Profanity or Crude Humor | None |
-| Horror/Fear Themes | None |
-| Alcohol, Tobacco, or Drug Use or References | None |
-| Medical or Treatment Information | None |
-| Health or Wellness Topics | No / None，按界面提供的选项选择 |
-| Mature or Suggestive Themes | None |
-| Sexual Content or Nudity | None |
-| Graphic Sexual Content and Nudity | None |
-| Cartoon or Fantasy Violence | None |
-| Realistic Violence | None |
-| Prolonged Graphic or Sadistic Realistic Violence | None |
-| Guns or Other Weapons | None |
-| Simulated Gambling | None |
-| Gambling | No |
-| Contests | None / No，按界面提供的选项选择 |
-| Loot Boxes | No |
-| 更高年龄限制或覆盖分级 | 当前无额外最低年龄政策，不主动提高分级 |
+| Parental Controls / Age Assurance | 原生无此功能；需核对网页是否提供，不能宣称已实现年龄验证 |
+| Unrestricted Web Access | 待确认网页能否浏览任意外部内容；B 面不是仅显示隐私政策的页面 |
+| User-Generated Content / Social Media | 原生作品仅本地保存和系统分享；网页社区、发布或社交能力待确认 |
+| Messaging and Chat | 原生仅支持邮件反馈；网页聊天能力待确认 |
+| Advertising | 原生界面未实现广告展示；网页广告待确认，不能依据是否有归因 SDK 直接决定 |
+| Profanity / Horror / Alcohol / Medical / Health / Sexual Content / Violence / Weapons 等内容频率 | 原生摄影素材未见相应内容；需逐项审查远程内容后填写整款应用的频率 |
+| Simulated Gambling / Gambling / Contests / Loot Boxes | 原生滚轮仅选择摄影任务；网页是否包含相应内容待确认，不沿用原生结论 |
+| 更高年龄限制或覆盖分级 | 结合远程业务、地区要求及实际最低年龄政策确认 |
 | Made for Kids | No |
 
-三列滚轮是任务选择器，没有下注、筹码、输赢或奖品，不能只因为有 Spin 按钮就申报模拟赌博。WKWebView 的存在也不自动等于无限制浏览；当前控制器允许 HTTP/HTTPS 链接导航，因此托管内容若增加外部浏览入口，需要重新评估。规则依据：[Apple 年龄分级定义](https://developer.apple.com/help/app-store-connect/reference/app-information/age-ratings-values-and-definitions/)。
+三列原生滚轮是摄影任务选择器；WKWebView 的存在也不自动等于无限制浏览。两项均应按实际可访问功能判断，不能用原生页面的结论覆盖未知网页内容。规则依据：[Apple 年龄分级定义](https://developer.apple.com/help/app-store-connect/reference/app-information/age-ratings-values-and-definitions/)。
 
 ## 加密与出口合规
 
-当前应用通过系统 WKWebView 加载 HTTPS 页面，没有自定义加密算法或第三方加密库。
+当前应用使用 WKWebView / URLSession 的 HTTPS、Google 登录和 Firebase 等第三方服务。业务代码未见自定义密码算法；是否仅依赖系统加密应结合最终归档及 SDK 实现核对，不能再仅凭隐私网页推断整包没有第三方实现。
 
 | 问题类型 | 对应回答 |
 | --- | --- |
-| 是否使用加密，包括系统提供的加密 | Yes，HTTPS 使用系统加密 |
-| 是否自行实现专有或非标准加密 | No |
-| 是否实现或包含系统之外的标准加密算法 | No |
-| 若选项询问以上两类算法，并提供 None of the algorithms mentioned above | 选择该项，含义是未实现列举的算法，不是声称 HTTPS 没有加密 |
-| 是否使用非豁免加密 | 按当前实现为 No |
-| 是否需要上传加密证明材料 | 仅使用系统加密通常可豁免，按该构建问卷的最终结果处理 |
+| 是否使用加密，包括系统提供的加密 | Yes，包含 HTTPS / 登录服务 |
+| 是否自行实现专有或非标准加密 | 业务代码未见；仍应核对最终 SDK 组成 |
+| 是否实现或包含系统之外的标准加密算法 | 待最终归档与 SDK 资料核对，不把“未见自写算法”当作答案 |
+| 是否使用非豁免加密 / 是否需要证明材料 | 按实际加密方式和该构建问卷确认；若确认仅使用系统豁免加密，再选择对应答案 |
 
-若未来添加第三方加密库、VPN 或自定义协议，须重新判断。当前 Info.plist 未设置 `ITSAppUsesNonExemptEncryption`；可以在后台完成问卷，确认豁免后另行决定是否将该键设为 NO。本次仅准备资料，没有修改发布配置。[Apple 加密说明](https://developer.apple.com/documentation/Security/complying-with-encryption-export-regulations)、[出口合规填写流程](https://developer.apple.com/help/app-store-connect/manage-app-information/determine-and-upload-app-encryption-documentation/)。
+后续依赖或协议变更时应重新核对。当前 Info.plist 未设置 `ITSAppUsesNonExemptEncryption`；可以在后台完成问卷，确认豁免后另行决定是否将该键设为 NO。本次仅准备资料，没有修改发布配置。[Apple 加密说明](https://developer.apple.com/documentation/Security/complying-with-encryption-export-regulations)、[出口合规填写流程](https://developer.apple.com/help/app-store-connect/manage-app-information/determine-and-upload-app-encryption-documentation/)。
 
 ## 截图与商店素材
 
-当前是 iPhone App。准备最终应用的英文真实截图，不使用参考图中的游戏反馈界面，也不把设计稿当作已实现功能。
+当前是 iPhone App。准备最终 1.1 的英文真实截图。下表仅为原生摄影候选画面；须补充远程产品的主要真实功能并按整款应用的核心体验排序，不能只用摄影截图描述不同的网页产品，也不把设计稿当作已实现功能。
 
 | 顺序 | 建议画面 | 可用英文标题 |
 | --- | --- | --- |
@@ -232,18 +270,18 @@ Apple 对偶发、非主要功能且完全自愿的反馈设有“可选披露�
 
 | 字段 | 建议或待确认内容 |
 | --- | --- |
-| Price | 建议首发 Free；这是商业选择，需你确认，无内购不代表必须免费 |
+| Price | 核对已有应用的实际价格；1.1 不擅自改变商业方案，网页收费方式也需确认 |
 | Countries or Regions | 待确认实际销售地区，不默认勾选全球 |
 | Distribution Method | 建议 Public，即普通公开 App Store 发行 |
 | Version Release | 建议 Manually release this version，审核通过后由你决定正式发布时间 |
-| Pre-Order | 首发建议不启用 |
-| Phased Release | 首次发布不需要按更新灰度发布配置 |
-| In-App Purchases / Subscriptions | 当前无，不创建商品 |
+| Pre-Order | 若为已上架应用的 1.1 更新，不按首次发布预购填写 |
+| Phased Release | 如后台提供，按 1.1 更新的发布计划决定是否启用 |
+| In-App Purchases / Subscriptions | 原生未实现 StoreKit；网页是否销售或解锁数字内容待确认，不能据此直接填整款应用无购买 |
 | Game Center | 不启用 |
-| Advertising Identifier / IDFA（若显示） | No，当前应用未读取 IDFA，不用于广告追踪 |
+| Advertising Identifier / IDFA（若显示） | 待核对 AppsFlyer 完整版和实际归因配置；不能继续固定填 No，详见隐私部分 |
 | Apple Silicon Mac / Apple Vision Pro availability | 需单独检查后台可用性选择；iPhone target 不等于这些渠道自动关闭。未经兼容性验证不主动扩大分发范围 |
 | Tax Category | 保留适用的软件类默认类别；如改为付费，以账号实际税务情况确认 |
-| Digital Goods and Services 问卷 | 如后台未出现，无需填写。已知事实是应用包含免费摄影内容与工具，无内购、订阅、外部购买或登录后解锁。若问题问“是否销售”，按当前免费方案回答 No；若问“是否消费或访问数字商品与服务”，需按该问题定义选择，不能仅凭免费就回答 No，也不能虚构 IAP 支付方式 |
+| Digital Goods and Services 问卷 | 原生提供摄影内容与工具；网页业务、销售、订阅、外部付款及登录后解锁情况待确认。按完整产品和后台问题定义填写，不能只凭原生无内购回答 No |
 
 数字商品与服务问题取决于发行和收费方式：[Apple Digital Goods and Services questionnaire](https://developer.apple.com/help/app-store-connect/manage-app-information/complete-the-digital-goods-and-services-questionnaire/)。
 
@@ -257,7 +295,7 @@ Apple 对偶发、非主要功能且完全自愿的反馈设有“可选披露�
 | EU DSA trader status | 待主体确认是否属于 trader；不能因为个人账号或免费应用就自动填 non-trader |
 | Trader 联系信息 | 需要时填写并验证真实地址、电话、邮箱；这组资料可能向欧盟用户公开，与私有审核联系人用途不同 |
 | 中国大陆发行 | 如适用，提供与主体和应用信息一致的 ICP 备案及后台要求的材料；没有材料时先明确销售地区，不编造备案号 |
-| 受监管医疗器械声明 | 当前摄影工具无诊疗功能，不属于医疗器械；如后台显示该问卷按实际填写 No |
+| 受监管医疗器械声明 | 原生摄影工具无诊疗功能；确认远程产品也无相关用途后，按完整产品实际情况填写 |
 | Agreements / Tax / Banking | 由账号持有人完成适用协议、税务及银行信息，不能从代码推定已完成 |
 
 依据：[Apple DSA 交易商要求](https://developer.apple.com/cn/help/app-store-connect/manage-compliance-information/manage-european-union-digital-services-act-trader-requirements/)、[Apple 应用信息及地区要求](https://developer.apple.com/help/app-store-connect/reference/app-information/app-information/)。
@@ -273,8 +311,10 @@ Accessibility URL 没有专属页面时留空。规则依据：[Apple Accessibil
 1. 审核联系人的真实姓名、国际格式电话，以及确认可收信的审核邮箱。
 2. 版权持有人真实姓名或公司名称；如有第三方素材，确认许可覆盖发行用途。
 3. 确认应用价格、销售地区和发行方式，以及适用的 DSA、备案和账号合规资料。
-4. 选择并验证正式 Support URL；现有隐私页面的联系段落可访问，但建议准备专门支持内容。
-5. 上传实际 App Store 构建并等待处理完成。工程当前为 1.0 (1)；若该构建号已经使用，按既有发布流程递增后上传，不能选旧版本替代最新反馈页面。
-6. 上传最终应用截图，完成隐私、年龄与加密问卷；将任何界面提示的缺失字段补齐。
-7. 真机验证拍照、拒绝相机后的导入、照片编辑与导出、隐私网页、邮件草稿与取消行为，确认支持邮箱确实可接收邮件。现有模拟器编译和局部界面检查不等于这些真机验证已完成。
-8. 核对所有占位信息都已替换，点击 Add for Review 后再提交审核。本文仅准备填写材料，未代为执行提交或发布。
+4. 补齐远程网页实际业务、路由条件、审核入口、登录/演示账号、支付和广告信息，完成 Description、What’s New 与 Notes 中的 `[REQUIRED: ...]`，确认同一提交构建的两种体验均可审核。
+5. 核对 SDK/归因后台、网页及自建服务的数据用途、关联和保存方式，完成隐私标签，并同步公开隐私政策。应用内 Settings 的隐私摘要和仓库中的 `docs/Crailglitun-privacy-policy.html` 已补充已知在线服务与权限行为；HTML 源文件更新不代表线上页面已发布，远程网页实际业务及服务端用途仍需补齐。
+6. 验证正式 Support URL、Privacy Policy URL 及支持邮箱；本次未确认线上页面最新内容可用。
+7. 上传实际 App Store 构建并等待处理完成。工程当前为 **1.1 (1)**；如构建号需递增，按既有发布流程处理。本次未更改版本号、构建号、签名、Bundle ID 或发布配置。
+8. 上传覆盖完整产品的真实截图，完成隐私、年龄与加密问卷；不要套用旧的纯摄影/无 SDK/4+ 结论。
+9. 真机验证 ATT 允许与拒绝、原生通知开关、B 面推送接收与点击、Google/Firebase 登录、定位请求，以及摄影、导出、隐私网页和邮件反馈。现有模拟器构建不等于这些流程已验证。
+10. 替换所有占位信息并核对最终版本，再由负责人执行 Add for Review 和提交。本文仅准备资料，未执行后台修改、提交或发布。

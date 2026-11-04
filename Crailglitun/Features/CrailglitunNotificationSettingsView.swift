@@ -19,8 +19,7 @@ final class CrailglitunNotificationSettingsView: UIView {
         row.alignment = .center
         let contents = stack([
             label("Notifications", 14, .regular, Palette.secondary),
-            card(row, inset: 18),
-            label("Turn on to request permission. Manage notification delivery in iOS Settings.", 12, .regular, Palette.secondary)
+            card(row, inset: 18)
         ], spacing: 12)
         addSubview(contents)
         contents.translatesAutoresizingMaskIntoConstraints = false

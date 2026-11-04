@@ -1,3 +1,4 @@
+import AppTrackingTransparency
 import UIKit
 import WebKit
 
@@ -58,7 +59,10 @@ final class WebExperienceViewController: UIViewController {
         configuration.defaultWebpagePreferences = pagePreferences
         configuration.preferences = preferences
         configuration.userContentController = contentController
-        configuration.applicationNameForUserAgent = "AppVer/1.0"
+        if let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String,
+           !version.isEmpty {
+            configuration.applicationNameForUserAgent = "AppVer/\(version)"
+        }
         configuration.allowsInlineMediaPlayback = true
         configuration.allowsPictureInPictureMediaPlayback = false
         configuration.allowsAirPlayForMediaPlayback = false
@@ -122,6 +126,12 @@ final class WebExperienceViewController: UIViewController {
             name: CrailglitunPushService.tokenDidChange,
             object: nil
         )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(prepareWebExperienceIfNeeded),
+            name: CrailglitunStartupRouter.trackingAuthorizationDidResolve,
+            object: nil
+        )
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -132,17 +142,17 @@ final class WebExperienceViewController: UIViewController {
 
     @objc
     private func prepareWebExperienceIfNeeded() {
-        guard
-            !isRequestingNotificationAuthorization,
-            viewIfLoaded?.window != nil,
-            UIApplication.shared.applicationState == .active
-        else {
-            return
-        }
+        guard viewIfLoaded?.window != nil,
+              UIApplication.shared.applicationState != .background else { return }
 
         if !didStartLoadingProductPage {
             loadProductPage()
         }
+
+        // Load the page while ATT is pending, but serialize system permission prompts.
+        guard !isRequestingNotificationAuthorization,
+              UIApplication.shared.applicationState == .active,
+              ATTrackingManager.trackingAuthorizationStatus != .notDetermined else { return }
 
         if !didCompleteNotificationAuthorization {
             isRequestingNotificationAuthorization = true
@@ -160,6 +170,11 @@ final class WebExperienceViewController: UIViewController {
         NotificationCenter.default.removeObserver(
             self,
             name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
+        NotificationCenter.default.removeObserver(
+            self,
+            name: CrailglitunStartupRouter.trackingAuthorizationDidResolve,
             object: nil
         )
         locationPermissionRequester.requestWhenInUseAuthorizationIfNeeded()

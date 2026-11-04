@@ -47,6 +47,13 @@ PODS:
     - GoogleUtilities/Reachability (~> 8.1)
     - GoogleUtilities/UserDefaults (~> 8.1)
     - nanopb (~> 3.30910.0)
+  - FirebaseStorage (12.19.0):
+    - FirebaseAppCheckInterop (~> 12.19.0)
+    - FirebaseAuthInterop (~> 12.19.0)
+    - FirebaseCore (~> 12.19.0)
+    - FirebaseCoreExtension (~> 12.19.0)
+    - GoogleUtilities/Environment (~> 8.1)
+    - GTMSessionFetcher/Core (< 6.0, >= 3.4)
   - GoogleDataTransport (10.1.1):
     - nanopb (~> 3.30910.0)
     - PromisesObjC (~> 2.4)
@@ -98,6 +105,7 @@ DEPENDENCIES:
   - FirebaseAuth (~> 12.19.0)
   - FirebaseCore (~> 12.19.3)
   - FirebaseMessaging (~> 12.19.0)
+  - FirebaseStorage (~> 12.19.0)
   - GoogleSignIn (~> 10.1.0)
 
 SPEC REPOS:
@@ -113,6 +121,7 @@ SPEC REPOS:
     - FirebaseCoreInternal
     - FirebaseInstallations
     - FirebaseMessaging
+    - FirebaseStorage
     - GoogleDataTransport
     - GoogleSignIn
     - GoogleUtilities
@@ -135,6 +144,7 @@ SPEC CHECKSUMS:
   FirebaseCoreInternal: 656b1c2fd5a1c5976183dc54b73deda78fb26ee3
   FirebaseInstallations: f70a49eed611f5602f373e40974b3b01556ac217
   FirebaseMessaging: c15f48126adbe8b4d3238a5e1fa24bab3ad3e472
+  FirebaseStorage: 357354fbde2ba62983c0fe5d9cf10155046b5404
   GoogleDataTransport: a24e58982ab3ba2f64d79613e027fe7f57e88539
   GoogleSignIn: 52f0c3c702ae6ff72fcbcf695a9f26c52f31dc4b
   GoogleUtilities: 7dc09b3fa9ecb5c2298b952313d14628b61b9da3
@@ -145,6 +155,6 @@ SPEC CHECKSUMS:
   PromisesSwift: 217dea0fd5d2ad65222a109c48698add13cc1c5b
   RecaptchaInterop: 11e0b637842dfb48308d242afc3f448062325aba
 
-PODFILE CHECKSUM: 7c4626fa71154e905b282f52d60ed6ef5cff55e5
+PODFILE CHECKSUM: 51c5ecedfa0eeb318b848cabeb5ee225574a9615
 
 COCOAPODS: 1.17.0

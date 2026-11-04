@@ -31,7 +31,6 @@ final class AppsFlyerAttributionService: NSObject {
 
     private let logger = AttributionLogger(category: "AppsFlyer")
     private var isConfigured = false
-    private var hasResolvedTrackingAuthorization = false
     private var hasPendingSession = false
 
     deinit {
@@ -73,18 +72,14 @@ final class AppsFlyerAttributionService: NSObject {
         isConfigured = true
     }
 
-    func resumeAfterTrackingAuthorization() {
-        hasResolvedTrackingAuthorization = true
-        startPendingSessionIfPossible()
-    }
-
     @objc
     private func startPendingSessionIfPossible() {
-        guard hasResolvedTrackingAuthorization,
-              hasPendingSession,
+        guard hasPendingSession,
               AppsFlyerLib.shared().isSessionReady(),
-              UIApplication.shared.applicationState == .active else { return }
+              UIApplication.shared.applicationState != .background else { return }
 
+        // Session readiness, not the ATT response, controls first-open attribution.
+        // The SDK obtains an IDFA only when the system authorization permits it.
         hasPendingSession = false
         AppsFlyerLib.shared().start()
         delegate?.appsFlyerServiceDidStart(self)

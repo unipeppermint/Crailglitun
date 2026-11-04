@@ -38,7 +38,6 @@ final class AttributionCoordinator {
     private var didResolveDeepLink = false
     private var firstOpenWaitWorkItem: DispatchWorkItem?
     private var hasStartedAutomaticFirstOpenReport = false
-    private var hasResolvedTrackingAuthorization = false
     private let logger = AttributionLogger(category: "FirstOpen")
 
     init(
@@ -69,13 +68,6 @@ final class AttributionCoordinator {
                 ? "Apple App ID is missing. Add the numeric App Store ID to Info.plist."
                 : "AppsFlyer SDK is configured."
         )
-    }
-
-    func resumeAfterTrackingAuthorization() {
-        guard !hasResolvedTrackingAuthorization else { return }
-        hasResolvedTrackingAuthorization = true
-        appsFlyerService.resumeAfterTrackingAuthorization()
-        evaluateFirstOpenReporting()
     }
 
     @discardableResult
@@ -264,7 +256,6 @@ final class AttributionCoordinator {
     }
 
     private func evaluateFirstOpenReporting() {
-        guard hasResolvedTrackingAuthorization else { return }
         guard !stateStore.didReportFirstOpen, !isReportingFirstOpen else { return }
         guard didResolveConversionData || didResolveDeepLink else { return }
 

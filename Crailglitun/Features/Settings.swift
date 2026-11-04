@@ -16,7 +16,19 @@ final class SettingsController: PageController {
         body.addArrangedSubview(notificationSettings)
         body.setCustomSpacing(30, after: notificationSettings)
         body.addArrangedSubview(label("Work & Storage",14,.regular,Palette.secondary))
-        let data = grouped([settingRow("Export Work") { [weak self] in self?.push(BatchExportController()) },settingRow("Storage") { [weak self] in self?.push(StorageController()) }]); body.addArrangedSubview(data); body.setCustomSpacing(30,after: data)
+        let data = grouped([
+            settingRow("Cloud Sync & Backup") { [weak self] in
+                self?.push(CrailglitunCloudBackupController())
+            },
+            settingRow("Export Work") { [weak self] in
+                self?.push(BatchExportController())
+            },
+            settingRow("Storage") { [weak self] in
+                self?.push(StorageController())
+            }
+        ])
+        body.addArrangedSubview(data)
+        body.setCustomSpacing(30, after: data)
         body.addArrangedSubview(label("Help & About",14,.regular,Palette.secondary))
         body.addArrangedSubview(grouped(Self.documents.map { title,_,copy in
             settingRow(title) { [weak self] in
@@ -28,8 +40,12 @@ final class SettingsController: PageController {
                 self?.push(TextController(title: title,text: copy,link: policyURL))
             }
         }))
-        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0"
-        let footer = label("Version " + version,12,.regular,Palette.secondary); footer.textAlignment = .center; body.addArrangedSubview(footer)
+        if let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String,
+           !version.isEmpty {
+            let footer = label("Version " + version, 12, .regular, Palette.secondary)
+            footer.textAlignment = .center
+            body.addArrangedSubview(footer)
+        }
     }
     func grouped(_ rows: [UIView]) -> UIView {
         let contents = stack(spacing: 0)
@@ -59,10 +75,80 @@ final class SettingsController: PageController {
         let row = stack([label(title,17),control],axis: .horizontal,spacing: 14); row.alignment = .center; return paddedRow(row)
     }
     static let documents: [(String,String,String)] = [
-        ("Help", "questionmark.circle", "Choose a task\n\nSet a location and time limit, then tap Spin. Lock a choice to keep it or swipe a reel to choose manually. If nothing matches, allow more time or unlock a reel.\n\nCapture and edit\n\nFollow the steps to take or import photos. Drag and pinch to crop, then add a caption. Changes are saved as a draft in Portfolio.\n\nSave and share\n\nSave your finished work and export an image to share it. Choose Try This Task Again to create another version.\n\nKeep your work\n\nWork is stored on this device. Uninstalling the app may delete it. Exported images cannot restore drafts, so keep copies of important photos."),
+        ("Help", "questionmark.circle", """
+        Choose a photo task
+
+        Choose Indoors or Outdoors and a time limit, then tap Spin. These choices do not use your device location. Lock a choice to keep it or swipe a reel to choose manually. If nothing matches, allow more time or unlock a reel.
+
+        Capture and edit
+
+        Follow the steps to take or import photos. Use Crop to adjust a photo, then add a caption. Changes are saved as a draft in Portfolio.
+
+        Save and share
+
+        Save your finished work and export a JPG image to share it. Choose Try This Task Again to create another version. Exported images cannot restore editable drafts.
+
+        Notifications
+
+        Turn on Daily Recommendations in Settings to request notification permission if you have not decided yet. Manage delivery in iOS Settings.
+
+        Online features
+
+        An internet connection is needed for online pages and sign-in. The photography tools process and save your work on this device.
+
+        Keep your work
+
+        Open Cloud Sync & Backup and sign in with Google. Tap Back Up Now to upload an editable snapshot of your work, drafts and photos. Use the same Google account on another device to restore it. Backups are snapshots; changes do not sync automatically. Restoring adds new copies and keeps existing work. Export Work saves JPG images instead.
+
+        Complete an important cloud backup before deleting the app. Deleting local work does not delete cloud backups. Manage backups and your cloud account in Cloud Sync & Backup.
+
+        Feedback
+
+        Settings > Feedback prepares an email for you to review and send. Your feedback is not sent until you send the email.
+        """),
         ("Feedback", "bubble.left", "When reporting a problem, include your device model, iOS version and the steps to reproduce it."),
-        ("Privacy", "hand.raised", "Photos and work\n\nTurnScene does not require an account. Photos, drafts and work stay on this device and are not uploaded by the app.\n\nCamera and library\n\nCamera access is requested only when you take a photo. You can import photos without it. The app receives only the images you select and does not change the originals.\n\nExport and share\n\nYou choose what to export and where to share it. Exports do not include photo location data.\n\nDelete data\n\nDelete work from its detail page, or remove drafts and clear the cache in Storage. Clearing the cache keeps your work. Uninstalling the app may delete local data."),
-        ("About TurnScene", "sparkles", "A fresh look at the everyday.\n\nExplore photo tasks across six themes. Capture what you discover and build your own collection.")
+        ("Privacy", "hand.raised", """
+        Photos and work
+
+        The photography tools do not require an account. Photos, captions, drafts and work created with these tools are stored on your device without automatic upload. This does not cover information you provide on online pages.
+
+        Cloud backups
+
+        Cloud Sync & Backup uses Google sign-in with Firebase account verification. The separate Apple sign-in button saves your Apple sign-in identifier on this device; signing out or deleting the Apple sign-in clears this local state. It does not create a cloud account or upload a backup. When you tap Back Up Now, your photos, works, drafts and editing information are uploaded to Firebase Cloud Storage under your account. Your account identifier, name and email, when provided, are used for sign-in and backup access. Backups do not contain notification tokens or device permissions. Restore or delete backups from this page. Delete Account & Cloud Data removes cloud backups and the app sign-in account after identity verification. Local work remains on your device.
+
+        Camera and library
+
+        Camera permission is requested when you choose to take a photo. You can import photos without it. The system photo picker provides only the images you select; editing local copies does not change your originals.
+
+        Online services
+
+        TurnScene uses AppsFlyer for installation and app-usage measurement, and Firebase for sign-in, cloud backups and notifications. Device and installation identifiers, usage information and technical details are processed by these services.
+
+        Tracking choices
+
+        TurnScene requests tracking permission when iOS allows it. You can review your choice in iOS Settings.
+
+        Notifications
+
+        Daily Recommendations requests notification permission. Turning it off does not stop existing notifications; manage delivery in iOS Settings.
+
+        Export and share
+
+        You choose what to export and where to share it. Exported JPGs do not include the original photos' GPS metadata, but visible photos and captions may contain personal information.
+
+        Delete data and contact us
+
+        Delete local work from its detail page, or manage drafts and photo cache in Storage. Clearing the photo cache keeps your work and does not clear website data. Deleting the app does not delete online accounts or information already held by online services.
+
+        Feedback emails contain the contact address and message you choose to send. For privacy questions or requests about online information, contact cressidal@trademarkroofing.homes.
+        """),
+        ("About TurnScene", "sparkles", """
+        A fresh look at the everyday.
+
+        Explore 60 photography tasks across six themes. Capture what you discover, edit photos on your device and build your own collection.
+
+        TurnScene also includes sign-in and notification services. Online features need an internet connection. See Privacy for information about these services and your choices.
+        """)
     ]
 }
 final class TextController: PageController {
@@ -85,14 +171,14 @@ final class StorageController: PageController {
     let usage = label("Calculating…",16,.medium)
     override func viewDidLoad() { super.viewDidLoad(); title = "Storage"; render(); refresh() }
     func render() {
-        clear(); heading("Storage",subtitle: "Your photos and work are stored on this device.")
-        body.addArrangedSubview(card(usage)); body.addArrangedSubview(button("Clear Cache",icon: "arrow.triangle.2.circlepath") { [weak self] in
+        clear(); heading("Storage",subtitle: "Manage photos, drafts and work saved by the photography tools on this device.")
+        body.addArrangedSubview(card(usage)); body.addArrangedSubview(button("Clear Photo Cache",icon: "arrow.triangle.2.circlepath") { [weak self] in
             MediaStore.queue.async {
-                do { if FileManager.default.fileExists(atPath: MediaStore.cache.path) { try FileManager.default.removeItem(at: MediaStore.cache) }; DispatchQueue.main.async { self?.refresh(); self?.notify("Cache cleared","Your photos, drafts and work are preserved.") } }
+                do { if FileManager.default.fileExists(atPath: MediaStore.cache.path) { try FileManager.default.removeItem(at: MediaStore.cache) }; DispatchQueue.main.async { self?.refresh(); self?.notify("Photo cache cleared","Your photos, drafts and work are preserved. Website data has not been cleared.") } }
                 catch { DispatchQueue.main.async { self?.fail(error) } }
             }
         })
-        body.addArrangedSubview(label("Clearing the cache keeps your photos, drafts and work.",13,.regular,Palette.secondary))
+        body.addArrangedSubview(label("Clearing the photo cache keeps your photos, drafts and work. This page does not manage online accounts or website data.",13,.regular,Palette.secondary))
         body.addArrangedSubview(label("Drafts · \(AppStore.shared.drafts.count)",20,.semibold))
         for item in AppStore.shared.drafts {
             body.addArrangedSubview(button("Delete Draft · \(item.task.title)",icon: "trash") { [weak self] in
@@ -102,6 +188,6 @@ final class StorageController: PageController {
         }
     }
     func refresh() {
-        MediaStore.queue.async { let originals = MediaStore.usage(MediaStore.root); let caches = MediaStore.usage(MediaStore.cache); DispatchQueue.main.async { [weak self] in self?.usage.text = "Work & Photos  \(ByteCountFormatter.string(fromByteCount: originals,countStyle: .file))\n\nCache  \(ByteCountFormatter.string(fromByteCount: caches,countStyle: .file))" } }
+        MediaStore.queue.async { let originals = MediaStore.usage(MediaStore.root); let caches = MediaStore.usage(MediaStore.cache); DispatchQueue.main.async { [weak self] in self?.usage.text = "Work & Photos  \(ByteCountFormatter.string(fromByteCount: originals,countStyle: .file))\n\nPhoto Cache  \(ByteCountFormatter.string(fromByteCount: caches,countStyle: .file))" } }
     }
 }

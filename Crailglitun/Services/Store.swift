@@ -86,6 +86,36 @@ final class AppStore {
         MediaStore.queue.async { unused.forEach { try? FileManager.default.removeItem(at: MediaStore.root.appendingPathComponent($0)) } }
         NotificationCenter.default.post(name: .creationsChanged, object: nil)
     }
+
+    func addRestoredCreations(_ restored: [Creation]) throws {
+        if let error = startupError { throw error }
+        let existingIDs = Set(creations.map(\.id))
+        guard !restored.isEmpty,
+              Set(restored.map(\.id)).count == restored.count,
+              restored.allSatisfy({ $0.isValid && !existingIDs.contains($0.id) }) else {
+            throw CrailglitunBackupError.invalid
+        }
+
+        let context = container.viewContext
+        do {
+            for creation in restored {
+                let record = NSEntityDescription.insertNewObject(forEntityName: "Record", into: context)
+                record.setValue(creation.id, forKey: "id")
+                record.setValue(try JSONEncoder().encode(creation), forKey: "payload")
+                record.setValue(creation.updatedAt, forKey: "updatedAt")
+                record.setValue(creation.completed, forKey: "completed")
+            }
+            // Commit all records together after the photo copies are ready.
+            try context.save()
+        } catch {
+            context.rollback()
+            throw error
+        }
+
+        creations = (creations + restored).sorted { $0.updatedAt > $1.updatedAt }
+        NotificationCenter.default.post(name: .creationsChanged, object: nil)
+    }
+
     func theme(_ task: PhotoTask) -> Theme? { library.themes.first { $0.id == task.themeID } }
 }
 

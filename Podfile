@@ -9,6 +9,7 @@ target 'Crailglitun' do
   pod 'FirebaseCore', '~> 12.19.3'
   pod 'FirebaseAuth', '~> 12.19.0'
   pod 'FirebaseMessaging', '~> 12.19.0'
+  pod 'FirebaseStorage', '~> 12.19.0'
   pod 'GoogleSignIn', '~> 10.1.0'
 end
 

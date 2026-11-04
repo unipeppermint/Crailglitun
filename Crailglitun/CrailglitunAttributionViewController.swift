@@ -1,14 +1,13 @@
-import AppTrackingTransparency
 import UIKit
 
 final class AttributionViewController: UIViewController {
+    var onStart: (() -> Void)?
     var onShowNativeHome: (() -> Void)?
 
     private let coordinator: AttributionCoordinator
     private var hasOpenedProductExperience = false
     private var isProductNavigationScheduled = false
-    private var isRequestingTrackingAuthorization = false
-    private var hasResolvedTrackingAuthorization = false
+    private var hasStarted = false
 
     init(coordinator: AttributionCoordinator) {
         self.coordinator = coordinator
@@ -64,28 +63,16 @@ final class AttributionViewController: UIViewController {
     private func continueStartupIfNeeded() {
         guard viewIfLoaded?.window != nil,
               navigationController?.topViewController === self,
-              UIApplication.shared.applicationState == .active,
-              !isRequestingTrackingAuthorization else { return }
+              UIApplication.shared.applicationState != .background else { return }
 
-        if !hasResolvedTrackingAuthorization {
-            if ATTrackingManager.trackingAuthorizationStatus == .notDetermined {
-                isRequestingTrackingAuthorization = true
-                ATTrackingManager.requestTrackingAuthorization { [weak self] status in
-                    DispatchQueue.main.async {
-                        guard let self else { return }
-                        self.isRequestingTrackingAuthorization = false
-                        // If iOS could not present the prompt, retry on the next activation.
-                        guard status != .notDetermined else { return }
-                        self.continueStartupIfNeeded()
-                    }
-                }
-                return
-            }
-
-            hasResolvedTrackingAuthorization = true
-            coordinator.resumeAfterTrackingAuthorization()
+        if !hasStarted {
+            guard UIApplication.shared.applicationState == .active else { return }
+            hasStarted = true
+            onStart?()
         }
 
+        // A system permission alert may make the app inactive. Routing still
+        // continues when attribution resolves, without waiting for the alert.
         openProductURLIfNeeded()
         openNativeHomeIfNeeded()
     }
@@ -111,6 +98,7 @@ final class AttributionViewController: UIViewController {
 
             guard
                 !self.hasOpenedProductExperience,
+                UIApplication.shared.applicationState != .background,
                 let navigationController = self.navigationController,
                 navigationController.topViewController === self,
                 self.viewIfLoaded?.window != nil,
@@ -122,7 +110,10 @@ final class AttributionViewController: UIViewController {
             }
 
             let webViewController = WebExperienceViewController(productURL: productURL)
-            navigationController.pushViewController(webViewController, animated: true)
+            navigationController.pushViewController(
+                webViewController,
+                animated: UIApplication.shared.applicationState == .active
+            )
             self.hasOpenedProductExperience = navigationController.viewControllers.contains {
                 $0 === webViewController
             }
