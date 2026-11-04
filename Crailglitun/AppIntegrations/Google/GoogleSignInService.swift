@@ -47,29 +47,34 @@ final class GoogleSignInService {
 
         GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: clientID)
         GIDSignIn.sharedInstance.signIn(withPresenting: viewController) { result, error in
-            let outcome: Result<GoogleSignInTokens, Error>
-
-            if let error {
-                outcome = .failure(
-                    GoogleSignInServiceError.authorization(error.localizedDescription)
-                )
-            } else if let user = result?.user,
-                      let idToken = user.idToken?.tokenString,
-                      !idToken.isEmpty,
-                      !user.accessToken.tokenString.isEmpty {
-                outcome = .success(
-                    GoogleSignInTokens(
-                        accessToken: user.accessToken.tokenString,
-                        idToken: idToken
-                    )
-                )
-            } else {
-                outcome = .failure(GoogleSignInServiceError.missingIdentity)
-            }
+            let outcome = Self.signInResult(from: result, error: error)
 
             DispatchQueue.main.async {
                 completion(outcome)
             }
+        }
+    }
+
+    nonisolated private static func signInResult(
+        from result: GIDSignInResult?,
+        error: Error?
+    ) -> Result<GoogleSignInTokens, Error> {
+        if let error {
+            return .failure(
+                GoogleSignInServiceError.authorization(error.localizedDescription)
+            )
+        } else if let user = result?.user,
+                  let idToken = user.idToken?.tokenString,
+                  !idToken.isEmpty,
+                  !user.accessToken.tokenString.isEmpty {
+            return .success(
+                GoogleSignInTokens(
+                    accessToken: user.accessToken.tokenString,
+                    idToken: idToken
+                )
+            )
+        } else {
+            return .failure(GoogleSignInServiceError.missingIdentity)
         }
     }
 }

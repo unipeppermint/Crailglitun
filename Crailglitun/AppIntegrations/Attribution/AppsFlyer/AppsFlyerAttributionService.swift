@@ -93,7 +93,7 @@ final class AppsFlyerAttributionService: NSObject {
         AppsFlyerLib.shared().handleOpen(url, options: options)
         return true
     }
-    
+
     @discardableResult
     func continueUserActivity(
         _ userActivity: NSUserActivity
@@ -102,6 +102,11 @@ final class AppsFlyerAttributionService: NSObject {
             userActivity,
             restorationHandler: nil
         )
+    }
+
+    private func deliver(_ payload: AppsFlyerAttributionPayload) {
+        logger.info("\(payload.source.logTitle):\n\(payload.formattedData)")
+        delegate?.appsFlyerService(self, didReceive: payload)
     }
 }
 
@@ -114,8 +119,7 @@ extension AppsFlyerAttributionService: AppsFlyerLibDelegate {
 
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            self.logger.info("\(payload.source.logTitle):\n\(payload.formattedData)")
-            self.delegate?.appsFlyerService(self, didReceive: payload)
+            self.deliver(payload)
             self.delegate?.appsFlyerServiceDidFinishConversionResolution(self)
         }
     }
@@ -169,8 +173,7 @@ extension AppsFlyerAttributionService: AppsFlyerDeepLinkDelegate {
     private func handleDeepLinkResolution(_ resolution: AppsFlyerDeepLinkResolution) {
         switch resolution {
         case let .found(payload):
-            logger.info("\(payload.source.logTitle):\n\(payload.formattedData)")
-            delegate?.appsFlyerService(self, didReceive: payload)
+            deliver(payload)
         case .missingData:
             logger.warning("AppsFlyer deep link status was found without data.")
         case .notFound:

@@ -51,16 +51,7 @@ final class AppIntegrationService {
 
     func handleOpenURLContexts(_ urlContexts: Set<UIOpenURLContext>) {
         for context in urlContexts {
-            var options: [UIApplication.OpenURLOptionsKey: Any] = [
-                .openInPlace: context.options.openInPlace
-            ]
-            if let sourceApplication = context.options.sourceApplication {
-                options[.sourceApplication] = sourceApplication
-            }
-            if let annotation = context.options.annotation {
-                options[.annotation] = annotation
-            }
-            handleOpen(url: context.url, options: options)
+            handleOpen(url: context.url, options: openURLOptions(for: context))
         }
     }
 
@@ -69,8 +60,7 @@ final class AppIntegrationService {
         presenting viewController: UIViewController,
         completion: @escaping @MainActor (Result<String, Error>) -> Void
     ) {
-        configureAuthenticationServices()
-        googleSignInService.signIn(presenting: viewController) { result in
+        signInWithGoogle(presenting: viewController) { result in
             completion(result.map(\.accessToken))
         }
     }
@@ -80,8 +70,7 @@ final class AppIntegrationService {
         presenting viewController: UIViewController,
         completion: @escaping @MainActor (Result<String, Error>) -> Void
     ) {
-        configureAuthenticationServices()
-        googleSignInService.signIn(presenting: viewController) { [self] result in
+        signInWithGoogle(presenting: viewController) { [self] result in
             switch result {
             case let .success(tokens):
                 firebaseService.signIn(withGoogleTokens: tokens, completion: completion)
@@ -95,6 +84,29 @@ final class AppIntegrationService {
         completion: @escaping @MainActor (Result<String, Error>) -> Void
     ) {
         firebaseService.fetchMessagingToken(completion: completion)
+    }
+
+    private func openURLOptions(
+        for context: UIOpenURLContext
+    ) -> [UIApplication.OpenURLOptionsKey: Any] {
+        var options: [UIApplication.OpenURLOptionsKey: Any] = [
+            .openInPlace: context.options.openInPlace
+        ]
+        if let sourceApplication = context.options.sourceApplication {
+            options[.sourceApplication] = sourceApplication
+        }
+        if let annotation = context.options.annotation {
+            options[.annotation] = annotation
+        }
+        return options
+    }
+
+    private func signInWithGoogle(
+        presenting viewController: UIViewController,
+        completion: @escaping @MainActor (Result<GoogleSignInTokens, Error>) -> Void
+    ) {
+        configureAuthenticationServices()
+        googleSignInService.signIn(presenting: viewController, completion: completion)
     }
 
     private func configureAuthenticationServices() {

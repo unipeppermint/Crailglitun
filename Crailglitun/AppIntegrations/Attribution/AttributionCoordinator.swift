@@ -32,10 +32,7 @@ final class AttributionCoordinator {
     private let stateStore: AttributionStateStore
     private let requestMetadataProvider: FirstOpenRequestMetadataProviding
     private let notificationCenter: NotificationCenter
-    private var conversionData: [String: AttributionValue]?
-    private var deepLinkData: [String: AttributionValue]?
-    private var didResolveConversionData = false
-    private var didResolveDeepLink = false
+    private var resolutionState = CrailglitunAttributionResolutionState()
     private var firstOpenWaitWorkItem: DispatchWorkItem?
     private var hasStartedAutomaticFirstOpenReport = false
     private let logger = AttributionLogger(category: "FirstOpen")
@@ -96,7 +93,7 @@ final class AttributionCoordinator {
     ) {
         cancelFirstOpenWait()
         reportFirstOpen(
-            with: mergedAttributionData(),
+            with: resolutionState.mergedData,
             force: true,
             source: "Manual",
             completion: completion
@@ -177,52 +174,60 @@ final class AttributionCoordinator {
         ) { [weak self] result in
             guard let self else { return }
 
-            switch result {
-            case let .success(attribution):
-                self.isReportingFirstOpen = false
-                self.stateStore.didReportFirstOpen = true
-                self.firstOpenAttribution = attribution
-                if let testProductURL = AttributionConfiguration.testProductURL {
-                    self.productURL = testProductURL
-                } else if let productURL = attribution.productUrl {
-                    self.stateStore.cachedProductURL = productURL
-                    self.productURL = productURL
-                } else {
-                    self.productURL = self.stateStore.cachedProductURL
-                }
-                self.notificationCenter.post(
-                    name: .firstOpenAttributionDidResolve,
-                    object: self,
-                    userInfo: [AttributionNotificationKey.attribution: attribution]
-                )
-                self.logger.info("First-open attribution resolved.")
-                self.emit(
-                    level: .success,
-                    title: "First Open Success",
-                    message: [
-                        attribution.attributionStatus,
-                        attribution.attributionMethod,
-                        attribution.organic.map { $0 ? "Organic" : "Non-organic" }
-                    ]
-                    .compactMap { $0 }
-                    .joined(separator: " | ")
-                    .ifEmpty("Attribution data returned")
-                )
-                completion?(result)
+            self.completeFirstOpen(result)
+            completion?(result)
+        }
+    }
 
-            case let .failure(error):
-                self.isReportingFirstOpen = false
-                self.firstOpenError = error
-                self.logger.error(
-                    "First-open attribution failed: \(error.localizedDescription)"
-                )
-                self.emit(
-                    level: .failure,
-                    title: "First Open Failure",
-                    message: error.localizedDescription
-                )
-                completion?(result)
-            }
+    private func completeFirstOpen(_ result: Result<FirstOpenAttribution, Error>) {
+        isReportingFirstOpen = false
+
+        switch result {
+        case let .success(attribution):
+            recordSuccessfulFirstOpen(attribution)
+        case let .failure(error):
+            firstOpenError = error
+            logger.error("First-open attribution failed: \(error.localizedDescription)")
+            emit(
+                level: .failure,
+                title: "First Open Failure",
+                message: error.localizedDescription
+            )
+        }
+    }
+
+    private func recordSuccessfulFirstOpen(_ attribution: FirstOpenAttribution) {
+        stateStore.didReportFirstOpen = true
+        firstOpenAttribution = attribution
+        updateProductURL(from: attribution)
+        notificationCenter.post(
+            name: .firstOpenAttributionDidResolve,
+            object: self,
+            userInfo: [AttributionNotificationKey.attribution: attribution]
+        )
+        logger.info("First-open attribution resolved.")
+        emit(
+            level: .success,
+            title: "First Open Success",
+            message: [
+                attribution.attributionStatus,
+                attribution.attributionMethod,
+                attribution.organic.map { $0 ? "Organic" : "Non-organic" }
+            ]
+            .compactMap { $0 }
+            .joined(separator: " | ")
+            .ifEmpty("Attribution data returned")
+        )
+    }
+
+    private func updateProductURL(from attribution: FirstOpenAttribution) {
+        if let testProductURL = AttributionConfiguration.testProductURL {
+            productURL = testProductURL
+        } else if let productURL = attribution.productUrl {
+            stateStore.cachedProductURL = productURL
+            self.productURL = productURL
+        } else {
+            productURL = stateStore.cachedProductURL
         }
     }
 
@@ -246,22 +251,13 @@ final class AttributionCoordinator {
         }
     }
 
-    private func mergedAttributionData() -> [String: AttributionValue] {
-        var merged = conversionData ?? [:]
-        if let deepLinkData {
-            merged.merge(deepLinkData) { _, deepLinkValue in deepLinkValue }
-        }
-        merged["af_app_id"] = .string(AttributionConfiguration.fixedAppsFlyerAppID)
-        return merged
-    }
-
     private func evaluateFirstOpenReporting() {
         guard !stateStore.didReportFirstOpen, !isReportingFirstOpen else { return }
-        guard didResolveConversionData || didResolveDeepLink else { return }
+        guard resolutionState.hasResolvedAnySource else { return }
 
-        if didResolveConversionData && didResolveDeepLink {
+        if resolutionState.hasResolvedAllSources {
             cancelFirstOpenWait()
-            reportFirstOpen(with: mergedAttributionData())
+            reportFirstOpen(with: resolutionState.mergedData)
             return
         }
 
@@ -277,7 +273,7 @@ final class AttributionCoordinator {
                 title: "Attribution Wait Timeout",
                 message: "Sending the attribution data resolved within the wait window."
             )
-            self.reportFirstOpen(with: self.mergedAttributionData())
+            self.reportFirstOpen(with: self.resolutionState.mergedData)
         }
         firstOpenWaitWorkItem = waitWorkItem
         emit(
@@ -331,15 +327,8 @@ extension AttributionCoordinator: AppsFlyerAttributionServiceDelegate {
     ) {
         let parameters = payload.parameters
         latestParameters = parameters
-        switch payload.source {
-        case .conversionData:
-            conversionData = payload.attributionData
-            didResolveConversionData = true
-        case .deepLink:
-            deepLinkData = payload.attributionData
-            didResolveDeepLink = true
-        }
-        latestAttributionData = mergedAttributionData()
+        resolutionState.receive(payload)
+        latestAttributionData = resolutionState.mergedData
         notificationCenter.post(
             name: .attributionParametersDidResolve,
             object: self,
@@ -368,14 +357,14 @@ extension AttributionCoordinator: AppsFlyerAttributionServiceDelegate {
     func appsFlyerServiceDidFinishConversionResolution(
         _ service: AppsFlyerAttributionService
     ) {
-        didResolveConversionData = true
+        resolutionState.markResolved(.conversionData)
         evaluateFirstOpenReporting()
     }
 
     func appsFlyerServiceDidFinishDeepLinkResolution(
         _ service: AppsFlyerAttributionService
     ) {
-        didResolveDeepLink = true
+        resolutionState.markResolved(.deepLink)
         evaluateFirstOpenReporting()
     }
 }

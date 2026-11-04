@@ -47,13 +47,10 @@ final class FirebasePlatformService {
         )
         Auth.auth().signIn(with: credential) { authResult, error in
             if let error {
-                completion(
-                    .failure(
-                        FirebasePlatformServiceError.firebaseAuthentication(
-                            error.localizedDescription
-                        )
-                    )
+                let failure = FirebasePlatformServiceError.firebaseAuthentication(
+                    error.localizedDescription
                 )
+                completion(.failure(failure))
                 return
             }
 
@@ -62,24 +59,28 @@ final class FirebasePlatformService {
                 return
             }
 
-            user.getIDToken { token, error in
-                if let error {
-                    completion(
-                        .failure(
-                            FirebasePlatformServiceError.firebaseAuthentication(
-                                error.localizedDescription
-                            )
-                        )
-                    )
-                    return
-                }
+            Self.fetchIDToken(for: user, completion: completion)
+        }
+    }
 
-                guard let token, !token.isEmpty else {
-                    completion(.failure(FirebasePlatformServiceError.missingFirebaseIDToken))
-                    return
-                }
-                completion(.success(token))
+    private static func fetchIDToken(
+        for user: User,
+        completion: @escaping @MainActor (Result<String, Error>) -> Void
+    ) {
+        user.getIDToken { token, error in
+            if let error {
+                let failure = FirebasePlatformServiceError.firebaseAuthentication(
+                    error.localizedDescription
+                )
+                completion(.failure(failure))
+                return
             }
+
+            guard let token, !token.isEmpty else {
+                completion(.failure(FirebasePlatformServiceError.missingFirebaseIDToken))
+                return
+            }
+            completion(.success(token))
         }
     }
 
