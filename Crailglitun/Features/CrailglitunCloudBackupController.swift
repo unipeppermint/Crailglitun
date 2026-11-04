@@ -21,7 +21,8 @@ final class CrailglitunCloudBackupController: PageController {
         title = "Cloud Sync & Backup"
         authObserver = Auth.auth().addStateDidChangeListener { [weak self] _, user in
             guard let self else { return }
-            if self.loadedUID != user?.uid {
+            self.account.updateSession(for: user)
+            if self.loadedUID != self.account.user?.uid {
                 self.backups = []
                 self.loadedUID = nil
             }
@@ -36,7 +37,7 @@ final class CrailglitunCloudBackupController: PageController {
             name: ASAuthorizationAppleIDProvider.credentialRevokedNotification, object: nil
         )
         render()
-        refresh()
+        refreshAppleSession()
     }
 
     isolated deinit {
@@ -221,7 +222,6 @@ final class CrailglitunCloudBackupController: PageController {
         runCloudTask("Signing in…", canCancel: false) { [self] in
             try await account.signInWithGoogle(presenting: self)
             appleSignIn.signOut()
-            if let uid = account.user?.uid { try await loadBackups(uid: uid) }
             return nil
         }
     }
@@ -235,18 +235,19 @@ final class CrailglitunCloudBackupController: PageController {
 
     @objc private func refreshAfterActivation() {
         guard viewIfLoaded?.window != nil, !busy else { return }
-        refresh()
+        refreshAppleSession()
+    }
+
+    private func refreshAppleSession() {
+        guard appleSignIn.isSignedIn else { return }
+        Task { [weak self] in
+            guard let self else { return }
+            await self.appleSignIn.refreshSession()
+            if !self.busy { self.render() }
+        }
     }
 
     private func refresh() {
-        if appleSignIn.isSignedIn {
-            Task { [weak self] in
-                guard let self else { return }
-                await self.appleSignIn.refreshSession()
-                if !self.busy { self.render() }
-            }
-            return
-        }
         guard let uid = account.user?.uid else { return }
         runCloudTask("Loading cloud backups…") { [self] in
             try await account.refreshSession()
@@ -386,11 +387,36 @@ final class CrailglitunCloudBackupController: PageController {
             || (nsError.domain == StorageErrorDomain && nsError.code == StorageErrorCode.cancelled.rawValue) {
             return
         }
+        NSLog("Cloud backup action failed: domain=%@, code=%ld", nsError.domain, nsError.code)
         let message = (error as? CrailglitunCloudError)?.errorDescription
             ?? (error as? CrailglitunAppleSignInError)?.errorDescription
             ?? (error as? CrailglitunBackupError)?.errorDescription
+            ?? cloudServiceErrorMessage(nsError)
             ?? "The cloud service could not complete this action. Check your connection and try again. If this continues, contact support."
         let detail = destructive ? "\n\nSome cloud data may already have been deleted. Refresh and retry to finish. Local work remains on this device." : ""
         notify("Unable to complete this action", message + detail)
+    }
+
+    private func cloudServiceErrorMessage(_ error: NSError) -> String? {
+        if error.domain == NSURLErrorDomain {
+            return "Could not connect to the cloud service. Check your internet connection and try again."
+        }
+        guard error.domain == StorageErrorDomain else { return nil }
+        switch StorageErrorCode(rawValue: error.code) {
+        case .unauthenticated:
+            return "Your cloud session has expired. Sign out and sign in again."
+        case .unauthorized:
+            return "This account does not have permission to access cloud backups. Please contact support."
+        case .bucketNotFound, .projectNotFound:
+            return "Cloud backup storage is not available. Please contact support."
+        case .quotaExceeded:
+            return "Cloud backup storage has reached its limit. Please try again later."
+        case .retryLimitExceeded:
+            return "The cloud request timed out. Check your internet connection and try again."
+        case .objectNotFound:
+            return "This backup is no longer available. Refresh the list and try again."
+        default:
+            return nil
+        }
     }
 }

@@ -23,19 +23,45 @@ nonisolated enum CrailglitunCloudError: LocalizedError {
     }
 }
 
-/// Google cloud accounts use the app's existing Firebase authentication.
+/// Uses Firebase authentication after an explicit sign-in from the backup page.
 @MainActor
 final class CrailglitunCloudAccountService {
-    var user: User? { Auth.auth().currentUser }
+    private let defaults: UserDefaults
+    private let signedInUIDKey = "Crailglitun.cloudBackup.signedInUID"
+
+    init(defaults: UserDefaults = .standard) {
+        self.defaults = defaults
+    }
+
+    var user: User? {
+        guard let user = Auth.auth().currentUser,
+              defaults.string(forKey: signedInUIDKey) == user.uid else {
+            return nil
+        }
+        return user
+    }
+
+    func updateSession(for firebaseUser: User?) {
+        if defaults.string(forKey: signedInUIDKey) != firebaseUser?.uid {
+            defaults.removeObject(forKey: signedInUIDKey)
+        }
+    }
 
     func signInWithGoogle(presenting controller: UIViewController) async throws {
         let credential = try await googleCredential(presenting: controller)
         try Task.checkCancellation()
-        _ = try await Auth.auth().signIn(with: credential)
+        let result = try await Auth.auth().signIn(with: credential)
+        guard Auth.auth().currentUser?.uid == result.user.uid else {
+            throw CrailglitunCloudError.accountChanged
+        }
+        defaults.set(result.user.uid, forKey: signedInUIDKey)
     }
 
     func signOut() throws {
-        try Auth.auth().signOut()
+        if user != nil {
+            try Auth.auth().signOut()
+        }
+        defaults.removeObject(forKey: signedInUIDKey)
     }
 
     func refreshSession() async throws {
@@ -64,6 +90,7 @@ final class CrailglitunCloudAccountService {
     func deleteAccount(uid: String) async throws {
         guard let user, user.uid == uid else { throw CrailglitunCloudError.accountChanged }
         try await user.delete()
+        defaults.removeObject(forKey: signedInUIDKey)
     }
 
     private func googleCredential(presenting controller: UIViewController) async throws -> AuthCredential {

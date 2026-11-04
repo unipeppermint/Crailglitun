@@ -18,7 +18,8 @@ Apple 流程不请求姓名或邮箱、不读取或上传身份令牌及授权�
 
 ## 账户和数据范围
 
-- Google 云备份沿用默认 Firebase Auth，与应用原有 Firebase 登录属于同一账户体系。Apple 原生成功回调与该账户无关联，不改变当前 Firebase 会话。
+- Google 云备份沿用默认 Firebase Auth，但仅在备份页主动完成 Google 登录后，才保存本页的登录 UID。其他页面或旧版缓存的 Firebase 会话不会自动成为本页的登录状态；账户切换、退出或删除时清除本页记录。Apple 原生成功回调与 Firebase 账户无关联。
+- 进入备份页、应用返回前台和 Google 登录成功后均不自动读取备份列表。点击 Refresh Backups 才读取列表；点击 Back Up Now 才上传，上传完成后刷新列表。Storage 错误按权限、会话、存储不可用和网络情况显示，日志仅记录错误域和错误码。
 - Sign Out 与 Delete Account & Cloud Data 固定显示在页面上方；未登录或正在处理请求时禁用。Apple 登录后，退出及确认删除都会清除本地 Apple 登录状态并恢复登录按钮；不会调用 Firebase 删除，也不会注销设备的 Apple ID 或撤销系统端授权。
 - 数据路径为 `turnscene-backups/{Firebase UID}/{backup UUID}/`；仅对应 UID 可以读、列举、创建和删除。备份创建后不能覆盖更新。
 - 使用认证 SDK 下载，不生成公开下载链接，也不记录登录 token、照片或用户邮箱到日志。
